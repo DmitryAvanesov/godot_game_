@@ -18,9 +18,14 @@ _global_script_class_icons={
 config/name="godot_game"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
 [editor_plugins]
 
-enabled=PoolStringArray( "godot-git-control.funabab" )
+enabled=PoolStringArray(  )
 
 [rendering]
 

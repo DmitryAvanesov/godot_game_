@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Label.gd" type="Script" id=1]
+
+[node name="RootScene" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 758.032
+margin_top = 494.671
+margin_right = 1091.03
+margin_bottom = 611.671
+text = "Hello world"
+align = 1
+valign = 1
+script = ExtResource( 1 )
