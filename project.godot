@@ -16,15 +16,21 @@ _global_script_class_icons={
 [application]
 
 config/name="godot_game"
+run/main_scene="res://RootScene.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godot-git-control.funabab" )
+enabled=PoolStringArray(  )
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
