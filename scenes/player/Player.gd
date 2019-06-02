@@ -4,7 +4,7 @@ var velocity = Vector2()
 const SPEED = 400
 const GRAVITY = 50
 const CLIMBING_SPEED = 30
-const CLIMBING_DURATION_UP = 115
+const CLIMBING_DURATION_UP = 112
 const CLIMBING_DURATION_SIDE = 80
 var isClimbing = false
 var climbingTimerUp
