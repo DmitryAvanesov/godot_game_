@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://GroundTileSet.tres" type="TileSet" id=2]
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/test_scene/GroundTileSet.tres" type="TileSet" id=2]
 
 [node name="RootScene" type="Node2D"]
 
