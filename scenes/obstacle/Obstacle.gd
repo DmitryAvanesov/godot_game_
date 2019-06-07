@@ -1,13 +1,15 @@
 extends Sprite
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+const gap = 90
+var distance
+var heightDifference
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _physics_process(delta):
+	distance = position.x - GLOBAL.playerCoordinates.x
+	heightDifference = abs(position.y - GLOBAL.playerCoordinates.y)
+	
+	if distance > 0 && distance < gap && heightDifference < gap:
+		GLOBAL.rightCounter += 1
+		
+	if distance < 0 && distance > -gap && heightDifference < gap:
+		GLOBAL.leftCounter += 1
