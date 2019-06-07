@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/grass&road.png-2cf4e38a7e01e86c176f9f6dce435ea5.stex"
+path="res://.import/sky.png-6baa254c03a40fa9668fe9975d31c644.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/landscapes/grass&road.png"
-dest_files=[ "res://.import/grass&road.png-2cf4e38a7e01e86c176f9f6dce435ea5.stex" ]
+source_file="res://scenes/landscapes/forest/sky.png"
+dest_files=[ "res://.import/sky.png-6baa254c03a40fa9668fe9975d31c644.stex" ]
 
 [params]
 
