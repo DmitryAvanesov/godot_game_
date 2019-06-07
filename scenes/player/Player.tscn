@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/player/FinalCharacterFinal.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 31.2242, 134.516 )
+extents = Vector2( 26.7816, 136.437 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "climbing"

@@ -3,18 +3,17 @@ extends KinematicBody2D
 var velocity = Vector2()
 const WALKING_SPEED = 250
 const GRAVITY = 20
-const CLIMBING_SPEED_UP = 200
-const CLIMBING_SPEED_SIDE = 100
-const CLIMBING_DURATION_UP = 35
-const CLIMBING_DURATION_SIDE = 15
+const CLIMBING_SPEED = 150
+const CLIMBING_DURATION = 150
 var isClimbing = false
-var climbingTimerUp
-var climbingTimerSide
+var climbingTimer
 var climbingDirection
 
+# sending data to the GLOBAL scope
 func globalUpdate():
 	GLOBAL.playerCoordinates = position
-	
+
+# walking left and right
 func movement():	
 	if Input.is_action_pressed("ui_right") && !GLOBAL.unableToMoveRight:
 		velocity.x = WALKING_SPEED
@@ -29,46 +28,64 @@ func movement():
 	else:
 		velocity.x = 0
 		$PlayerSprite/AnimationPlayer.play("standing")
-		
+
+# falling down
 func gravity():
 	if is_on_floor():
 		velocity.y = 0
 	elif !isClimbing:
 		velocity.y += GRAVITY
 
-func _physics_process(delta):	
+# setting all the parameters that are needed for climbing
+func climbingLaunch():
+	if (GLOBAL.unableToMoveLeft || GLOBAL.unableToMoveRight) &&\
+		Input.is_action_just_pressed("ui_climb"):
+			
+			isClimbing = true
+			climbingTimer = CLIMBING_DURATION
+			
+			if GLOBAL.unableToMoveRight:
+				climbingDirection = 1
+				if $PlayerSprite.flip_h == true:
+					$PlayerSprite.flip_h = false
+			else:
+				climbingDirection = -1
+				if $PlayerSprite.flip_h == false:
+					$PlayerSprite.flip_h = true
+					
+			$PlayerSprite/AnimationPlayer.play("climbing")
+			
+# changing player's position while climbing		
+func climbingProcess():
+	if climbingTimer > CLIMBING_DURATION * 7.5/10:
+		velocity.x = climbingDirection * WALKING_SPEED / 2
+				
+	elif climbingTimer < CLIMBING_DURATION * 7.5/10 &&\
+	climbingTimer > CLIMBING_DURATION * 5.5/10:				
+		velocity.x = climbingDirection * CLIMBING_SPEED
+		velocity.y = -CLIMBING_SPEED	
+			
+	elif climbingTimer < CLIMBING_DURATION * 5.5/10 &&\
+	climbingTimer > CLIMBING_DURATION * 3/10:
+		velocity.x = climbingDirection * WALKING_SPEED / 2
+		velocity.y = 0
+		$PlayerSprite/AnimationPlayer.play("walking")
+
+	elif climbingTimer < CLIMBING_DURATION * 3/10:
+		velocity.x = 0
+		isClimbing = false
+			
+	climbingTimer -= 1
+
+# main function containing all processes
+func _physics_process(delta):
 	globalUpdate()
 	
 	if !isClimbing:	
 		movement()
 		gravity()
-			
-		# --- climbing ---
-		
-		if (GLOBAL.unableToMoveLeft || GLOBAL.unableToMoveRight) &&\
-		Input.is_action_just_pressed("ui_climb"):
-			
-			isClimbing = true
-			climbingTimerUp = CLIMBING_DURATION_UP
-			climbingTimerSide = CLIMBING_DURATION_SIDE
-			if GLOBAL.unableToMoveRight:
-				climbingDirection = 1
-			else:
-				climbingDirection = -1
-			$PlayerSprite/AnimationPlayer.play("climbing")
-			
-	else:
-		# --- climbing ---
-		
-		if climbingTimerUp > 0:			
-			climbingTimerUp -= 1
-			velocity.x = 0
-			velocity.y = -CLIMBING_SPEED_UP
-		elif climbingTimerSide > 0:
-			climbingTimerSide -= 1
-			velocity.x = climbingDirection * CLIMBING_SPEED_SIDE
-			velocity.y = 0
-		else:
-			isClimbing = false
+		climbingLaunch()			
+	else:	
+		 climbingProcess()			
 	
 	move_and_slide(velocity, Vector2(0, -1))
