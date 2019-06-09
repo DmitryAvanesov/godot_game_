@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/exit.bmp-3fe9a43d2ce71ac61bc54de07f327581.stex"
+path="res://.import/load_game.png-5279e43a0d9b20d3c3de3f55871d238d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menu/exit.bmp"
-dest_files=[ "res://.import/exit.bmp-3fe9a43d2ce71ac61bc54de07f327581.stex" ]
+source_file="res://scenes/menu/load_game.png"
+dest_files=[ "res://.import/load_game.png-5279e43a0d9b20d3c3de3f55871d238d.stex" ]
 
 [params]
 
