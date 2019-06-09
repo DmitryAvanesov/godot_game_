@@ -4,10 +4,10 @@ var velocity = Vector2()
 const WALKING_SPEED = 250
 const GRAVITY = 20
 const CLIMBING_SPEED = 150
-const CLIMBING_DURATION = 150
-var isClimbing = false
+const CLIMBING_DURATION = 75
 var climbingTimer
 var climbingDirection
+var isClimbing = false
 
 # sending data to the GLOBAL scope
 func globalUpdate():
@@ -39,10 +39,12 @@ func gravity():
 # setting all the parameters that are needed for climbing
 func climbingLaunch():
 	if (GLOBAL.unableToMoveLeft || GLOBAL.unableToMoveRight) &&\
-		Input.is_action_just_pressed("ui_climb"):
+		Input.is_action_just_pressed("ui_climb") && velocity.y == 0:
 			
 			isClimbing = true
 			climbingTimer = CLIMBING_DURATION
+			$PlayerCollisionShape.disabled = true
+			velocity = Vector2(0, 0)
 			
 			if GLOBAL.unableToMoveRight:
 				climbingDirection = 1
@@ -56,24 +58,16 @@ func climbingLaunch():
 			$PlayerSprite/AnimationPlayer.play("climbing")
 			
 # changing player's position while climbing		
-func climbingProcess():
-	if climbingTimer > CLIMBING_DURATION * 7.5/10:
-		velocity.x = climbingDirection * WALKING_SPEED / 2
-				
-	elif climbingTimer < CLIMBING_DURATION * 7.5/10 &&\
-	climbingTimer > CLIMBING_DURATION * 5.5/10:				
-		velocity.x = climbingDirection * CLIMBING_SPEED
-		velocity.y = -CLIMBING_SPEED	
-			
-	elif climbingTimer < CLIMBING_DURATION * 5.5/10 &&\
-	climbingTimer > CLIMBING_DURATION * 3/10:
-		velocity.x = climbingDirection * WALKING_SPEED / 2
-		velocity.y = 0
-		$PlayerSprite/AnimationPlayer.play("walking")
-
-	elif climbingTimer < CLIMBING_DURATION * 3/10:
-		velocity.x = 0
+func climbingProcess():	
+	position.x += climbingDirection * 0.5
+	
+	if climbingTimer < CLIMBING_DURATION / 2:
+		position.y -= 2
+		position.x += climbingDirection * 0.5
+	
+	if climbingTimer < 0:
 		isClimbing = false
+		$PlayerCollisionShape.disabled = false
 			
 	climbingTimer -= 1
 
@@ -86,6 +80,6 @@ func _physics_process(delta):
 		gravity()
 		climbingLaunch()			
 	else:	
-		 climbingProcess()			
+		climbingProcess()			
 	
 	move_and_slide(velocity, Vector2(0, -1))
