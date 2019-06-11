@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/landscapes/room/Odjects3D/room.meshlib" type="MeshLibrary" id=1]
 
-[sub_resource type="ProceduralSky" id=2]
+[sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.0470588, 0.454902, 0.976471, 1 )
 sky_horizon_color = Color( 0.556863, 0.823529, 0.909804, 1 )
 sky_curve = 0.25
@@ -10,21 +10,21 @@ ground_bottom_color = Color( 0.101961, 0.145098, 0.188235, 1 )
 ground_horizon_color = Color( 0.482353, 0.788235, 0.952941, 1 )
 ground_curve = 0.01
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 script/source = "tool
 extends Object
 func e():
 	return .4
 "
 
-[sub_resource type="Environment" id=4]
+[sub_resource type="Environment" id=3]
 background_mode = 2
-background_sky = SubResource( 2 )
+background_sky = SubResource( 1 )
 background_color = Color( 0.445312, 0.445312, 0.445312, 1 )
 ambient_light_color = Color( 0.511719, 0.511719, 0.511719, 1 )
 ambient_light_sky_contribution = 0.4
 ssao_blur = 1
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="BaseRoom3D" type="Spatial"]
 
@@ -34,7 +34,7 @@ current = true
 near = 0.1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 4 )
+environment = SubResource( 3 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.623013, -0.733525, 0.271653, 0.321394, 0.55667, 0.766045, -0.713134, -0.389948, 0.582563, 9.02684, 0, 1.28613 )
@@ -46,7 +46,7 @@ directional_shadow_normal_bias = 0.2
 mesh_library = ExtResource( 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 65534, 0, 1, 65534, 536870912, 2, 65534, 0, 3, 65534, 0, 4, 65534, 0, 5, 65534, 536870912, 6, 65534, 0, 7, 65534, 0, 8, 65534, -1610612736, 65527, 65534, 0, 65528, 65534, 536870912, 65529, 65534, 0, 65530, 65534, 0, 65531, 65534, 0, 65532, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65535, 65534, 0 )
+"cells": PoolIntArray( 0, 65534, 0, 1, 65534, 0, 2, 65534, 0, 3, 65534, 0, 4, 65534, 0, 5, 65534, 0, 6, 65534, 0, 7, 65534, 0, 8, 65534, 0, 65527, 65534, 0, 65528, 65534, 0, 65529, 65534, 0, 65530, 65534, 0, 65531, 65534, 0, 65532, 65534, 0, 65533, 65534, 0, 65534, 65534, 0, 65535, 65534, 0 )
 }
 __meta__ = {
 "_editor_clip_": 0
@@ -58,7 +58,7 @@ mesh_library = ExtResource( 1 )
 cell_size = Vector3( 3, 3, 3 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 65535, 536870914, 1, 65535, 536870914, 2, 65535, 536870914, 3, 65535, 2, 4, 65535, 536870914, 5, 65535, 536870914, 65530, 65535, 2, 65531, 65535, 2, 65532, 65535, 2, 65533, 65535, 2, 65534, 65535, 2, 65535, 65535, 1 )
+"cells": PoolIntArray( 0, 65535, 536870914, 1, 65535, 2, 2, 65535, 2, 3, 65535, 536870914, 4, 65535, 2, 5, 65535, 536870914, 65530, 65535, 536870914, 65531, 65535, 2, 65532, 65535, 2, 65533, 65535, 2, 65534, 65535, 2, 65535, 65535, 1 )
 }
 __meta__ = {
 "_editor_clip_": 0

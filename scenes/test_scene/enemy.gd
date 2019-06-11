@@ -3,6 +3,7 @@ extends KinematicBody2D
 var SPEED = 100
 var velocity = Vector2()
 const GRAVITY = 50
+const JUMP_FORCE = 700
 var eps = 300
 var START_ENEMY_POS = null
 var lose_sight_of = null
@@ -22,10 +23,28 @@ func _ready():
 func _move(direction, new_speed):
 	if (direction == "right"):
 		velocity.x = new_speed
+		$EnemySprite.flip_h = false
+		$EnemySprite/AnimationEnemy.play("walking")
 	elif (direction == "left"):
 		velocity.x = -new_speed
+		$EnemySprite.flip_h = true
+		$EnemySprite/AnimationEnemy.play("walking")
 	else:
 		velocity.x = 0
+		$EnemySprite/AnimationEnemy.play("standing")
+		
+# falling down
+func gravity():
+	if is_on_floor():
+		velocity.y = 0
+	else:
+		velocity.y += GRAVITY
+		
+func jump():
+	if is_on_floor():
+		velocity.y -= JUMP_FORCE
+	else:
+		velocity.y += 1
 
 func _patrol(pos, new_speed):
 	var enemy_pos = position
@@ -44,6 +63,12 @@ func _physics_process(delta):
 	var radius = get_node("body/CollisionShape2D").shape.radius
 	var player_pos = get_node("../Player").get_position()
 	var enemy_pos = position
+	
+	gravity()
+	
+	if is_on_wall():
+		jump()
+	
 	# FOLLOW THE DAMN PLAYER, ENEMY
 	if (abs(player_pos.x - enemy_pos.x) < radius):
 		if_enemy_in_start_pos = false
@@ -57,7 +82,7 @@ func _physics_process(delta):
 		elif (player_pos.x > enemy_pos.x):
 			_move("right", SPEED)
 	
-	else:
+	else:		
 		# start position patrol
 		if (if_enemy_in_start_pos == true):
 			_patrol(START_ENEMY_POS, SPEED)
@@ -85,7 +110,3 @@ func _physics_process(delta):
 					_move("right", SPEED)
 				else:
 					_move("left", SPEED)
-#	if is_on_floor():
-#		velocity.y = 0
-#	else:
-#		velocity.y += GRAVITY
