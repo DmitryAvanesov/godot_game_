@@ -19,6 +19,10 @@ config/name="godot_game"
 run/main_scene="res://scenes/menu/menu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GLOBAL="*res://GLOBAL.gd"
+
 [display]
 
 window/size/width=1920
