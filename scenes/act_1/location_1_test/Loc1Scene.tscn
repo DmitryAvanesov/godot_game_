@@ -13,10 +13,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Loc1Scene" type="Node2D"]
-editor/display_folded = true
 
 [node name="Sky" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 1100, -200 )
 
 [node name="sky" type="Sprite" parent="Sky"]
@@ -34,7 +32,6 @@ scale = Vector2( 1, 1.36168 )
 texture = ExtResource( 1 )
 
 [node name="LongRoad" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 1100, 0 )
 scale = Vector2( 1, 0.5 )
 
@@ -60,6 +57,7 @@ scale = Vector2( 1, 2 )
 texture = ExtResource( 2 )
 
 [node name="Road" parent="LongRoad" instance=ExtResource( 5 )]
+position = Vector2( 0.440186, 0 )
 
 [node name="Road2" parent="LongRoad" instance=ExtResource( 5 )]
 position = Vector2( 1920, 0 )
@@ -76,13 +74,21 @@ scale = Vector2( 1, 30 )
 shape = SubResource( 1 )
 
 [node name="Obstacles" type="Node2D" parent="."]
-editor/display_folded = true
+
+[node name="Sprite4" parent="Obstacles" instance=ExtResource( 6 )]
+position = Vector2( 1406.73, 78.1519 )
+
+[node name="Sprite3" parent="Obstacles" instance=ExtResource( 6 )]
+position = Vector2( 1048.19, 77.3 )
+
+[node name="Sprite2" parent="Obstacles" instance=ExtResource( 6 )]
+position = Vector2( 976.923, 77.3 )
 
 [node name="Sprite" parent="Obstacles" instance=ExtResource( 6 )]
-position = Vector2( 795.012, 71.9174 )
+position = Vector2( 904.933, 77.3 )
 
 [node name="Enemy" parent="." instance=ExtResource( 7 )]
-position = Vector2( 2884.97, -306.256 )
+position = Vector2( 2026.13, -306.256 )
 
 [node name="Player" parent="." instance=ExtResource( 8 )]
 position = Vector2( 501.528, -280.913 )
