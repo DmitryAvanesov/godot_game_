@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/shelter/test.png" type="Texture" id=1]
-[ext_resource path="res://scenes/shelter/ShelterSprite.gd" type="Script" id=2]
+[ext_resource path="res://scenes/shelter/Shelter.gd" type="Script" id=2]
 
 [node name="ShelterSprite" type="Sprite"]
 texture = ExtResource( 1 )

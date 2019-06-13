@@ -9,7 +9,7 @@ var hint
 func createHint():
 	hint = Label.new()
 	hint.text = "D"
-	hint.rect_position = Vector2(0, -texture.get_size().y)
+	hint.rect_position = Vector2(0, -texture.get_size().y * 0.9)
 	hint.rect_scale = Vector2(2, 2)
 	add_child(hint)
 

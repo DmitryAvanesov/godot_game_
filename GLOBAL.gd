@@ -10,8 +10,9 @@ var ladderCounter = 0
 var ableToHide
 var shelterCounter = 0
 var playerIsHidden = false
+const obstacleRects = []
 
-func _physics_process(delta):
+func interactionsWithObstacles():
 	if rightCounter > 0:
 		unableToMoveRight = true
 	else:
@@ -25,6 +26,7 @@ func _physics_process(delta):
 	rightCounter = 0
 	leftCounter = 0
 	
+func interactionsWithLadders():
 	if ladderCounter > 0:
 		ableToGoUp = true
 	else:
@@ -32,9 +34,15 @@ func _physics_process(delta):
 		
 	ladderCounter = 0
 	
+func interactionsWithShelters():
 	if shelterCounter > 0:
 		ableToHide = true
 	else:
 		ableToHide = false
 		
 	shelterCounter = 0
+
+func _physics_process(delta):	
+	interactionsWithObstacles()
+	interactionsWithLadders()
+	interactionsWithShelters()

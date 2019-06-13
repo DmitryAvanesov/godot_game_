@@ -4,6 +4,8 @@ const GAP = 75
 var distance
 var heightDifference
 var hint
+var rectCoordinates = Vector2()
+var rectSize = Vector2()
 
 # shows a player what button to press
 func createHint():
@@ -27,10 +29,19 @@ func showHideHint():
 		get_child(1).visible = true
 	else:
 		get_child(1).visible = false
+
+# appending the obstacle's coordinates and size to the array in GLOBAL	
+func setRect():
+	rectCoordinates.x = position.x - texture.get_size().x * scale.x / 2
+	rectCoordinates.y = position.y - texture.get_size().y * scale.y / 2
+	rectSize.x = texture.get_size().x * scale.x
+	rectSize.y = texture.get_size().y * scale.y
+	GLOBAL.obstacleRects.append(Rect2(rectCoordinates, rectSize))
 		
 # initial stuff
 func _ready():
 	createHint()
+	setRect()
 
 # main processes
 func _physics_process(delta):
