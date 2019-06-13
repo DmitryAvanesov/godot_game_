@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/test_scene/GroundTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ladder/LadderSprite.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/shelter/ShelterSprite.tscn" type="PackedScene" id=6]
 
 [node name="RootScene" type="Node2D"]
 
@@ -47,6 +46,3 @@ position = Vector2( 811.887, 663.557 )
 
 [node name="LadderSprite5" parent="." instance=ExtResource( 5 )]
 position = Vector2( 811.887, 694.582 )
-
-[node name="ShelterSprite" parent="." instance=ExtResource( 6 )]
-position = Vector2( 394.318, 642.736 )
