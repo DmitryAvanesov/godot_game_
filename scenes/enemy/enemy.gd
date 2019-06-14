@@ -13,6 +13,9 @@ var counter_timer_looking_player = 0
 var counter_timer_stay = 0
 var stay = true
 var if_enemy_in_start_pos = true
+var suspicions = 0
+var speed_of_suspicions = 200 # from 0 to 100
+var shooting = false
 
 func _ready():
 	var node_pos = position
@@ -59,10 +62,18 @@ func _patrol(pos, new_speed):
 	
 
 func _physics_process(delta):
+	get_node("../Label").text = str(suspicions) + "   " + str(shooting)
+	if (suspicions > 0):
+		suspicions -= 0.01
 	velocity = move_and_slide(velocity, Vector2(0, -1))
-	var radius = get_node("body/CollisionShape2D").shape.radius
-	var player_pos = get_node("../Player").get_position()
+	var shooting_radius = get_node("body/CollisionShape2D").shape.radius
+	var player_pos = GLOBAL.playerCoordinates
 	var enemy_pos = position
+	
+	var vision_sizes = $VisionShape.get_shape().extents
+	
+	# true - left, false - right
+	var direction = $EnemySprite.flip_h 
 	
 	gravity()
 	
@@ -70,23 +81,41 @@ func _physics_process(delta):
 		jump()
 	
 	# FOLLOW THE DAMN PLAYER, ENEMY
-	if (abs(player_pos.x - enemy_pos.x) < radius):
+	if (((player_pos.x < enemy_pos.x && direction == true) ||\
+	(player_pos.x > enemy_pos.x && direction == false)) &&\
+	abs(player_pos.x - enemy_pos.x) < vision_sizes.x / 2 && abs(player_pos.y - enemy_pos.y) < vision_sizes.y / 2):
+		if (suspicions < 100):
+			suspicions += speed_of_suspicions / abs(player_pos.x - enemy_pos.x)
+		elif (suspicions > 100):
+			suspicions = 100
+			
+	#	if (abs(player_pos.x - enemy_pos.x) < shooting_radius):
 		if_enemy_in_start_pos = false
 		stay = true
 		counter_timer_stay = 0
 		counter_timer_looking_player = 0
 		kind_of_patrol = 1
 		lose_sight_of = enemy_pos
-		if (player_pos.x < enemy_pos.x):
-			_move("left", SPEED)
-		elif (player_pos.x > enemy_pos.x):
-			_move("right", SPEED)
+		if (suspicions > 40 && suspicions < 90):
+			shooting = false
+			if (player_pos.x < enemy_pos.x):
+				_move("left", SPEED + 50)
+			elif (player_pos.x > enemy_pos.x):
+				_move("right", SPEED + 50)
+		elif (suspicions > 90):
+			if (abs(player_pos.x - enemy_pos.x) < shooting_radius):
+				shooting = true
+			else:
+				shooting = false
+				if (player_pos.x < enemy_pos.x):
+					_move("left", SPEED + 50)
+				elif (player_pos.x > enemy_pos.x):
+					_move("right", SPEED + 50)
 	
 	else:		
 		# start position patrol
 		if (if_enemy_in_start_pos == true):
 			_patrol(START_ENEMY_POS, SPEED)
-			print("we are here")
 		else:
 			# enemy stopped when he lost player
 			if (stay == true && counter_timer_stay < 200):
