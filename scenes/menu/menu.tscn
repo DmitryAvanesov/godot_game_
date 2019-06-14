@@ -34,7 +34,6 @@ margin_right = 320.0
 margin_bottom = 236.0
 
 [node name="Continue" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
-editor/display_folded = true
 margin_right = 320.0
 margin_bottom = 56.0
 texture = ExtResource( 3 )
@@ -74,6 +73,6 @@ margin_bottom = 56.0
 script = ExtResource( 8 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( -273.982, -32.4452 )
+position = Vector2( -240.982, -32.445 )
 current = true
-zoom = Vector2( 0.9, 0.9 )
+zoom = Vector2( 1.3, 1.3 )

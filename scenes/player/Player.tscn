@@ -60,9 +60,11 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
+offset = Vector2( 0, -360 )
 current = true
+zoom = Vector2( 2, 2 )
 limit_left = 165
-limit_right = 3455
+limit_right = 100000
 drag_margin_h_enabled = false
 smoothing_enabled = true
 
