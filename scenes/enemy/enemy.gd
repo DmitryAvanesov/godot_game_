@@ -23,13 +23,17 @@ var curPoint
 var seesPlayer = false
 var blockedPoints = 0
 const VISIBILITY_STEP = 1
+var suspicionsScale = ProgressBar.new()
 
 # initial crap
 func _ready():
 	var node_pos = position
 	if (node_pos != null):
 		START_ENEMY_POS = node_pos
-	pass
+	
+	suspicionsScale.rect_size = Vector2(100, 10)
+	suspicionsScale.percent_visible = false
+	add_child(suspicionsScale)
 
 # moving left and right
 func _move(direction, new_speed):
@@ -51,7 +55,8 @@ func gravity():
 		velocity.y = 0
 	else:
 		velocity.y += GRAVITY
-		
+
+# jumping over an obstacle	
 func jump():
 	if is_on_floor():
 		velocity.y -= JUMP_FORCE
@@ -189,6 +194,15 @@ func playerVisibilityCheck():
 					_move("right", SPEED)
 				else:
 					_move("left", SPEED)
+					
+# scale over an enemy's head				
+func visualizeSuspicions():
+	if $EnemySprite.flip_h:
+		suspicionsScale.rect_position = Vector2(-35, -$EnemySprite.texture.get_size().y * 0.35)
+	else:
+		suspicionsScale.rect_position = Vector2(-60, -$EnemySprite.texture.get_size().y * 0.35)
+	
+	suspicionsScale.value = suspicions
 
 # main func
 func _physics_process(delta):	
@@ -204,5 +218,6 @@ func _physics_process(delta):
 		seesPlayer = false
 	
 	playerVisibilityCheck()
+	visualizeSuspicions()
 					
 	velocity = move_and_slide(velocity, Vector2(0, -1))
