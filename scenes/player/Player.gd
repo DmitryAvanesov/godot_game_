@@ -8,6 +8,11 @@ const CLIMBING_DURATION = 75
 var climbingTimer
 var climbingDirection
 var isClimbing = false
+var isSquatting = false
+const SQUAT_COEF = 0.5
+var curSquatCoef = 1
+const LIFT_SPEED = 100
+
 
 # sending data to the GLOBAL scope
 func globalUpdate():
@@ -39,7 +44,7 @@ func gravity():
 # setting all the parameters that are needed for climbing
 func climbingLaunch():
 	if (GLOBAL.unableToMoveLeft || GLOBAL.unableToMoveRight) &&\
-		Input.is_action_just_pressed("ui_climb") && velocity.y == 0:
+		Input.is_action_just_pressed("ui_climb") && velocity.y == 0 && !isSquatting:
 			
 			isClimbing = true
 			climbingTimer = CLIMBING_DURATION
@@ -71,15 +76,54 @@ func climbingProcess():
 			
 	climbingTimer -= 1
 
+# squat like a true slav! (todo)
+func squat():
+	if Input.is_action_just_pressed("ui_squat"):
+		if !isSquatting:
+			curSquatCoef = SQUAT_COEF
+			isSquatting = true
+		else:
+			curSquatCoef = 1
+			isSquatting = false
+
+# go up the stairs	
+func lift():
+	if !isSquatting:
+		if Input.is_action_pressed("ui_up"):
+			velocity.y = -LIFT_SPEED
+		elif Input.is_action_pressed("ui_down"):
+			velocity.y = LIFT_SPEED
+		else:
+			velocity.y = 0
+
+# get into a shelter		
+func hide():
+	if GLOBAL.ableToHide && Input.is_action_just_pressed("ui_hide"):
+		if !GLOBAL.playerIsHidden:
+			GLOBAL.playerIsHidden = true
+			$PlayerSprite.visible = false
+		else:
+			GLOBAL.playerIsHidden = false
+			$PlayerSprite.visible = true
+
 # main function containing all processes
 func _physics_process(delta):
 	globalUpdate()
 	
-	if !isClimbing:	
-		movement()
-		gravity()
+	if !isClimbing:
+		if !GLOBAL.playerIsHidden:
+			movement()
+			squat()
+			
+		if !GLOBAL.ableToGoUp:
+			gravity()
+		else:
+			lift()
+			
+		hide()
 		climbingLaunch()			
 	else:	
 		climbingProcess()			
 	
-	move_and_slide(velocity, Vector2(0, -1))
+	velocity.x *= curSquatCoef
+	velocity = move_and_slide(velocity, Vector2(0, -1))
