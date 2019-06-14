@@ -16,6 +16,13 @@ var if_enemy_in_start_pos = true
 var suspicions = 0
 var speed_of_suspicions = 200 # from 0 to 100
 var shooting = false
+var enemyHeadCoordinates = Vector2()
+var playerHeadCoordinates = Vector2()
+const halfManHeight = 72
+var curPoint
+var seesPlayer = false
+var blockedPoints = 0
+const VISIBILITY_STEP = 1
 
 func _ready():
 	var node_pos = position
@@ -60,9 +67,51 @@ func _patrol(pos, new_speed):
 	elif (enemy_pos.x > pos.x + eps):
 		patrol_direction = false
 	
+# checking if our player is visible to the enemy
+func lookForPlayer():
+	enemyHeadCoordinates.x = position.x
+	enemyHeadCoordinates.y = position.y - halfManHeight	
+	playerHeadCoordinates.x = GLOBAL.playerCoordinates.x
+	playerHeadCoordinates.y = GLOBAL.playerCoordinates.y - halfManHeight
+	
+	var k
+	var b
+	
+	k = (enemyHeadCoordinates.y - playerHeadCoordinates.y) /\
+	(enemyHeadCoordinates.x - playerHeadCoordinates.x)
+	
+	b = (playerHeadCoordinates.x * enemyHeadCoordinates.y -\
+	enemyHeadCoordinates.x * playerHeadCoordinates.y) /\
+	(playerHeadCoordinates.x - enemyHeadCoordinates.x)
+	
+	var beg
+	var end
+	
+	if playerHeadCoordinates.x < enemyHeadCoordinates.x:
+		beg = playerHeadCoordinates.x
+		end = enemyHeadCoordinates.x
+	else:
+		beg = enemyHeadCoordinates.x
+		end = playerHeadCoordinates.x
+		
+	blockedPoints = 0
+		
+	while beg < end:
+		curPoint = Vector2(beg, k * beg + b)
+
+		for rect in GLOBAL.obstacleRects:
+			if rect.has_point(curPoint):
+				blockedPoints += 1
+				break
+				
+		beg += VISIBILITY_STEP
+		
+	if blockedPoints == 0:
+		seesPlayer = true
+	else:
+		seesPlayer = false
 
 func _physics_process(delta):
-	get_node("../Label").text = str(suspicions) + "   " + str(shooting)
 	if (suspicions > 0):
 		suspicions -= 0.01
 	velocity = move_and_slide(velocity, Vector2(0, -1))
@@ -79,6 +128,12 @@ func _physics_process(delta):
 	
 	if is_on_wall():
 		jump()
+		
+	if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
+	(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
+		lookForPlayer()
+	else:
+		seesPlayer = false
 	
 	# FOLLOW THE DAMN PLAYER, ENEMY
 	if (((player_pos.x < enemy_pos.x && direction == true) ||\
