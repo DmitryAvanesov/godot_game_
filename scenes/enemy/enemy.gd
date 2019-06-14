@@ -24,12 +24,14 @@ var seesPlayer = false
 var blockedPoints = 0
 const VISIBILITY_STEP = 1
 
+# initial crap
 func _ready():
 	var node_pos = position
 	if (node_pos != null):
 		START_ENEMY_POS = node_pos
 	pass
 
+# moving left and right
 func _move(direction, new_speed):
 	if (direction == "right"):
 		velocity.x = new_speed
@@ -56,6 +58,7 @@ func jump():
 	else:
 		velocity.y += 1
 
+# patrolling a territory around a supicious place
 func _patrol(pos, new_speed):
 	var enemy_pos = position
 	if (enemy_pos.x > pos.x - eps && patrol_direction == false):
@@ -69,53 +72,58 @@ func _patrol(pos, new_speed):
 	
 # checking if our player is visible to the enemy
 func lookForPlayer():
-	enemyHeadCoordinates.x = position.x
-	enemyHeadCoordinates.y = position.y - halfManHeight	
-	playerHeadCoordinates.x = GLOBAL.playerCoordinates.x
-	playerHeadCoordinates.y = GLOBAL.playerCoordinates.y - halfManHeight
-	
-	var k
-	var b
-	
-	k = (enemyHeadCoordinates.y - playerHeadCoordinates.y) /\
-	(enemyHeadCoordinates.x - playerHeadCoordinates.x)
-	
-	b = (playerHeadCoordinates.x * enemyHeadCoordinates.y -\
-	enemyHeadCoordinates.x * playerHeadCoordinates.y) /\
-	(playerHeadCoordinates.x - enemyHeadCoordinates.x)
-	
-	var beg
-	var end
-	
-	if playerHeadCoordinates.x < enemyHeadCoordinates.x:
-		beg = playerHeadCoordinates.x
-		end = enemyHeadCoordinates.x
-	else:
-		beg = enemyHeadCoordinates.x
-		end = playerHeadCoordinates.x
-		
-	blockedPoints = 0
-		
-	while beg < end:
-		curPoint = Vector2(beg, k * beg + b)
-
-		for rect in GLOBAL.obstacleRects:
-			if rect.has_point(curPoint):
-				blockedPoints += 1
-				break
+	if !seesPlayer:
+		if !GLOBAL.playerIsHidden:	
+			enemyHeadCoordinates.x = position.x
+			enemyHeadCoordinates.y = position.y - halfManHeight	
+			playerHeadCoordinates.x = GLOBAL.playerCoordinates.x
+			playerHeadCoordinates.y = GLOBAL.playerCoordinates.y - halfManHeight
+			
+			var k
+			var b
+			
+			k = (enemyHeadCoordinates.y - playerHeadCoordinates.y) /\
+			(enemyHeadCoordinates.x - playerHeadCoordinates.x)
+			
+			b = (playerHeadCoordinates.x * enemyHeadCoordinates.y -\
+			enemyHeadCoordinates.x * playerHeadCoordinates.y) /\
+			(playerHeadCoordinates.x - enemyHeadCoordinates.x)
+			
+			var beg
+			var end
+			
+			if playerHeadCoordinates.x < enemyHeadCoordinates.x:
+				beg = playerHeadCoordinates.x
+				end = enemyHeadCoordinates.x
+			else:
+				beg = enemyHeadCoordinates.x
+				end = playerHeadCoordinates.x
 				
-		beg += VISIBILITY_STEP
+			blockedPoints = 0
+				
+			while beg < end:
+				curPoint = Vector2(beg, k * beg + b)
 		
-	if blockedPoints == 0:
-		seesPlayer = true
-	else:
-		seesPlayer = false
+				for rect in GLOBAL.obstacleRects:
+					if rect.has_point(curPoint):
+						blockedPoints += 1
+						break
+						
+				beg += VISIBILITY_STEP
+				
+			if blockedPoints == 0:
+				seesPlayer = true
+			else:
+				seesPlayer = false
+		else:
+			seesPlayer = false
 
-func _physics_process(delta):
+# FOLLOW THE DAMN PLAYER, ENEMY			
+func playerVisibilityCheck():
 	if (suspicions > 0):
 		suspicions -= 0.01
-	velocity = move_and_slide(velocity, Vector2(0, -1))
-	var shooting_radius = get_node("body/CollisionShape2D").shape.radius
+	
+	var shooting_radius = $body/CollisionShape2D.shape.radius
 	var player_pos = GLOBAL.playerCoordinates
 	var enemy_pos = position
 	
@@ -124,21 +132,12 @@ func _physics_process(delta):
 	# true - left, false - right
 	var direction = $EnemySprite.flip_h 
 	
-	gravity()
-	
-	if is_on_wall():
-		jump()
-		
-	if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
-	(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
-		lookForPlayer()
-	else:
-		seesPlayer = false
-	
-	# FOLLOW THE DAMN PLAYER, ENEMY
 	if (((player_pos.x < enemy_pos.x && direction == true) ||\
 	(player_pos.x > enemy_pos.x && direction == false)) &&\
-	abs(player_pos.x - enemy_pos.x) < vision_sizes.x / 2 && abs(player_pos.y - enemy_pos.y) < vision_sizes.y / 2):
+	abs(player_pos.x - enemy_pos.x) < vision_sizes.x / 2 &&\
+	abs(player_pos.y - enemy_pos.y) < vision_sizes.y / 2) &&\
+	seesPlayer:
+		
 		if (suspicions < 100):
 			suspicions += speed_of_suspicions / abs(player_pos.x - enemy_pos.x)
 		elif (suspicions > 100):
@@ -153,20 +152,16 @@ func _physics_process(delta):
 		lose_sight_of = enemy_pos
 		if (suspicions > 40 && suspicions < 90):
 			shooting = false
-			if (player_pos.x < enemy_pos.x):
-				_move("left", SPEED + 50)
-			elif (player_pos.x > enemy_pos.x):
-				_move("right", SPEED + 50)
 		elif (suspicions > 90):
 			if (abs(player_pos.x - enemy_pos.x) < shooting_radius):
 				shooting = true
 			else:
 				shooting = false
-				if (player_pos.x < enemy_pos.x):
-					_move("left", SPEED + 50)
-				elif (player_pos.x > enemy_pos.x):
-					_move("right", SPEED + 50)
-	
+		
+		if (player_pos.x < enemy_pos.x):
+			_move("left", SPEED + 50)
+		elif (player_pos.x > enemy_pos.x):
+			_move("right", SPEED + 50)	
 	else:		
 		# start position patrol
 		if (if_enemy_in_start_pos == true):
@@ -174,7 +169,7 @@ func _physics_process(delta):
 		else:
 			# enemy stopped when he lost player
 			if (stay == true && counter_timer_stay < 200):
-				_move("left", 0)
+				_move("stay", 0)
 				counter_timer_stay += 1
 			elif (stay == true):
 				stay = false
@@ -194,3 +189,20 @@ func _physics_process(delta):
 					_move("right", SPEED)
 				else:
 					_move("left", SPEED)
+
+# main func
+func _physics_process(delta):	
+	gravity()
+	
+	if is_on_wall():
+		jump()
+		
+	if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
+	(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
+		lookForPlayer()
+	else:
+		seesPlayer = false
+	
+	playerVisibilityCheck()
+					
+	velocity = move_and_slide(velocity, Vector2(0, -1))
