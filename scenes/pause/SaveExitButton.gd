@@ -10,6 +10,7 @@ func save_game():
 	
 func on_btn_click():
 	save_game()
+	get_tree().quit()
 	get_tree().change_scene("res://scenes/menu/Menu.tscn")
 	pass
 	

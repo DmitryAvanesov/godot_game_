@@ -1,7 +1,6 @@
 extends TextureButton
 
 func on_btn_click():
-	print('dsd')
 	get_tree().quit()
 	pass
 	

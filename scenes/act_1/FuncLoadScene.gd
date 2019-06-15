@@ -6,7 +6,6 @@ func load_game():
 		return
 	save_game.open("user://savegame.save", File.READ)
 	var save_nodes = get_tree().get_nodes_in_group("People")
-	print(save_nodes)
 	for i in save_nodes:
 		var current_line = parse_json(save_game.get_line())
 		i.call('load_from_dict', current_line)

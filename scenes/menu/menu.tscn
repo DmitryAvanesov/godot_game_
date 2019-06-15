@@ -43,6 +43,8 @@ texture = ExtResource( 3 )
 [node name="ContinueButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/Continue"]
 margin_right = 320.0
 margin_bottom = 56.0
+rect_min_size = Vector2( 320, 56 )
+rect_clip_content = true
 script = ExtResource( 4 )
 
 [node name="NewGame" type="TextureRect" parent="HBoxContainer/VBoxContainer"]

@@ -152,6 +152,5 @@ func save():
 	return save_dict
 	
 func load_from_dict(save_dict):
-	print(save_dict['pos_x'])
 	position.y = save_dict['pos_y']
 	position.x = save_dict['pos_x']
