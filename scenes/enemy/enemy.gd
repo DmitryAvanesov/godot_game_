@@ -221,3 +221,31 @@ func _physics_process(delta):
 	visualizeSuspicions()
 					
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+	
+func save():
+	var save_dict = {
+		"filename" : get_filename(),
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x,
+		"pos_y" : position.y,
+#		"attack" : attack,
+#		"defense" : defense,
+#		"current_health" : current_health,
+#		"max_health" : max_health,
+#		"damage" : damage,
+#		"regen" : regen,
+#		"experience" : experience,
+#		"tnl" : tnl,
+#		"level" : level,
+#		"attack_growth" : attack_growth,
+#		"defense_growth" : defense_growth,
+#		"health_growth" : health_growth,
+#		"is_alive" : is_alive,
+#		"last_attack" : last_attack
+	}
+	return save_dict
+	
+func load_from_dict(save_dict):
+	position.y = save_dict['pos_y']
+	position.x = save_dict['pos_x']

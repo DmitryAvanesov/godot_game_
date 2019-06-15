@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/act_1/town/town.png" type="Texture" id=1]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 20 )
@@ -30,5 +31,9 @@ position = Vector2( -1001.85, -300 )
 position = Vector2( 0, 430 )
 shape = SubResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." groups=[
+"Player",
+] instance=ExtResource( 2 )]
 position = Vector2( 663.283, 782.289 )
+
+[node name="Pause" parent="." instance=ExtResource( 3 )]
