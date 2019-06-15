@@ -98,7 +98,7 @@ func lift():
 
 # get into a shelter		
 func hide():
-	if GLOBAL.ableToHide && Input.is_action_just_pressed("ui_hide"):
+	if GLOBAL.ableToHide && Input.is_action_just_pressed("ui_hide") && velocity.x == 0:
 		if !GLOBAL.playerIsHidden:
 			GLOBAL.playerIsHidden = true
 			$PlayerSprite.visible = false

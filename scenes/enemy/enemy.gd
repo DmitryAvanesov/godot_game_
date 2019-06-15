@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var SPEED = 100
+const SPEED = 100
 var velocity = Vector2()
 const GRAVITY = 50
 const JUMP_FORCE = 700
@@ -18,12 +18,14 @@ var speed_of_suspicions = 200 # from 0 to 100
 var shooting = false
 var enemyHeadCoordinates = Vector2()
 var playerHeadCoordinates = Vector2()
-const halfManHeight = 72
+const HALF_MAN_HEIGHT = 72
 var curPoint
 var seesPlayer = false
 var blockedPoints = 0
 const VISIBILITY_STEP = 1
 var suspicionsScale = ProgressBar.new()
+const HEIGHT_GAP = 200
+var ladderCoordinate = 0
 
 # initial crap
 func _ready():
@@ -80,9 +82,9 @@ func lookForPlayer():
 	if !seesPlayer:
 		if !GLOBAL.playerIsHidden:	
 			enemyHeadCoordinates.x = position.x
-			enemyHeadCoordinates.y = position.y - halfManHeight	
+			enemyHeadCoordinates.y = position.y - HALF_MAN_HEIGHT
 			playerHeadCoordinates.x = GLOBAL.playerCoordinates.x
-			playerHeadCoordinates.y = GLOBAL.playerCoordinates.y - halfManHeight
+			playerHeadCoordinates.y = GLOBAL.playerCoordinates.y - HALF_MAN_HEIGHT
 			
 			var k
 			var b
@@ -127,6 +129,8 @@ func lookForPlayer():
 func playerVisibilityCheck():
 	if (suspicions > 0):
 		suspicions -= 0.01
+	else:
+		suspicions = 0
 	
 	var shooting_radius = $body/CollisionShape2D.shape.radius
 	var player_pos = GLOBAL.playerCoordinates
@@ -155,6 +159,7 @@ func playerVisibilityCheck():
 		counter_timer_looking_player = 0
 		kind_of_patrol = 1
 		lose_sight_of = enemy_pos
+		
 		if (suspicions > 40 && suspicions < 90):
 			shooting = false
 		elif (suspicions > 90):
@@ -163,39 +168,55 @@ func playerVisibilityCheck():
 			else:
 				shooting = false
 		
-		if (player_pos.x < enemy_pos.x):
-			_move("left", SPEED + 50)
-		elif (player_pos.x > enemy_pos.x):
-			_move("right", SPEED + 50)	
-	else:		
-		# start position patrol
-		if (if_enemy_in_start_pos == true):
-			_patrol(START_ENEMY_POS, SPEED)
+		if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
+			if (player_pos.x < enemy_pos.x):
+				_move("left", SPEED + 50)
+			elif (player_pos.x > enemy_pos.x):
+				_move("right", SPEED + 50)
 		else:
-			# enemy stopped when he lost player
-			if (stay == true && counter_timer_stay < 200):
-				_move("stay", 0)
-				counter_timer_stay += 1
-			elif (stay == true):
-				stay = false
+			if (ladderCoordinate < enemy_pos.x):
+				_move("left", SPEED + 50)
+			elif (ladderCoordinate > enemy_pos.x):
+				_move("right", SPEED + 50)
+	else:
+		# a player is on another level
+		if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP && suspicions > 40:
+			if (abs(position.x - ladderCoordinate) > 10):
+				if (ladderCoordinate < enemy_pos.x):
+					_move("left", SPEED + 50)
+				elif (ladderCoordinate > enemy_pos.x):
+					_move("right", SPEED + 50)
 			else:
-				# enemy patrols (looking for a player)
-				if (kind_of_patrol == 1 && lose_sight_of != null && counter_timer_looking_player < 1000):
-					_patrol(lose_sight_of, SPEED)
-					counter_timer_looking_player += 1
-					
-				# enemy goes to the start position
-				# OK FUCK GO BACK sad :(
-				elif (enemy_pos == START_ENEMY_POS):
-					# STAY HERE MOTHERFUCKER
-					_move("stay", SPEED)
-					if_enemy_in_start_pos = true
-				elif (enemy_pos.x < START_ENEMY_POS.x):
-					_move("right", SPEED)
+				useLadder()
+		# a player is on the same level
+		else:	
+			# start position patrol
+			if (if_enemy_in_start_pos == true):
+				_patrol(START_ENEMY_POS, SPEED)
+			else:
+				# enemy stopped when he lost player
+				if (stay == true && counter_timer_stay < 200):
+					_move("stay", 0)
+					counter_timer_stay += 1
+				elif (stay == true):
+					stay = false
 				else:
-					_move("left", SPEED)
+					# enemy patrols (looking for a player)
+					if (kind_of_patrol == 1 && lose_sight_of != null && counter_timer_looking_player < 1000):
+						_patrol(lose_sight_of, SPEED)
+						counter_timer_looking_player += 1
+					# enemy goes to the start position
+					# OK F*CK GO BACK sad :(
+					elif (enemy_pos == START_ENEMY_POS):
+						# STAY HERE MOTHERF*CKER
+						_move("stay", SPEED)
+						if_enemy_in_start_pos = true
+					elif (enemy_pos.x < START_ENEMY_POS.x):
+						_move("right", SPEED)
+					else:
+						_move("left", SPEED)	
 					
-# scale over an enemy's head				
+# a scale over an enemy's head				
 func visualizeSuspicions():
 	if $EnemySprite.flip_h:
 		suspicionsScale.rect_position = Vector2(-35, -$EnemySprite.texture.get_size().y * 0.35)
@@ -204,8 +225,24 @@ func visualizeSuspicions():
 	
 	suspicionsScale.value = suspicions
 
+# remembering the ladder that a player used
+func checkForLadderUsing():
+	if GLOBAL.ableToGoUp && abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
+		ladderCoordinate = GLOBAL.playerCoordinates.x
+
+# enemy's getting to another level where a player is
+func useLadder():
+	var enemyLadderSpeed = GRAVITY * 2
+	
+	velocity.x = 0
+	if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP - $EnemySprite.texture.get_size().y:
+		if GLOBAL.playerCoordinates.y > position.y:
+			velocity.y = enemyLadderSpeed
+		else:
+			velocity.y = -enemyLadderSpeed
+
 # main func
-func _physics_process(delta):	
+func _physics_process(delta):
 	gravity()
 	
 	if is_on_wall():
@@ -219,5 +256,9 @@ func _physics_process(delta):
 	
 	playerVisibilityCheck()
 	visualizeSuspicions()
+	checkForLadderUsing()
 					
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	
+	
+	
