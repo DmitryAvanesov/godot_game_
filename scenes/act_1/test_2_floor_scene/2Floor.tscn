@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://scenes/act_1/test_2_floor_scene/2Floor.gd" type="Script" id=1]
+[ext_resource path="res://scenes/act_1/FuncLoadScene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/test_2_floor_scene/1_floor.jpg" type="Texture" id=2]
 [ext_resource path="res://scenes/act_1/test_2_floor_scene/2_floor.jpg" type="Texture" id=3]
 [ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/ladder/Ladder.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1000, 10 )
@@ -48,43 +48,23 @@ position = Vector2( 587.265, 223.161 )
 shape = SubResource( 2 )
 
 [node name="ShelterSprite" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1278.03, 51.2084 )
+position = Vector2( 1279.53, 43.8138 )
 
-[node name="Enemy" parent="." instance=ExtResource( 5 )]
+[node name="People" type="Node2D" parent="."]
+
+[node name="Enemy" parent="People" groups=[
+"People",
+] instance=ExtResource( 5 )]
 position = Vector2( 2968.8, -240.668 )
 
-[node name="Enemy2" parent="." instance=ExtResource( 5 )]
+[node name="Enemy2" parent="People" groups=[
+"People",
+] instance=ExtResource( 5 )]
 position = Vector2( 526.787, 446.62 )
 
-[node name="LadderSprite" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2219.57, 235.524 )
-
-[node name="LadderSprite2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2221.33, 348.042 )
-
-[node name="LadderSprite3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2221.33, 453.527 )
-
-[node name="LadderSprite4" parent="." instance=ExtResource( 6 )]
-position = Vector2( 2221.33, 557.254 )
-
-[node name="LadderSprite5" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1754.8, 232.58 )
-
-[node name="LadderSprite6" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1754.8, 342.217 )
-
-[node name="LadderSprite7" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1755.97, 454.187 )
-
-[node name="LadderSprite8" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1754.8, 552.16 )
-
-[node name="Player" parent="." instance=ExtResource( 7 )]
+[node name="Player" parent="People" groups=[
+"People",
+] instance=ExtResource( 6 )]
 position = Vector2( 223, -245.325 )
 
-[node name="Label" type="Label" parent="."]
-margin_left = 1484.0
-margin_top = -51.0
-margin_right = 1672.0
-margin_bottom = 69.0
+[node name="Pause" parent="." instance=ExtResource( 7 )]

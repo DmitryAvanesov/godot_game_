@@ -1,5 +1,6 @@
 extends Node
 
+var is_new_game = false
 var playerCoordinates = Vector2()
 var unableToMoveRight
 var unableToMoveLeft
