@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/player/FinalCharacterFinal.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 26.7816, 136.437 )
+extents = Vector2( 26.7816, 70.0479 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "climbing"
@@ -52,9 +52,11 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 52.265, -17.1429 )
 collision/safe_margin = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -62,18 +64,16 @@ shape = SubResource( 1 )
 [node name="PlayerCamera" type="Camera2D" parent="."]
 offset = Vector2( 0, -300 )
 current = true
-zoom = Vector2( 2, 2 )
-limit_left = 165
+limit_left = -100000
 limit_right = 100000
 drag_margin_h_enabled = false
 smoothing_enabled = true
 
 [node name="PlayerSprite" type="Sprite" parent="."]
-scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 12
-frame = 29
+frame = 6
 region_rect = Rect2( 41, 9, 51, 135 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerSprite"]

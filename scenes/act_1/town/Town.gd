@@ -1,0 +1,17 @@
+extends "res://scenes/act_1/FuncLoadScene.gd"
+
+# the limits for the current scene	
+func setLimits():
+	GLOBAL.sceneScaleCoef = 1
+	
+	$Player/PlayerCamera.limit_top = -540
+	$Player/PlayerCamera.limit_bottom = 540
+	
+	$Player/PlayerCamera.limit_left = -2000
+	$Player/PlayerCamera.limit_right = 2000
+	
+	$Player.leftMoveLimit = $Player/PlayerCamera.limit_left + 50
+	$Player.rightMoveLimit = $Player/PlayerCamera.limit_right - 50
+	
+func _ready():
+	setLimits()

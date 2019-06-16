@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var velocity = Vector2()
-const WALKING_SPEED = 250
+const WALKING_SPEED = 110
 const GRAVITY = 20
 const CLIMBING_SPEED = 150
 const CLIMBING_DURATION = 75
@@ -12,6 +12,8 @@ var isSquatting = false
 const SQUAT_COEF = 0.5
 var curSquatCoef = 1
 const LIFT_SPEED = 100
+var leftMoveLimit
+var rightMoveLimit
 
 
 # sending data to the GLOBAL scope
@@ -19,14 +21,16 @@ func globalUpdate():
 	GLOBAL.playerCoordinates = position
 
 # walking left and right
-func movement():	
-	if Input.is_action_pressed("ui_right") && !GLOBAL.unableToMoveRight:
-		velocity.x = WALKING_SPEED
+func movement():
+	if Input.is_action_pressed("ui_right") && !GLOBAL.unableToMoveRight &&\
+	position.x < rightMoveLimit:
+		velocity.x = WALKING_SPEED * GLOBAL.sceneScaleCoef
 		$PlayerSprite.flip_h = false
 		$PlayerSprite/AnimationPlayer.play("walking")
 			
-	elif Input.is_action_pressed("ui_left") && !GLOBAL.unableToMoveLeft:
-		velocity.x = -WALKING_SPEED
+	elif Input.is_action_pressed("ui_left") && !GLOBAL.unableToMoveLeft &&\
+	position.x > leftMoveLimit:
+		velocity.x = -WALKING_SPEED * GLOBAL.sceneScaleCoef
 		$PlayerSprite.flip_h = true
 		$PlayerSprite/AnimationPlayer.play("walking")
 		
@@ -39,7 +43,7 @@ func gravity():
 	if is_on_floor():
 		velocity.y = 0
 	elif !isClimbing:
-		velocity.y += GRAVITY
+		velocity.y += GRAVITY * GLOBAL.sceneScaleCoef
 
 # setting all the parameters that are needed for climbing
 func climbingLaunch():
@@ -64,11 +68,11 @@ func climbingLaunch():
 			
 # changing player's position while climbing		
 func climbingProcess():	
-	position.x += climbingDirection * 0.5
+	position.x += climbingDirection * 0.5 * GLOBAL.sceneScaleCoef
 	
 	if climbingTimer < CLIMBING_DURATION / 2:
-		position.y -= 2
-		position.x += climbingDirection * 0.5
+		position.y -= 1 * GLOBAL.sceneScaleCoef
+		position.x += climbingDirection * 0.5 * GLOBAL.sceneScaleCoef
 	
 	if climbingTimer < 0:
 		isClimbing = false
@@ -90,9 +94,9 @@ func squat():
 func lift():
 	if !isSquatting:
 		if Input.is_action_pressed("ui_up"):
-			velocity.y = -LIFT_SPEED
+			velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
 		elif Input.is_action_pressed("ui_down"):
-			velocity.y = LIFT_SPEED
+			velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
 		else:
 			velocity.y = 0
 

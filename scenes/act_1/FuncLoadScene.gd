@@ -10,9 +10,8 @@ func load_game():
 		var current_line = parse_json(save_game.get_line())
 		i.call('load_from_dict', current_line)
 	save_game.close()
-	
+
 func _ready():
 	if not GLOBAL.is_new_game:
 		GLOBAL.is_new_game = false
 		load_game()
-	pass

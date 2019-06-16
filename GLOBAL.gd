@@ -12,6 +12,7 @@ var ableToHide
 var shelterCounter = 0
 var playerIsHidden = false
 const obstacleRects = []
+var sceneScaleCoef = 1
 
 func interactionsWithObstacles():
 	if rightCounter > 0:
