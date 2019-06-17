@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const SPEED = 100
 var velocity = Vector2()
-const GRAVITY = 50
+const GRAVITY = 30
 const JUMP_FORCE = 700
 var eps = 300
 var START_ENEMY_POS = null
@@ -40,11 +40,11 @@ func _ready():
 # moving left and right
 func _move(direction, new_speed):
 	if (direction == "right"):
-		velocity.x = new_speed
+		velocity.x = new_speed * GLOBAL.sceneScaleCoef
 		$EnemySprite.flip_h = false
 		$EnemySprite/AnimationEnemy.play("walking")
 	elif (direction == "left"):
-		velocity.x = -new_speed
+		velocity.x = -new_speed * GLOBAL.sceneScaleCoef
 		$EnemySprite.flip_h = true
 		$EnemySprite/AnimationEnemy.play("walking")
 	else:
@@ -56,12 +56,12 @@ func gravity():
 	if is_on_floor():
 		velocity.y = 0
 	else:
-		velocity.y += GRAVITY
+		velocity.y += GRAVITY * GLOBAL.sceneScaleCoef
 
 # jumping over an obstacle	
 func jump():
 	if is_on_floor():
-		velocity.y -= JUMP_FORCE
+		velocity.y -= JUMP_FORCE * GLOBAL.sceneScaleCoef
 	else:
 		velocity.y += 1
 
@@ -232,14 +232,14 @@ func checkForLadderUsing():
 
 # enemy's getting to another level where a player is
 func useLadder():
-	var enemyLadderSpeed = GRAVITY * 2
+	var enemyLadderSpeed = GRAVITY * 2 * GLOBAL.sceneScaleCoef
 	
 	velocity.x = 0
 	if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP - $EnemySprite.texture.get_size().y:
 		if GLOBAL.playerCoordinates.y > position.y:
-			velocity.y = enemyLadderSpeed
+			velocity.y = enemyLadderSpeed * GLOBAL.sceneScaleCoef
 		else:
-			velocity.y = -enemyLadderSpeed
+			velocity.y = -enemyLadderSpeed * GLOBAL.sceneScaleCoef
 
 # main func
 func _physics_process(delta):
