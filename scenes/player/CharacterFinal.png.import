@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/test.png-353b0540d195660cba8fbb582410afe9.stex"
+path="res://.import/CharacterFinal.png-18b5924ad4f7096c9a0ba7649650f57c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ladder/test.png"
-dest_files=[ "res://.import/test.png-353b0540d195660cba8fbb582410afe9.stex" ]
+source_file="res://scenes/player/CharacterFinal.png"
+dest_files=[ "res://.import/CharacterFinal.png-18b5924ad4f7096c9a0ba7649650f57c.stex" ]
 
 [params]
 

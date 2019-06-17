@@ -10,7 +10,7 @@ func createHint():
 	hint = Label.new()
 	hint.text = "D"
 	hint.rect_position = Vector2(0, -texture.get_size().y * 0.9)
-	hint.rect_scale = Vector2(2, 2)
+	hint.rect_scale = Vector2(5 * GLOBAL.sceneScaleCoef, 5 * GLOBAL.sceneScaleCoef)
 	add_child(hint)
 
 # shows or hides the button you need to press to climb	

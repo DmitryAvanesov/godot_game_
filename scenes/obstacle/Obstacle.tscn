@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/obstacle/Obstacle.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 144, 144 )
+extents = Vector2( 216, 216 )
 
 [node name="ObstacleSprite" type="Sprite"]
 scale = Vector2( 0.25, 0.25 )

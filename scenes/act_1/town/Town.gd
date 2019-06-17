@@ -2,7 +2,7 @@ extends "res://scenes/act_1/FuncLoadScene.gd"
 
 # the limits for the current scene	
 func setLimits():
-	GLOBAL.sceneScaleCoef = 1
+	GLOBAL.sceneScaleCoef = $Player.scale.x
 	
 	$Player/PlayerCamera.limit_top = -540
 	$Player/PlayerCamera.limit_bottom = 540

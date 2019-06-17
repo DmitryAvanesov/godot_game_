@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/player/Player.gd" type="Script" id=1]
-[ext_resource path="res://scenes/player/FinalCharacterFinal.png" type="Texture" id=2]
+[ext_resource path="res://scenes/player/CharacterFinal.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 26.7816, 70.0479 )
+extents = Vector2( 47.1818, 211.771 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "climbing"
@@ -37,6 +37,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=4]
+resource_name = "usingLadder"
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -46,6 +47,21 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 36, 41 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 12, 19 ]
@@ -71,12 +87,13 @@ smoothing_enabled = true
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 3
+vframes = 4
 hframes = 12
-frame = 6
+frame = 41
 region_rect = Rect2( 41, 9, 51, 135 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerSprite"]
 anims/climbing = SubResource( 2 )
 anims/standing = SubResource( 3 )
-anims/walking = SubResource( 4 )
+anims/usingLadder = SubResource( 4 )
+anims/walking = SubResource( 5 )

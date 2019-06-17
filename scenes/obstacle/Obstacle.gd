@@ -12,7 +12,7 @@ func createHint():
 	hint = Label.new()
 	hint.text = "E"
 	hint.rect_position = Vector2(0, -texture.get_size().y)
-	hint.rect_scale = Vector2(3, 3)
+	hint.rect_scale = Vector2(5 * GLOBAL.sceneScaleCoef, 5 * GLOBAL.sceneScaleCoef)
 	add_child(hint)
 
 # doesn't allow a player to bump into the obstacle
@@ -47,7 +47,7 @@ func _ready():
 func _physics_process(delta):
 	distance = position.x - GLOBAL.playerCoordinates.x
 	heightDifference = abs(position.y - GLOBAL.playerCoordinates.y)
-	gap = 50 * GLOBAL.sceneScaleCoef
+	gap = 125 * GLOBAL.sceneScaleCoef
 	
 	catchCollisions()
 	showHideHint()

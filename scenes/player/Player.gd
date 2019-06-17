@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 var velocity = Vector2()
-const WALKING_SPEED = 110
-const GRAVITY = 20
+const WALKING_SPEED = 250
+const GRAVITY = 30
 const CLIMBING_SPEED = 150
 const CLIMBING_DURATION = 75
 var climbingTimer
@@ -11,7 +11,8 @@ var isClimbing = false
 var isSquatting = false
 const SQUAT_COEF = 0.5
 var curSquatCoef = 1
-const LIFT_SPEED = 100
+const LIFT_SPEED = 200
+var isUsingLadder = false
 var leftMoveLimit
 var rightMoveLimit
 
@@ -66,13 +67,13 @@ func climbingLaunch():
 					
 			$PlayerSprite/AnimationPlayer.play("climbing")
 			
-# changing player's position while climbing		
+# changing player's position while climbing	
 func climbingProcess():	
-	position.x += climbingDirection * 0.5 * GLOBAL.sceneScaleCoef
+	position.x += climbingDirection * GLOBAL.sceneScaleCoef
 	
 	if climbingTimer < CLIMBING_DURATION / 2:
-		position.y -= 1 * GLOBAL.sceneScaleCoef
-		position.x += climbingDirection * 0.5 * GLOBAL.sceneScaleCoef
+		position.y -= 3 * GLOBAL.sceneScaleCoef
+		position.x += climbingDirection * GLOBAL.sceneScaleCoef
 	
 	if climbingTimer < 0:
 		isClimbing = false
@@ -91,14 +92,28 @@ func squat():
 			isSquatting = false
 
 # go up the stairs	
-func lift():
-	if !isSquatting:
-		if Input.is_action_pressed("ui_up"):
-			velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
-		elif Input.is_action_pressed("ui_down"):
-			velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
-		else:
-			velocity.y = 0
+func lift():		
+	if !isUsingLadder:
+		velocity.y = 0
+		
+		if (Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down")):
+			isUsingLadder = true
+			velocity.x = 0
+			position.x = GLOBAL.ladderCoordinates.x
+		
+			if Input.is_action_just_pressed("ui_up"):
+				velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
+			elif Input.is_action_pressed("ui_down"):
+				velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
+	else:
+		$PlayerSprite/AnimationPlayer.play("usingLadder")	
+		var gap = GLOBAL.ladderSize * GLOBAL.sceneScaleCoef * 300
+		
+		if abs(position.y - GLOBAL.ladderCoordinates.y) > gap || is_on_floor():
+			isUsingLadder = false
+			$PlayerSprite/AnimationPlayer.play("standing")
+			
+		print(GLOBAL.ladderCoordinates.y)
 
 # get into a shelter		
 func hide():
@@ -115,7 +130,7 @@ func _physics_process(delta):
 	globalUpdate()
 	
 	if !isClimbing:
-		if !GLOBAL.playerIsHidden:
+		if !GLOBAL.playerIsHidden && !isUsingLadder:
 			movement()
 			squat()
 			

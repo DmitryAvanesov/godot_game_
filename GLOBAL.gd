@@ -8,6 +8,8 @@ var rightCounter = 0
 var leftCounter = 0
 var ableToGoUp
 var ladderCounter = 0
+var ladderCoordinates
+var ladderSize
 var ableToHide
 var shelterCounter = 0
 var playerIsHidden = false
