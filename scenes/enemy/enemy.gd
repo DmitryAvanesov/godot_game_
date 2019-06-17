@@ -139,13 +139,13 @@ func playerVisibilityCheck():
 	var vision_sizes = $VisionShape.get_shape().extents
 	
 	# true - left, false - right
-	var direction = $EnemySprite.flip_h 
+	var direction = $EnemySprite.flip_h
 	
 	if (((player_pos.x < enemy_pos.x && direction == true) ||\
 	(player_pos.x > enemy_pos.x && direction == false)) &&\
 	abs(player_pos.x - enemy_pos.x) < vision_sizes.x / 2 &&\
 	abs(player_pos.y - enemy_pos.y) < vision_sizes.y / 2) &&\
-	seesPlayer:
+	seesPlayer && !GLOBAL.playerIsHidden:
 		
 		if (suspicions < 100):
 			suspicions += speed_of_suspicions / abs(player_pos.x - enemy_pos.x)
