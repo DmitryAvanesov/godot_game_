@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/act_1/house/House.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ladder/Ladder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1024.84, 10 )
@@ -65,3 +66,7 @@ scale = Vector2( 0.7, 0.7 )
 [node name="LadderArea2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 625.834, 161.198 )
 scale = Vector2( 1, 1.75 )
+
+[node name="Area2D" parent="." instance=ExtResource( 6 )]
+position = Vector2( 276.842, 305.895 )
+scale = Vector2( 0.7, 0.9 )
