@@ -26,6 +26,11 @@ const VISIBILITY_STEP = 1
 var suspicionsScale = ProgressBar.new()
 const HEIGHT_GAP = 200
 var ladderCoordinate = 0
+var shooting_delay = 0
+var shot_number = 0
+var hit_probability = 0
+var max_hit_probability = 0.95
+var min_hit_probability = 0.05
 
 # initial crap
 func _ready():
@@ -64,6 +69,26 @@ func jump():
 		velocity.y -= JUMP_FORCE * GLOBAL.sceneScaleCoef
 	else:
 		velocity.y += 1
+
+func die():
+	get_tree().reload_current_scene()
+	pass
+func shot():
+	var dist = abs(GLOBAL.playerCoordinates.x - position.x)
+	var k = shot_number
+	hit_probability = 20 * k / dist
+	if (hit_probability < min_hit_probability):
+		hit_probability = min_hit_probability
+	if (hit_probability > max_hit_probability):
+		hit_probability = max_hit_probability
+	var rand_number = randf() * 1
+	if (rand_number < hit_probability):
+		print("hit ", hit_probability, " " , rand_number)
+		# get_node("../Enemy").queue_free()
+		# die()
+	else:
+		print("miss ", hit_probability, " " , rand_number)
+	pass
 
 # patrolling a territory around a supicious place
 func _patrol(pos, new_speed):
@@ -162,13 +187,30 @@ func playerVisibilityCheck():
 		
 		if (suspicions > 40 && suspicions < 90):
 			shooting = false
+			shot_number = 0
 		elif (suspicions > 90):
 			if (abs(player_pos.x - enemy_pos.x) < shooting_radius):
 				shooting = true
+				if (shooting_delay > 30):
+					if (shot_number == 0):
+						# first shoot
+						# anim dostatt' stvol ept
+						shot_number += 1
+						shot()
+					else:
+						#other shoots
+						shot_number += 1
+						shot()
+						pass
+					shooting_delay = 0
+					pass
+				else:
+					shooting_delay += 1
 			else:
 				shooting = false
+				shot_number = 0
 		
-		if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
+		if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP && abs(GLOBAL.playerCoordinates.x - position.x) > shooting_radius:
 			if (player_pos.x < enemy_pos.x):
 				_move("left", SPEED + 50)
 			elif (player_pos.x > enemy_pos.x):
