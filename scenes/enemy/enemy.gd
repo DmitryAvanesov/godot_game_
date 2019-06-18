@@ -31,6 +31,7 @@ var shot_number = 0
 var hit_probability = 0
 var max_hit_probability = 0.95
 var min_hit_probability = 0.05
+var hint
 
 # initial crap
 func _ready():
@@ -41,6 +42,15 @@ func _ready():
 	suspicionsScale.rect_size = Vector2(100, 10)
 	suspicionsScale.percent_visible = false
 	add_child(suspicionsScale)
+	createHint()
+	
+# create button that you have to press to kill enemy
+func createHint():
+	hint = Label.new()
+	hint.text = "R"
+	hint.rect_position = Vector2(30, -$EnemyCollisionShape.shape.extents.y * GLOBAL.sceneScaleCoef * 1)
+	hint.rect_scale = Vector2(2 * GLOBAL.sceneScaleCoef, 2 * GLOBAL.sceneScaleCoef)
+	add_child(hint)
 
 # moving left and right
 func _move(direction, new_speed):
@@ -70,9 +80,11 @@ func jump():
 	else:
 		velocity.y += 1
 
+# enemy dies
 func die():
 	get_tree().reload_current_scene()
 	pass
+# enemy shoots
 func shot():
 	var dist = abs(GLOBAL.playerCoordinates.x - position.x)
 	var k = shot_number
@@ -85,10 +97,21 @@ func shot():
 	if (rand_number < hit_probability):
 		print("hit ", hit_probability, " " , rand_number)
 		# get_node("../Enemy").queue_free()
-		# die()
+		die()
 	else:
 		print("miss ", hit_probability, " " , rand_number)
 	pass
+
+# player kills the enemy
+func kill_the_enemy():
+	var enemy_dir = $EnemySprite.flip_h
+	var player_dir = get_node("../Player/PlayerSprite").flip_h
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < 100 && player_dir == enemy_dir):
+		get_child(5).visible = true
+		if Input.is_key_pressed(KEY_R):
+			get_node("../Enemy").queue_free()
+	else:
+		get_child(5).visible = false
 
 # patrolling a territory around a supicious place
 func _patrol(pos, new_speed):
@@ -301,7 +324,7 @@ func _physics_process(delta):
 	checkForLadderUsing()
 					
 	velocity = move_and_slide(velocity, Vector2(0, -1))
-	
+	kill_the_enemy()
 	
 func save():
 	var save_dict = {
