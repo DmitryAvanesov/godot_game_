@@ -19,6 +19,7 @@ var leftMoveLimit
 var rightMoveLimit
 var triggeredEnemies = 0
 var playerIsDead = false
+var player_move_direction
 
 func interactionsWithObstacles():
 	if rightCounter > 0:

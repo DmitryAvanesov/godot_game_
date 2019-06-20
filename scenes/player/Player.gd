@@ -21,6 +21,7 @@ var reloadTimer = 120
 # sending data to the GLOBAL scope
 func globalUpdate():
 	GLOBAL.playerCoordinates = position
+	GLOBAL.player_move_direction = $PlayerSprite.flip_h
 
 # walking left and right
 func movement():

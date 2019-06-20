@@ -35,6 +35,7 @@ var min_hit_probability = 0.05
 var hint
 var usingLadder = false
 var enemy_pos = Vector2(0, 0)
+var vision_sizes
 
 # initial crap
 func _ready():
@@ -113,10 +114,9 @@ func shot():
 # player kills the enemy
 func kill_the_enemy():
 	var enemy_dir = $EnemySprite.flip_h
-	var player_dir = get_node("../Player/PlayerSprite").flip_h
 	
 	if (abs(GLOBAL.playerCoordinates.x - position.x) < 100 &&\
-	abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP && player_dir == enemy_dir) &&\
+	abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP && GLOBAL.player_move_direction == enemy_dir) &&\
 	!GLOBAL.playerIsHidden:
 		get_child(5).visible = true
 		if Input.is_key_pressed(KEY_R):
@@ -131,21 +131,29 @@ func _patrol(pos, new_speed):
 	if (position.x == enemy_pos.x):
 		bump = true
 	
-	enemy_pos = position
-	
-	if (enemy_pos.x > pos.x - eps && patrol_direction == false &&\
-	enemy_pos.x > GLOBAL.leftMoveLimit && !bump):
-		_move("left", new_speed)
-	elif enemy_pos.x < pos.x - eps || enemy_pos.x < GLOBAL.leftMoveLimit || bump:
-		patrol_direction = true
-		_move("right", new_speed)
-	
-	if(enemy_pos.x < pos.x + eps && patrol_direction == true &&\
-	enemy_pos.x < GLOBAL.rightMoveLimit && !bump):
-		_move("right", new_speed)
-	elif enemy_pos.x > pos.x + eps || enemy_pos.x > GLOBAL.rightMoveLimit || bump:
-		patrol_direction = false
-		_move("left", new_speed)
+	if (suspicions > 60 && abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 && !GLOBAL.playerIsHidden && abs(GLOBAL.playerCoordinates.y - position.y) < 30):
+		if ($EnemySprite.flip_h == true && position.x < GLOBAL.playerCoordinates.x):
+			$EnemySprite.flip_h = false
+			# playerVisibilityCheck()
+		elif ($EnemySprite.flip_h == false && position.x > GLOBAL.playerCoordinates.x):
+			$EnemySprite.flip_h = true
+			# playerVisibilityCheck()
+	else:
+		enemy_pos = position
+		
+		if (enemy_pos.x > pos.x - eps && patrol_direction == false &&\
+		enemy_pos.x > GLOBAL.leftMoveLimit && !bump):
+			_move("left", new_speed)
+		elif enemy_pos.x < pos.x - eps || enemy_pos.x < GLOBAL.leftMoveLimit || bump:
+			patrol_direction = true
+			_move("right", new_speed)
+		
+		if(enemy_pos.x < pos.x + eps && patrol_direction == true &&\
+		enemy_pos.x < GLOBAL.rightMoveLimit && !bump):
+			_move("right", new_speed)
+		elif enemy_pos.x > pos.x + eps || enemy_pos.x > GLOBAL.rightMoveLimit || bump:
+			patrol_direction = false
+			_move("left", new_speed)
 	
 # checking if our player is visible to the enemy
 func lookForPlayer():
@@ -195,6 +203,15 @@ func lookForPlayer():
 		else:
 			seesPlayer = false
 
+func check_enemy_back():
+	if (suspicions > 60 && abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x && !GLOBAL.playerIsHidden):
+		if ($EnemySprite.flip_h == true && position.x < GLOBAL.playerCoordinates.x):
+			$EnemySprite.flip_h = false
+			playerVisibilityCheck()
+		elif ($EnemySprite.flip_h == false && position.x > GLOBAL.playerCoordinates.x):
+			$EnemySprite.flip_h = true
+			playerVisibilityCheck()
+
 # FOLLOW THE DAMN PLAYER, ENEMY			
 func playerVisibilityCheck():	
 	if (suspicions > 0):
@@ -206,7 +223,7 @@ func playerVisibilityCheck():
 	var player_pos = GLOBAL.playerCoordinates
 	var enemy_pos = position
 	
-	var vision_sizes = $VisionShape.get_shape().extents
+	vision_sizes = $VisionShape.get_shape().extents
 	
 	# true - left, false - right
 	var direction = $EnemySprite.flip_h
@@ -262,7 +279,13 @@ func playerVisibilityCheck():
 		else:
 			if abs(position.x - ladderCoordinate) < 200:
 				velocity.y = 0
-						
+			if (suspicions > 60 && abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2):
+				if ($EnemySprite.flip_h == true && position.x < GLOBAL.playerCoordinates.x):
+					$EnemySprite.flip_h = false
+					playerVisibilityCheck()
+				elif ($EnemySprite.flip_h == false && position.x > GLOBAL.playerCoordinates.x):
+					$EnemySprite.flip_h = true
+					playerVisibilityCheck()
 			# start position patrol
 			if (if_enemy_in_start_pos == true):
 				_patrol(START_ENEMY_POS, SPEED)
@@ -339,12 +362,12 @@ func _physics_process(delta):
 		kill_the_enemy()
 	elif usingLadder:
 		if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
-            lift()
+			lift()
 		else:
-			
-            if (GLOBAL.playerCoordinates.x < position.x):
-                _move("left", SPEED * GLOBAL.sceneScaleCoef)
-            else:
+			# velocity.y = SPEED
+			if (GLOBAL.playerCoordinates.x < position.x):
+				_move("left", SPEED * GLOBAL.sceneScaleCoef)
+			else:
                 _move("right", SPEED * GLOBAL.sceneScaleCoef)
 		
 		#lift()
