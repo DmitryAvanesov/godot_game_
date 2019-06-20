@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/act_1/town/Town.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/light/light.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -25,7 +26,7 @@ shape = SubResource( 1 )
 [node name="Player" parent="." groups=[
 "Player",
 ] instance=ExtResource( 3 )]
-position = Vector2( -1417.14, -101.601 )
+position = Vector2( 457.31, 345.995 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
@@ -33,3 +34,19 @@ scale = Vector2( 0.4, 0.4 )
 [node name="ObstacleSprite" parent="." instance=ExtResource( 5 )]
 position = Vector2( -999.727, 437.118 )
 scale = Vector2( 0.2, 0.2 )
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="Light2D" type="Light2D" parent="Lights"]
+position = Vector2( 480.884, 159.298 )
+texture = ExtResource( 6 )
+texture_scale = 0.6
+color = Color( 0.67451, 0.690196, 0.34902, 0.72549 )
+shadow_enabled = true
+
+[node name="Light2D2" type="Light2D" parent="Lights"]
+position = Vector2( 788.697, 152.951 )
+texture = ExtResource( 6 )
+texture_scale = 0.6
+color = Color( 0.67451, 0.690196, 0.34902, 0.72549 )
+shadow_enabled = true

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Roger Reynolds-imAge-contrabass-kissvk.com.wav-13d4f6ac9f110acd9be2f278269efbcb.sample"
+
+[deps]
+
+source_file="res://music/Roger Reynolds-imAge-contrabass-kissvk.com.wav"
+dest_files=[ "res://.import/Roger Reynolds-imAge-contrabass-kissvk.com.wav-13d4f6ac9f110acd9be2f278269efbcb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

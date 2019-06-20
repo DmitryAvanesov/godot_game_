@@ -15,8 +15,7 @@ const LIFT_SPEED = 200
 var isUsingLadder = false
 var leftMoveLimit
 var rightMoveLimit
-var x_shadow_delta = 0
-var y_shadow_delta = 0
+
 
 # sending data to the GLOBAL scope
 func globalUpdate():
@@ -28,14 +27,14 @@ func movement():
 	position.x < rightMoveLimit:
 		velocity.x = WALKING_SPEED * GLOBAL.sceneScaleCoef
 		$PlayerSprite.flip_h = false
-		$LightBox.position = Vector2(-70+x_shadow_delta, y_shadow_delta-10)
+		$LightBox.position = Vector2(-5, 10)
 		$PlayerSprite/AnimationPlayer.play("walking")
 			
 	elif Input.is_action_pressed("ui_left") && !GLOBAL.unableToMoveLeft &&\
 	position.x > leftMoveLimit:
 		velocity.x = -WALKING_SPEED * GLOBAL.sceneScaleCoef
 		$PlayerSprite.flip_h = true
-		$LightBox.position = Vector2(-30+x_shadow_delta, y_shadow_delta-10)
+		$LightBox.position = Vector2(35, 10)
 		$PlayerSprite/AnimationPlayer.play("walking")
 		
 	else:
@@ -53,10 +52,7 @@ func gravity():
 func climbingLaunch():
 	if (GLOBAL.unableToMoveLeft || GLOBAL.unableToMoveRight) &&\
 		Input.is_action_just_pressed("ui_climb") && velocity.y == 0 && !isSquatting:
-			if x_shadow_delta == 0:
-				x_shadow_delta = 70
-				y_shadow_delta = 10
-				$LightBox.position += Vector2(x_shadow_delta, y_shadow_delta)
+
 			isClimbing = true
 			climbingTimer = CLIMBING_DURATION
 			$PlayerCollisionShape.disabled = true

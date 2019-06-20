@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/act_1/house/House.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
@@ -20,6 +20,9 @@ points = PoolVector2Array( 0, 0, 100, -10, 700, -10, 800, 0, 0, 0 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 1024.84, 10 )
+
+[sub_resource type="OccluderPolygon2D" id=5]
+polygon = PoolVector2Array( -964.449, -9.61084, 959.894, -9.61084, 959.894, -22.4985, -969.256, -31.0903 )
 
 [node name="Room" type="Node2D"]
 script = ExtResource( 1 )
@@ -67,9 +70,25 @@ position = Vector2( 0, 475 )
 shape = SubResource( 4 )
 
 [node name="Lamp" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, -500 )
 
 [node name="Light2D" type="Light2D" parent="Lamp"]
-position = Vector2( -6.50535, -507.723 )
+position = Vector2( 0, -1.75812 )
+scale = Vector2( 1.8, 0.906 )
+texture = ExtResource( 3 )
+color = Color( 1, 1, 1, 0.180392 )
+range_z_min = 0
+range_z_max = 0
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_buffer_size = 1024
+
+[node name="Lamp2" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 60 )
+
+[node name="Light2D" type="Light2D" parent="Lamp2"]
 scale = Vector2( 1.8, 0.906 )
 texture = ExtResource( 3 )
 color = Color( 1, 1, 1, 0.180392 )
@@ -84,7 +103,7 @@ position = Vector2( 85.1676, -103.655 )
 scale = Vector2( 0.35, 0.35 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( -181.115, -264.973 )
+position = Vector2( -31.678, -235.086 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="LadderArea2D" parent="." instance=ExtResource( 6 )]
@@ -96,9 +115,12 @@ position = Vector2( 276.448, 304.801 )
 scale = Vector2( 0.7, 0.9 )
 
 [node name="Enemy" parent="." instance=ExtResource( 8 )]
-position = Vector2( -302.961, 264.51 )
+position = Vector2( -171.431, 305.598 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="ObstacleSprite2" parent="." instance=ExtResource( 4 )]
 position = Vector2( -425.054, 426.685 )
 scale = Vector2( 0.35, 0.35 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 5 )

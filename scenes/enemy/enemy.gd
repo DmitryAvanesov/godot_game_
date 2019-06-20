@@ -55,10 +55,12 @@ func createHint():
 # moving left and right
 func _move(direction, new_speed):
 	if (direction == "right"):
+		$LightBox.position = Vector2(0, 10)
 		velocity.x = new_speed * GLOBAL.sceneScaleCoef
 		$EnemySprite.flip_h = false
 		$EnemySprite/AnimationEnemy.play("walking")
 	elif (direction == "left"):
+		$LightBox.position = Vector2(35, 10)
 		velocity.x = -new_speed * GLOBAL.sceneScaleCoef
 		$EnemySprite.flip_h = true
 		$EnemySprite/AnimationEnemy.play("walking")
