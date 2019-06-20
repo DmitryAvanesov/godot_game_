@@ -7,11 +7,11 @@ func setLimits():
 	$Player/PlayerCamera.limit_top = -540
 	$Player/PlayerCamera.limit_bottom = 540
 	
-	$Player/PlayerCamera.limit_left = -960
-	$Player/PlayerCamera.limit_right = 960
+	$Player/PlayerCamera.limit_left = -1080
+	$Player/PlayerCamera.limit_right = 1080
 	
-	$Player.leftMoveLimit = $Player/PlayerCamera.limit_left + 150
-	$Player.rightMoveLimit = $Player/PlayerCamera.limit_right - 150
+	GLOBAL.leftMoveLimit = $Player/PlayerCamera.limit_left + 150
+	GLOBAL.rightMoveLimit = $Player/PlayerCamera.limit_right - 150
 	
 func _ready():
 	setLimits()

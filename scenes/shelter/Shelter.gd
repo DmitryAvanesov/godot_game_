@@ -1,6 +1,6 @@
 extends Sprite
 
-const GAP = 25
+var GAP = 25 * GLOBAL.sceneScaleCoef
 var distance
 var heightDifference
 var hint
@@ -9,7 +9,7 @@ var hint
 func createHint():
 	hint = Label.new()
 	hint.text = "D"
-	hint.rect_position = Vector2(0, -texture.get_size().y * 0.9)
+	hint.rect_position = Vector2(0, -texture.get_size().y)
 	hint.rect_scale = Vector2(5 * GLOBAL.sceneScaleCoef, 5 * GLOBAL.sceneScaleCoef)
 	add_child(hint)
 
