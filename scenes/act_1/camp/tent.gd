@@ -12,4 +12,3 @@ func _ready():
 	$Area2D.connect("body_entered", self, "tent_on")
 	$Area2D2.connect("body_entered", self, "tent_off")
 	$Area2D3.connect("body_entered", self, "tent_off")
-	

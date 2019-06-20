@@ -30,12 +30,14 @@ position = Vector2( 0, -4.43396 )
 texture = ExtResource( 2 )
 
 [node name="tent" type="Sprite" parent="Landscapes"]
+editor/display_folded = true
 visible = false
 position = Vector2( -839.547, 584.764 )
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="Area2D" type="Area2D" parent="Landscapes/tent"]
+editor/display_folded = true
 position = Vector2( 0, 100 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Landscapes/tent/Area2D"]

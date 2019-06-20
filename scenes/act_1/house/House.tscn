@@ -2,12 +2,12 @@
 
 [ext_resource path="res://scenes/act_1/house/House.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
-[ext_resource path="res://scenes/light/light.png" type="Texture" id=3]
-[ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/ladder/Ladder.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/ladder/Ladder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/light/light.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 238.181 )
@@ -69,57 +69,64 @@ position = Vector2( 0, 475 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boxes/StaticBody2D"]
 shape = SubResource( 4 )
 
-[node name="Lamp" type="Node2D" parent="."]
-editor/display_folded = true
-position = Vector2( 0, -500 )
-
-[node name="Light2D" type="Light2D" parent="Lamp"]
-position = Vector2( 0, -1.75812 )
-scale = Vector2( 1.8, 0.906 )
-texture = ExtResource( 3 )
-color = Color( 1, 1, 1, 0.180392 )
-range_z_min = 0
-range_z_max = 0
-shadow_enabled = true
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_buffer_size = 1024
-
-[node name="Lamp2" type="Node2D" parent="."]
-position = Vector2( 0, 60 )
-
-[node name="Light2D" type="Light2D" parent="Lamp2"]
-scale = Vector2( 1.8, 0.906 )
-texture = ExtResource( 3 )
-color = Color( 1, 1, 1, 0.180392 )
-range_z_min = 0
-range_z_max = 0
-shadow_enabled = true
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_buffer_size = 1024
-
-[node name="ObstacleSprite" parent="." instance=ExtResource( 4 )]
+[node name="ObstacleSprite" parent="." instance=ExtResource( 3 )]
 position = Vector2( 85.1676, -103.655 )
 scale = Vector2( 0.35, 0.35 )
 
-[node name="Player" parent="." instance=ExtResource( 5 )]
+[node name="Player" parent="." groups=[
+"gg",
+] instance=ExtResource( 4 )]
 position = Vector2( -31.678, -235.086 )
 scale = Vector2( 0.7, 0.7 )
 
-[node name="LadderArea2D" parent="." instance=ExtResource( 6 )]
+[node name="LadderArea2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 625.834, 161.198 )
 scale = Vector2( 1, 1.75 )
 
-[node name="ShelterArea2D" parent="." instance=ExtResource( 7 )]
+[node name="ShelterArea2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 276.448, 304.801 )
 scale = Vector2( 0.7, 0.9 )
 
-[node name="Enemy" parent="." instance=ExtResource( 8 )]
+[node name="Enemy" parent="." groups=[
+"People",
+] instance=ExtResource( 7 )]
 position = Vector2( -171.431, 305.598 )
 scale = Vector2( 0.7, 0.7 )
 
-[node name="ObstacleSprite2" parent="." instance=ExtResource( 4 )]
+[node name="ObstacleSprite2" parent="." instance=ExtResource( 3 )]
 position = Vector2( -425.054, 426.685 )
 scale = Vector2( 0.35, 0.35 )
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+[node name="Light" type="Node2D" parent="."]
+
+[node name="Lamp" type="Node2D" parent="Light"]
+editor/display_folded = true
+position = Vector2( 0, -500 )
+
+[node name="Light2D" type="Light2D" parent="Light/Lamp"]
+position = Vector2( 0, -1.75812 )
+scale = Vector2( 1.8, 0.906 )
+texture = ExtResource( 8 )
+color = Color( 1, 1, 1, 0.180392 )
+range_z_min = 0
+range_z_max = 0
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_buffer_size = 1024
+
+[node name="Lamp2" type="Node2D" parent="Light"]
+editor/display_folded = true
+position = Vector2( 0, 60 )
+
+[node name="Light2D" type="Light2D" parent="Light/Lamp2"]
+scale = Vector2( 1.8, 0.906 )
+texture = ExtResource( 8 )
+color = Color( 1, 1, 1, 0.180392 )
+range_z_min = 0
+range_z_max = 0
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_buffer_size = 1024
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Light"]
 occluder = SubResource( 5 )
