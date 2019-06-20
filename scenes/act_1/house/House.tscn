@@ -73,7 +73,11 @@ position = Vector2( 276.448, 304.801 )
 scale = Vector2( 0.7, 0.9 )
 
 [node name="Enemy" parent="." instance=ExtResource( 7 )]
-position = Vector2( -279.037, 256.025 )
+position = Vector2( -214.878, 281.131 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 7 )]
+position = Vector2( -206.51, 281.131 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="ObstacleSprite2" parent="." instance=ExtResource( 3 )]

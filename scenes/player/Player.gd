@@ -113,7 +113,6 @@ func lift():
 			isUsingLadder = false
 			$PlayerSprite/AnimationPlayer.play("standing")
 			
-		print(GLOBAL.ladderCoordinates.y)
 
 # get into a shelter		
 func hide():

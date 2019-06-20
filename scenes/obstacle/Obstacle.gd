@@ -39,7 +39,7 @@ func setRect():
 	GLOBAL.obstacleRects.append(Rect2(rectCoordinates, rectSize))
 		
 # initial stuff
-func _ready():	
+func _ready():
 	createHint()
 	setRect()
 

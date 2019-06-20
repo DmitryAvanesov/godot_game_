@@ -72,6 +72,7 @@ anims/walking = SubResource( 3 )
 
 [node name="EnemyCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource( 4 )
+one_way_collision = true
 
 [node name="VisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 0.321869, 0.396996 )

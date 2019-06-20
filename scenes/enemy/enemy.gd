@@ -106,7 +106,7 @@ func shot():
 func kill_the_enemy():
 	var enemy_dir = $EnemySprite.flip_h
 	var player_dir = get_node("../Player/PlayerSprite").flip_h
-	if (abs(GLOBAL.playerCoordinates.x - position.x) < 100 && player_dir == enemy_dir):
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < 100 && (player_dir == true && enemy_dir == true && GLOBAL.playerCoordinates.x > position.x || player_dir == false && enemy_dir == false && GLOBAL.playerCoordinates.x < position.x)):
 		get_child(5).visible = true
 		if Input.is_key_pressed(KEY_R):
 			get_node("../Enemy").queue_free()
@@ -272,8 +272,8 @@ func playerVisibilityCheck():
 						counter_timer_looking_player += 1
 					# enemy goes to the start position
 					# OK F*CK GO BACK sad :(
-					elif (enemy_pos == START_ENEMY_POS):
-						# STAY HERE MOTHERF*CKER
+					elif (abs(enemy_pos.x - START_ENEMY_POS.x) < 30):
+						# STAY HERE MOTHERF*CKER that's your home nigga
 						_move("stay", SPEED)
 						if_enemy_in_start_pos = true
 					elif (enemy_pos.x < START_ENEMY_POS.x):
