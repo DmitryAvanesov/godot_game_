@@ -20,6 +20,8 @@ var rightMoveLimit
 var triggeredEnemies = 0
 var playerIsDead = false
 var player_move_direction
+var is_player_squat
+var is_emeny_sees_player
 
 func interactionsWithObstacles():
 	if rightCounter > 0:

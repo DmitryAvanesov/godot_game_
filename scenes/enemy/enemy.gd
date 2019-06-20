@@ -129,7 +129,12 @@ func _patrol(pos, new_speed):
 	
 	if (position.x == enemy_pos.x):
 		bump = true
+		
 	
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 && !GLOBAL.playerIsHidden && abs(GLOBAL.playerCoordinates.y - position.y) < 30):
+		if (!GLOBAL.is_player_squat):
+			var dist = abs(GLOBAL.playerCoordinates.x - position.x)
+			suspicions += 30 * GLOBAL.sceneScaleCoef / dist
 	if (suspicions > 60 && abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 && !GLOBAL.playerIsHidden && abs(GLOBAL.playerCoordinates.y - position.y) < 30):
 		if ($EnemySprite.flip_h == true && position.x < GLOBAL.playerCoordinates.x):
 			$EnemySprite.flip_h = false
@@ -208,12 +213,16 @@ func playerVisibilityCheck():
 		suspicions -= 0.01
 	else:
 		suspicions = 0
+	vision_sizes = $VisionShape.get_shape().extents
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 && abs(GLOBAL.playerCoordinates.y - position.y) < 30 * GLOBAL.sceneScaleCoef && suspicions > 60):
+		GLOBAL.is_emeny_sees_player = true
+	else:
+		GLOBAL.is_emeny_sees_player = false;
 	
 	var shooting_radius = $body/CollisionShape2D.shape.radius
 	var player_pos = GLOBAL.playerCoordinates
 	var enemy_pos = position
 	
-	vision_sizes = $VisionShape.get_shape().extents
 	
 	# true - left, false - right
 	var direction = $EnemySprite.flip_h

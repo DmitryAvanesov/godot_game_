@@ -98,6 +98,7 @@ func squat():
 		else:
 			curSquatCoef = 1
 			isSquatting = false
+		GLOBAL.is_player_squat = isSquatting
 
 # go up the stairs	
 func lift():		
@@ -130,6 +131,15 @@ func lift():
 func hide():
 	if GLOBAL.ableToHide && GLOBAL.triggeredEnemies == 0 &&\
 	Input.is_action_just_pressed("ui_hide") && velocity.x == 0 && velocity.y == 0:
+		if !GLOBAL.playerIsHidden:
+			GLOBAL.playerIsHidden = true
+			$PlayerSprite.visible = false
+			$PlayerCollisionShape.disabled = true
+		else:
+			GLOBAL.playerIsHidden = false
+			$PlayerSprite.visible = true
+			$PlayerCollisionShape.disabled = false
+	elif GLOBAL.playerIsHidden && Input.is_action_just_pressed("ui_hide") && velocity.x == 0 && velocity.y == 0:
 		if !GLOBAL.playerIsHidden:
 			GLOBAL.playerIsHidden = true
 			$PlayerSprite.visible = false
