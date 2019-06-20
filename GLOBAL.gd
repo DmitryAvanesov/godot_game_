@@ -19,6 +19,13 @@ var shelterCounter = 0
 var playerIsHidden = false
 const obstacleRects = []
 var sceneScaleCoef = 1
+var leftMoveLimit
+var rightMoveLimit
+var triggeredEnemies = 0
+var playerIsDead = false
+var player_move_direction
+var is_player_squat
+var is_emeny_sees_player
 
 func get_next_scene():
 	var next_scene = ''

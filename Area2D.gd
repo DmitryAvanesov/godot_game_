@@ -26,9 +26,11 @@ func _ready():
 
 # check if a player can hide in this very shelter
 func checkHidingAbility():
-	if abs(GLOBAL.playerCoordinates.x - position.x) < gap &&\
-	abs(GLOBAL.playerCoordinates.y - position.y) < gap * 2:
+	if (!GLOBAL.is_emeny_sees_player):
 		GLOBAL.shelterCounter += 1
+#	if abs(GLOBAL.playerCoordinates.x - position.x) < gap &&\
+#	abs(GLOBAL.playerCoordinates.y - position.y) < gap * 2:
+#		GLOBAL.shelterCounter += 1
 
 
 # kinda main function

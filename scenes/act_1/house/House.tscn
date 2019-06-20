@@ -72,7 +72,7 @@ position = Vector2( 0, 475 )
 shape = SubResource( 4 )
 
 [node name="ObstacleSprite" parent="." instance=ExtResource( 3 )]
-position = Vector2( 85.1676, -103.655 )
+position = Vector2( -138.152, -100.029 )
 scale = Vector2( 0.35, 0.35 )
 
 [node name="Player" parent="." groups=[
@@ -83,12 +83,12 @@ position = Vector2( -625.909, 299.37 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="LadderArea2D" parent="." instance=ExtResource( 5 )]
-position = Vector2( 625.834, 161.198 )
-scale = Vector2( 1, 1.75 )
+position = Vector2( 701.293, 58.2011 )
+scale = Vector2( 1, 1.35 )
 
 [node name="ShelterArea2D" parent="." instance=ExtResource( 6 )]
-position = Vector2( 276.448, 304.801 )
-scale = Vector2( 0.7, 0.9 )
+position = Vector2( 314.701, 308.999 )
+scale = Vector2( 0.8, 0.9 )
 
 [node name="Enemy" parent="." groups=[
 "People",
@@ -96,9 +96,9 @@ scale = Vector2( 0.7, 0.9 )
 position = Vector2( -424.595, -225.342 )
 scale = Vector2( 0.7, 0.7 )
 
-[node name="ObstacleSprite2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -425.054, 426.685 )
-scale = Vector2( 0.35, 0.35 )
+[node name="Enemy2" parent="." instance=ExtResource( 7 )]
+position = Vector2( -120.579, 299.755 )
+scale = Vector2( 0.7, 0.7 )
 
 [node name="Light" type="Node2D" parent="."]
 editor/display_folded = true
