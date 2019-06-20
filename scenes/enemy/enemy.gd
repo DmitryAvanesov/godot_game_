@@ -85,6 +85,7 @@ func die():
 func shot():
 	$EnemySprite/AnimationEnemy.play("shooting")
 	velocity.x = 0
+	velocity.y = 0
 	
 	if shooting_delay == 45:
 		var dist = abs(GLOBAL.playerCoordinates.x - position.x)
@@ -335,6 +336,14 @@ func _physics_process(delta):
 						
 		kill_the_enemy()
 	elif usingLadder:
+		if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
+            lift()
+		else:
+            if (GLOBAL.playerCoordinates.x < position.x):
+                _move("left", SPEED * GLOBAL.sceneScaleCoef)
+            else:
+                _move("right", SPEED * GLOBAL.sceneScaleCoef)
+		
 		lift()
 	elif shooting:
 		shot()
