@@ -18,6 +18,7 @@ var sceneScaleCoef = 1
 var leftMoveLimit
 var rightMoveLimit
 var triggeredEnemies = 0
+var playerIsDead = false
 
 func interactionsWithObstacles():
 	if rightCounter > 0:

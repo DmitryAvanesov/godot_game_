@@ -9,12 +9,13 @@ var climbingTimer
 var climbingDirection
 var isClimbing = false
 var isSquatting = false
-const SQUAT_COEF = 0.5
+const SQUAT_COEF = 0.3
 var curSquatCoef = 1
 const LIFT_SPEED = 200
 var isUsingLadder = false
 var leftMoveLimit
 var rightMoveLimit
+var reloadTimer = 120
 
 
 # sending data to the GLOBAL scope
@@ -25,15 +26,21 @@ func globalUpdate():
 func movement():
 	if Input.is_action_pressed("ui_right") && !GLOBAL.unableToMoveRight &&\
 	position.x < GLOBAL.rightMoveLimit:
-		velocity.x = WALKING_SPEED * GLOBAL.sceneScaleCoef
+		velocity.x = WALKING_SPEED * GLOBAL.sceneScaleCoef * curSquatCoef
 		$PlayerSprite.flip_h = false
-		$PlayerSprite/AnimationPlayer.play("walking")
+		if curSquatCoef == 1:
+			$PlayerSprite/AnimationPlayer.play("walking")
+		else:
+			$PlayerSprite/AnimationPlayer.play("squating")
 			
 	elif Input.is_action_pressed("ui_left") && !GLOBAL.unableToMoveLeft &&\
 	position.x > GLOBAL.leftMoveLimit:
-		velocity.x = -WALKING_SPEED * GLOBAL.sceneScaleCoef
+		velocity.x = -WALKING_SPEED * GLOBAL.sceneScaleCoef * curSquatCoef
 		$PlayerSprite.flip_h = true
-		$PlayerSprite/AnimationPlayer.play("walking")
+		if curSquatCoef == 1:
+			$PlayerSprite/AnimationPlayer.play("walking")
+		else:
+			$PlayerSprite/AnimationPlayer.play("squating")
 		
 	else:
 		velocity.x = 0
@@ -81,7 +88,7 @@ func climbingProcess():
 			
 	climbingTimer -= 1
 
-# squat like a true slav! (todo)
+# squat like a true slav
 func squat():
 	if Input.is_action_just_pressed("ui_squat"):
 		if !isSquatting:
@@ -133,27 +140,33 @@ func hide():
 
 # main function containing all processes
 func _physics_process(delta):
-	globalUpdate()
-	
-	if !isClimbing:
-		if !GLOBAL.playerIsHidden:
-			if !isUsingLadder:
-				movement()
-				squat()
+	if !GLOBAL.playerIsDead:
+		globalUpdate()
+		
+		if !isClimbing:
+			if !GLOBAL.playerIsHidden:
+				if !isUsingLadder:
+					movement()
+					squat()
+					
+				if !GLOBAL.ableToGoUp:
+					gravity()
+				else:
+					lift()
+					
+				climbingLaunch()
 				
-			if !GLOBAL.ableToGoUp:
-				gravity()
-			else:
-				lift()
-				
-			climbingLaunch()
-			
-		hide()			
-	else:	
-		climbingProcess()			
-	
-	velocity.x *= curSquatCoef
-	velocity = move_and_slide(velocity, Vector2(0, -1))
+			hide()			
+		else:	
+			climbingProcess()
+
+		velocity = move_and_slide(velocity, Vector2(0, -1))
+	else:
+		$PlayerSprite/AnimationPlayer.play("dying")
+		if reloadTimer == 0:
+			GLOBAL.playerIsDead = false
+			get_tree().reload_current_scene()
+		reloadTimer -= 1
 		
 func save():
 	var save_dict = {

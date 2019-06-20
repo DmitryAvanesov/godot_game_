@@ -76,10 +76,13 @@ func gravity():
 	else:
 		velocity.y += GRAVITY * GLOBAL.sceneScaleCoef
 		
-# enemy dies
+# player dies
 func die():
-	get_tree().reload_current_scene()
-	pass
+	GLOBAL.playerIsDead = true
+	if get_node("../Player/PlayerSprite").flip_h == true:
+		get_node("../Player").position.x -= 75
+	else:
+		get_node("../Player").position.x += 75
 	
 # enemy shoots
 func shot():
@@ -87,7 +90,7 @@ func shot():
 	velocity.x = 0
 	velocity.y = 0
 	
-	if shooting_delay == 45:
+	if shooting_delay == 75:
 		var dist = abs(GLOBAL.playerCoordinates.x - position.x)
 		var k = shot_number
 		
@@ -232,7 +235,7 @@ func playerVisibilityCheck():
 			if (abs(player_pos.x - enemy_pos.x) < shooting_radius):
 				shooting = true
 				shot_number += 1
-				shooting_delay = 90
+				shooting_delay = 150
 		
 		if !shooting:
 			if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
