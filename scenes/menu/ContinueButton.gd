@@ -3,4 +3,10 @@ extends TextureButton
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.pressed:
-		get_tree().change_scene("res://scenes/act_1/test_2_floor_scene/2Floor.tscn")
+		GLOBAL.is_new_game = false
+		var save_game = File.new()
+		save_game.open("user://savegame.save", File.READ)
+		var json = parse_json(save_game.get_line())
+		GLOBAL.last_scene = json['location']
+		GLOBAL.haveBeenInHouse = json['have_been_in_house']
+		get_tree().change_scene(GLOBAL.last_scene)

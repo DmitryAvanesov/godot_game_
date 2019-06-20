@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/act_1/house/House.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/light/light.png" type="Texture" id=8]
+[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 238.181 )
@@ -75,8 +77,9 @@ scale = Vector2( 0.35, 0.35 )
 
 [node name="Player" parent="." groups=[
 "gg",
+"People",
 ] instance=ExtResource( 4 )]
-position = Vector2( -31.678, -235.086 )
+position = Vector2( -625.909, 299.37 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="LadderArea2D" parent="." instance=ExtResource( 5 )]
@@ -90,7 +93,7 @@ scale = Vector2( 0.7, 0.9 )
 [node name="Enemy" parent="." groups=[
 "People",
 ] instance=ExtResource( 7 )]
-position = Vector2( -171.431, 305.598 )
+position = Vector2( -424.595, -225.342 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="ObstacleSprite2" parent="." instance=ExtResource( 3 )]
@@ -98,6 +101,7 @@ position = Vector2( -425.054, 426.685 )
 scale = Vector2( 0.35, 0.35 )
 
 [node name="Light" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Lamp" type="Node2D" parent="Light"]
 editor/display_folded = true
@@ -130,3 +134,9 @@ shadow_buffer_size = 1024
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Light"]
 occluder = SubResource( 5 )
+
+[node name="Pause" parent="." instance=ExtResource( 9 )]
+
+[node name="To_next_location" parent="." instance=ExtResource( 10 )]
+position = Vector2( -780, 302.39 )
+scale = Vector2( 0.4, 0.8 )

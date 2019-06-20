@@ -126,6 +126,11 @@ func hide():
 		else:
 			GLOBAL.playerIsHidden = false
 			$PlayerSprite.visible = true
+			
+func goNext():
+	if GLOBAL.ableToGoNext && Input.is_action_just_pressed("ui_climb"):
+		GLOBAL.is_new_game = true
+		get_tree().change_scene(GLOBAL.get_next_scene())
 
 # main function containing all processes
 func _physics_process(delta):
@@ -141,6 +146,7 @@ func _physics_process(delta):
 		else:
 			lift()
 			
+		goNext()
 		hide()
 		climbingLaunch()			
 	else:	

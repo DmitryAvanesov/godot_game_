@@ -30,6 +30,7 @@ func checkHidingAbility():
 	abs(GLOBAL.playerCoordinates.y - position.y) < gap * 2:
 		GLOBAL.shelterCounter += 1
 
+
 # kinda main function
 func _physics_process(delta):
 	distance = abs(position.x - GLOBAL.playerCoordinates.x)

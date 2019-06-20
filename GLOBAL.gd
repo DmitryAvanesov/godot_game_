@@ -1,12 +1,16 @@
 extends Node
 
 var is_new_game = true
+var last_scene ='res://scenes/act_1/preparation_scene/Preparation_scene.tscn'
+var haveBeenInHouse = false
 var playerCoordinates = Vector2()
 var unableToMoveRight
 var unableToMoveLeft
 var rightCounter = 0
 var leftCounter = 0
 var ableToGoUp
+var goNextCounter = 0
+var ableToGoNext
 var ladderCounter = 0
 var ladderCoordinates
 var ladderSize
@@ -15,6 +19,24 @@ var shelterCounter = 0
 var playerIsHidden = false
 const obstacleRects = []
 var sceneScaleCoef = 1
+
+func get_next_scene():
+	var next_scene = ''
+	if last_scene == 'res://scenes/act_1/preparation_scene/Preparation_scene.tscn':
+		next_scene ='res://scenes/act_1/town/Town.tscn'
+		last_scene = next_scene
+	elif last_scene == 'res://scenes/act_1/town/Town.tscn' && not haveBeenInHouse:
+		next_scene ='res://scenes/act_1/house/House.tscn'
+		last_scene = next_scene
+		haveBeenInHouse = true
+	elif last_scene == 'res://scenes/act_1/house/House.tscn' && haveBeenInHouse:
+		next_scene ='res://scenes/act_1/town/Town.tscn'
+		last_scene = next_scene
+	else: 
+		next_scene ='res://scenes/act_1/camp/Camp.tscn'
+		last_scene = next_scene
+	ableToGoNext = false
+	return next_scene
 
 func interactionsWithObstacles():
 	if rightCounter > 0:
@@ -38,6 +60,13 @@ func interactionsWithLadders():
 		
 	ladderCounter = 0
 	
+func interactionsWithGoNext():
+	if goNextCounter > 0:
+		ableToGoNext = true
+	else:
+		ableToGoNext = false
+	goNextCounter = 0
+	
 func interactionsWithShelters():
 	if shelterCounter > 0:
 		ableToHide = true
@@ -50,3 +79,4 @@ func _physics_process(delta):
 	interactionsWithObstacles()
 	interactionsWithLadders()
 	interactionsWithShelters()
+	interactionsWithGoNext()
