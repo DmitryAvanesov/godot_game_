@@ -24,13 +24,13 @@ func globalUpdate():
 # walking left and right
 func movement():
 	if Input.is_action_pressed("ui_right") && !GLOBAL.unableToMoveRight &&\
-	position.x < rightMoveLimit:
+	position.x < GLOBAL.rightMoveLimit:
 		velocity.x = WALKING_SPEED * GLOBAL.sceneScaleCoef
 		$PlayerSprite.flip_h = false
 		$PlayerSprite/AnimationPlayer.play("walking")
 			
 	elif Input.is_action_pressed("ui_left") && !GLOBAL.unableToMoveLeft &&\
-	position.x > leftMoveLimit:
+	position.x > GLOBAL.leftMoveLimit:
 		velocity.x = -WALKING_SPEED * GLOBAL.sceneScaleCoef
 		$PlayerSprite.flip_h = true
 		$PlayerSprite/AnimationPlayer.play("walking")
@@ -109,38 +109,46 @@ func lift():
 		$PlayerSprite/AnimationPlayer.play("usingLadder")	
 		var gap = GLOBAL.ladderSize * GLOBAL.sceneScaleCoef * 300
 		
+		if Input.is_action_just_pressed("ui_up"):
+			velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
+		elif Input.is_action_pressed("ui_down"):
+			velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
+		
 		if abs(position.y - GLOBAL.ladderCoordinates.y) > gap || is_on_floor():
 			isUsingLadder = false
 			$PlayerSprite/AnimationPlayer.play("standing")
-			
-		print(GLOBAL.ladderCoordinates.y)
 
 # get into a shelter		
 func hide():
-	if GLOBAL.ableToHide && Input.is_action_just_pressed("ui_hide") && velocity.x == 0:
+	if GLOBAL.ableToHide && GLOBAL.triggeredEnemies == 0 &&\
+	Input.is_action_just_pressed("ui_hide") && velocity.x == 0 && velocity.y == 0:
 		if !GLOBAL.playerIsHidden:
 			GLOBAL.playerIsHidden = true
 			$PlayerSprite.visible = false
+			$PlayerCollisionShape.disabled = true
 		else:
 			GLOBAL.playerIsHidden = false
 			$PlayerSprite.visible = true
+			$PlayerCollisionShape.disabled = false
 
 # main function containing all processes
 func _physics_process(delta):
 	globalUpdate()
 	
 	if !isClimbing:
-		if !GLOBAL.playerIsHidden && !isUsingLadder:
-			movement()
-			squat()
+		if !GLOBAL.playerIsHidden:
+			if !isUsingLadder:
+				movement()
+				squat()
+				
+			if !GLOBAL.ableToGoUp:
+				gravity()
+			else:
+				lift()
+				
+			climbingLaunch()
 			
-		if !GLOBAL.ableToGoUp:
-			gravity()
-		else:
-			lift()
-			
-		hide()
-		climbingLaunch()			
+		hide()			
 	else:	
 		climbingProcess()			
 	

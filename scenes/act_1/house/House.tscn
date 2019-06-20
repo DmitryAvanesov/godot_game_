@@ -9,73 +9,78 @@
 [ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1024.84, 10 )
-
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 0, 0, 100, -10, 700, -10, 800, 0, 0, 0 )
+extents = Vector2( 1072.05, 10 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 200, 30 )
+extents = Vector2( 213.949, 64.8611 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 238.181 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 790.845, 10 )
 
 [node name="Room" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="house" type="Sprite" parent="."]
+scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 0, 475 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, 15.054 )
 shape = SubResource( 1 )
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( -455, -45 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource( 1 )
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="."]
-position = Vector2( -550, -55 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
-shape = SubResource( 2 )
 
 [node name="StaticBody2D7" type="StaticBody2D" parent="."]
 position = Vector2( -760, -70 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
+position = Vector2( -56.0809, -27.6513 )
 shape = SubResource( 3 )
 
 [node name="ObstacleSprite" parent="." instance=ExtResource( 3 )]
-position = Vector2( 85.1676, -103.655 )
+position = Vector2( -138.152, -100.029 )
 scale = Vector2( 0.35, 0.35 )
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2( 701.593, -265.747 )
+position = Vector2( 783.442, -272.099 )
 shape = SubResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 443.027, -246.553 )
+position = Vector2( 430.352, -259.604 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="LadderArea2D" parent="." instance=ExtResource( 5 )]
-position = Vector2( 625.834, 161.198 )
-scale = Vector2( 1, 1.75 )
+position = Vector2( 701.293, 58.2011 )
+scale = Vector2( 1, 1.35 )
 
 [node name="ShelterArea2D" parent="." instance=ExtResource( 6 )]
-position = Vector2( 276.448, 304.801 )
-scale = Vector2( 0.7, 0.9 )
+position = Vector2( 314.701, 308.999 )
+scale = Vector2( 0.8, 0.9 )
+
+[node name="ShelterArea2D2" parent="." instance=ExtResource( 6 )]
+position = Vector2( -303.397, -208.904 )
+scale = Vector2( 0.7, 0.7 )
 
 [node name="Enemy" parent="." instance=ExtResource( 7 )]
-position = Vector2( -279.037, 256.025 )
+position = Vector2( -28.4734, -262.268 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 7 )]
+position = Vector2( -575.799, 279.249 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="ObstacleSprite2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -425.054, 426.685 )
+position = Vector2( -321.572, 441.238 )
 scale = Vector2( 0.35, 0.35 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2( -148.049, -51.4876 )
+shape = SubResource( 5 )

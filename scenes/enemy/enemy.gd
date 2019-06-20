@@ -3,7 +3,7 @@ extends KinematicBody2D
 const SPEED = 100
 var velocity = Vector2()
 const GRAVITY = 30
-const JUMP_FORCE = 700
+const JUMP_FORCE = 400
 var eps = 300
 var START_ENEMY_POS = null
 var lose_sight_of = null
@@ -26,12 +26,15 @@ const VISIBILITY_STEP = 1
 var suspicionsScale = ProgressBar.new()
 const HEIGHT_GAP = 200
 var ladderCoordinate = 0
+var ladderHeight = 0
 var shooting_delay = 0
 var shot_number = 0
 var hit_probability = 0
 var max_hit_probability = 0.95
 var min_hit_probability = 0.05
 var hint
+var usingLadder = false
+var enemy_pos = Vector2(0, 0)
 
 # initial crap
 func _ready():
@@ -54,11 +57,11 @@ func createHint():
 
 # moving left and right
 func _move(direction, new_speed):
-	if (direction == "right"):
+	if (direction == "right") && position.x < GLOBAL.rightMoveLimit:
 		velocity.x = new_speed * GLOBAL.sceneScaleCoef
 		$EnemySprite.flip_h = false
 		$EnemySprite/AnimationEnemy.play("walking")
-	elif (direction == "left"):
+	elif (direction == "left" && position.x > GLOBAL.leftMoveLimit):
 		velocity.x = -new_speed * GLOBAL.sceneScaleCoef
 		$EnemySprite.flip_h = true
 		$EnemySprite/AnimationEnemy.play("walking")
@@ -72,18 +75,12 @@ func gravity():
 		velocity.y = 0
 	else:
 		velocity.y += GRAVITY * GLOBAL.sceneScaleCoef
-
-# jumping over an obstacle	
-func jump():
-	if is_on_floor():
-		velocity.y -= JUMP_FORCE * GLOBAL.sceneScaleCoef
-	else:
-		velocity.y += 1
-
+		
 # enemy dies
 func die():
 	get_tree().reload_current_scene()
 	pass
+	
 # enemy shoots
 func shot():
 	var dist = abs(GLOBAL.playerCoordinates.x - position.x)
@@ -93,7 +90,7 @@ func shot():
 		hit_probability = min_hit_probability
 	if (hit_probability > max_hit_probability):
 		hit_probability = max_hit_probability
-	var rand_number = randf() * 1
+	var rand_number = randf()
 	if (rand_number < hit_probability):
 		print("hit ", hit_probability, " " , rand_number)
 		# get_node("../Enemy").queue_free()
@@ -106,24 +103,38 @@ func shot():
 func kill_the_enemy():
 	var enemy_dir = $EnemySprite.flip_h
 	var player_dir = get_node("../Player/PlayerSprite").flip_h
-	if (abs(GLOBAL.playerCoordinates.x - position.x) < 100 && player_dir == enemy_dir):
+	
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < 100 &&\
+	abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP && player_dir == enemy_dir) &&\
+	!GLOBAL.playerIsHidden:
 		get_child(5).visible = true
 		if Input.is_key_pressed(KEY_R):
-			get_node("../Enemy").queue_free()
+			queue_free()
 	else:
 		get_child(5).visible = false
 
 # patrolling a territory around a supicious place
 func _patrol(pos, new_speed):
-	var enemy_pos = position
-	if (enemy_pos.x > pos.x - eps && patrol_direction == false):
+	var bump = false
+	
+	if (position.x == enemy_pos.x):
+		bump = true
+	
+	enemy_pos = position
+	
+	if (enemy_pos.x > pos.x - eps && patrol_direction == false &&\
+	enemy_pos.x > GLOBAL.leftMoveLimit && !bump):
 		_move("left", new_speed)
-	elif (enemy_pos.x < pos.x - eps):
+	elif enemy_pos.x < pos.x - eps || enemy_pos.x < GLOBAL.leftMoveLimit || bump:
 		patrol_direction = true
-	if(enemy_pos.x < pos.x + eps && patrol_direction == true):
 		_move("right", new_speed)
-	elif (enemy_pos.x > pos.x + eps):
+	
+	if(enemy_pos.x < pos.x + eps && patrol_direction == true &&\
+	enemy_pos.x < GLOBAL.rightMoveLimit && !bump):
+		_move("right", new_speed)
+	elif enemy_pos.x > pos.x + eps || enemy_pos.x > GLOBAL.rightMoveLimit || bump:
 		patrol_direction = false
+		_move("left", new_speed)
 	
 # checking if our player is visible to the enemy
 func lookForPlayer():
@@ -174,7 +185,7 @@ func lookForPlayer():
 			seesPlayer = false
 
 # FOLLOW THE DAMN PLAYER, ENEMY			
-func playerVisibilityCheck():
+func playerVisibilityCheck():	
 	if (suspicions > 0):
 		suspicions -= 0.01
 	else:
@@ -193,8 +204,7 @@ func playerVisibilityCheck():
 	(player_pos.x > enemy_pos.x && direction == false)) &&\
 	abs(player_pos.x - enemy_pos.x) < vision_sizes.x / 2 &&\
 	abs(player_pos.y - enemy_pos.y) < vision_sizes.y / 2) &&\
-	seesPlayer && !GLOBAL.playerIsHidden:
-		
+	seesPlayer && !GLOBAL.playerIsHidden:		
 		if (suspicions < 100):
 			suspicions += speed_of_suspicions / abs(player_pos.x - enemy_pos.x)
 		elif (suspicions > 100):
@@ -233,7 +243,7 @@ func playerVisibilityCheck():
 				shooting = false
 				shot_number = 0
 		
-		if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP && abs(GLOBAL.playerCoordinates.x - position.x) > shooting_radius:
+		if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
 			if (player_pos.x < enemy_pos.x):
 				_move("left", SPEED + 50)
 			elif (player_pos.x > enemy_pos.x):
@@ -243,18 +253,21 @@ func playerVisibilityCheck():
 				_move("left", SPEED + 50)
 			elif (ladderCoordinate > enemy_pos.x):
 				_move("right", SPEED + 50)
-	else:
+	else:	
 		# a player is on another level
-		if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP && suspicions > 40:
+		if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP && suspicions > 40:			
 			if (abs(position.x - ladderCoordinate) > 10):
 				if (ladderCoordinate < enemy_pos.x):
 					_move("left", SPEED + 50)
 				elif (ladderCoordinate > enemy_pos.x):
 					_move("right", SPEED + 50)
 			else:
-				useLadder()
+				usingLadder = true
 		# a player is on the same level
-		else:	
+		else:
+			if abs(position.x - ladderCoordinate) < 200:
+				velocity.y = 0
+						
 			# start position patrol
 			if (if_enemy_in_start_pos == true):
 				_patrol(START_ENEMY_POS, SPEED)
@@ -279,14 +292,16 @@ func playerVisibilityCheck():
 					elif (enemy_pos.x < START_ENEMY_POS.x):
 						_move("right", SPEED)
 					else:
-						_move("left", SPEED)	
+						_move("left", SPEED)
 					
 # a scale over an enemy's head				
 func visualizeSuspicions():
 	if $EnemySprite.flip_h:
-		suspicionsScale.rect_position = Vector2(-35, -$EnemySprite.texture.get_size().y * 0.35)
+		suspicionsScale.rect_position = Vector2(-35, -$EnemySprite.texture.get_size().y *\
+		GLOBAL.sceneScaleCoef * 0.12)
 	else:
-		suspicionsScale.rect_position = Vector2(-60, -$EnemySprite.texture.get_size().y * 0.35)
+		suspicionsScale.rect_position = Vector2(-60, -$EnemySprite.texture.get_size().y *\
+		GLOBAL.sceneScaleCoef * 0.12)
 	
 	suspicionsScale.value = suspicions
 
@@ -294,37 +309,44 @@ func visualizeSuspicions():
 func checkForLadderUsing():
 	if GLOBAL.ableToGoUp && abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
 		ladderCoordinate = GLOBAL.playerCoordinates.x
-
-# enemy's getting to another level where a player is
-func useLadder():
-	var enemyLadderSpeed = GRAVITY * 2 * GLOBAL.sceneScaleCoef
+		
+func lift():		
+	var gap = GLOBAL.ladderSize * GLOBAL.sceneScaleCoef * 280
+	$EnemySprite/AnimationEnemy.play("usingLadder")
+	
+	print(abs(position.y - GLOBAL.ladderCoordinates.y), " ", gap)
 	
 	velocity.x = 0
-	if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP - $EnemySprite.texture.get_size().y:
-		if GLOBAL.playerCoordinates.y > position.y:
-			velocity.y = enemyLadderSpeed * GLOBAL.sceneScaleCoef
-		else:
-			velocity.y = -enemyLadderSpeed * GLOBAL.sceneScaleCoef
+	
+	if GLOBAL.playerCoordinates.y < position.y:
+		velocity.y = -SPEED * GLOBAL.sceneScaleCoef
+	else:
+		velocity.y = SPEED * GLOBAL.sceneScaleCoef
+	
+	if abs(position.y - GLOBAL.ladderCoordinates.y) > gap:
+		usingLadder = false
+		$EnemySprite/AnimationEnemy.play("standing")
 
 # main func
 func _physics_process(delta):
-	gravity()
-	
-	if is_on_wall():
-		jump()
+	if !usingLadder:
+		gravity()
+			
+		if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
+		(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
+			lookForPlayer()
+		else:
+			seesPlayer = false
 		
-	if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
-	(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
-		lookForPlayer()
+		playerVisibilityCheck()
+		visualizeSuspicions()
+		checkForLadderUsing()
+						
+		kill_the_enemy()
 	else:
-		seesPlayer = false
-	
-	playerVisibilityCheck()
-	visualizeSuspicions()
-	checkForLadderUsing()
-					
+		lift()
+		
 	velocity = move_and_slide(velocity, Vector2(0, -1))
-	kill_the_enemy()
 	
 func save():
 	var save_dict = {
