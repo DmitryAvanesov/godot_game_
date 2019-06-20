@@ -85,7 +85,6 @@ shadow_color = Color( 0, 0, 0, 1 )
 shadow_buffer_size = 1024
 
 [node name="Lamp2" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, 60 )
 
 [node name="Light2D" type="Light2D" parent="Lamp2"]

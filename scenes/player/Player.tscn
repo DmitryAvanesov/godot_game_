@@ -100,7 +100,6 @@ __meta__ = {
 }
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-offset = Vector2( 0, -300 )
 current = true
 limit_left = -100000
 limit_right = 100000

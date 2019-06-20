@@ -17,6 +17,7 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="town"]
+editor/display_folded = true
 position = Vector2( -1001.85, -300 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="town/StaticBody2D"]
@@ -26,7 +27,7 @@ shape = SubResource( 1 )
 [node name="Player" parent="." groups=[
 "Player",
 ] instance=ExtResource( 3 )]
-position = Vector2( 457.31, 345.995 )
+position = Vector2( -592.262, 240.51 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
