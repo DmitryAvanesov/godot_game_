@@ -11,13 +11,13 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1072.05, 10 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 213.949, 64.8611 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 10, 238.181 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 790.845, 10 )
 
 [node name="Room" type="Node2D"]
@@ -39,7 +39,7 @@ position = Vector2( -760, -70 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
 position = Vector2( -56.0809, -27.6513 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="ObstacleSprite" parent="." instance=ExtResource( 3 )]
 position = Vector2( -138.152, -100.029 )
@@ -49,7 +49,7 @@ scale = Vector2( 0.35, 0.35 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 position = Vector2( 783.442, -272.099 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 489.817, -234.998 )
@@ -75,7 +75,7 @@ scale = Vector2( 0.7, 0.7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2( -148.049, -51.4876 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="Label" type="Label" parent="."]
 margin_right = 314.0

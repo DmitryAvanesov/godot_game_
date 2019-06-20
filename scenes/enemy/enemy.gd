@@ -310,11 +310,10 @@ func lift():
 	
 	velocity.x = 0
 	
-	if GLOBAL.playerCoordinates.y < position.y:
-		velocity.y = -SPEED * GLOBAL.sceneScaleCoef
-	else:
+	if GLOBAL.playerCoordinates.y > position.y:
 		velocity.y = SPEED * GLOBAL.sceneScaleCoef
-	
+	else:
+		velocity.y = -SPEED * GLOBAL.sceneScaleCoef
 	if abs(position.y - GLOBAL.ladderCoordinates.y) > gap:
 		usingLadder = false
 		$EnemySprite/AnimationEnemy.play("standing")
@@ -339,12 +338,13 @@ func _physics_process(delta):
 		if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
             lift()
 		else:
+			
             if (GLOBAL.playerCoordinates.x < position.x):
                 _move("left", SPEED * GLOBAL.sceneScaleCoef)
             else:
                 _move("right", SPEED * GLOBAL.sceneScaleCoef)
 		
-		lift()
+		#lift()
 	elif shooting:
 		shot()
 		
