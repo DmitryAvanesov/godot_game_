@@ -83,21 +83,28 @@ func die():
 	
 # enemy shoots
 func shot():
-	var dist = abs(GLOBAL.playerCoordinates.x - position.x)
-	var k = shot_number
-	hit_probability = 20 * k / dist
-	if (hit_probability < min_hit_probability):
-		hit_probability = min_hit_probability
-	if (hit_probability > max_hit_probability):
-		hit_probability = max_hit_probability
-	var rand_number = randf()
-	if (rand_number < hit_probability):
-		print("hit ", hit_probability, " " , rand_number)
-		# get_node("../Enemy").queue_free()
-		die()
-	else:
-		print("miss ", hit_probability, " " , rand_number)
-	pass
+	$EnemySprite/AnimationEnemy.play("shooting")
+	velocity.x = 0
+	
+	if shooting_delay == 45:
+		var dist = abs(GLOBAL.playerCoordinates.x - position.x)
+		var k = shot_number
+		
+		hit_probability = 30 * k / dist
+		if (hit_probability < min_hit_probability):
+			hit_probability = min_hit_probability
+		if (hit_probability > max_hit_probability):
+			hit_probability = max_hit_probability
+			
+		var rand_number = randf()
+		if (rand_number < hit_probability):
+			die()
+
+	if shooting_delay == 0:
+		shooting_delay = 0
+		shooting = false
+		
+	shooting_delay -= 1
 
 # player kills the enemy
 func kill_the_enemy():
@@ -219,40 +226,24 @@ func playerVisibilityCheck():
 		lose_sight_of = enemy_pos
 		
 		if (suspicions > 40 && suspicions < 90):
-			shooting = false
 			shot_number = 0
 		elif (suspicions > 90):
 			if (abs(player_pos.x - enemy_pos.x) < shooting_radius):
 				shooting = true
-				if (shooting_delay > 30):
-					if (shot_number == 0):
-						# first shoot
-						# anim dostatt' stvol ept
-						shot_number += 1
-						shot()
-					else:
-						#other shoots
-						shot_number += 1
-						shot()
-						pass
-					shooting_delay = 0
-					pass
-				else:
-					shooting_delay += 1
-			else:
-				shooting = false
-				shot_number = 0
+				shot_number += 1
+				shooting_delay = 90
 		
-		if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
-			if (player_pos.x < enemy_pos.x):
-				_move("left", SPEED + 50)
-			elif (player_pos.x > enemy_pos.x):
-				_move("right", SPEED + 50)
-		else:
-			if (ladderCoordinate < enemy_pos.x):
-				_move("left", SPEED + 50)
-			elif (ladderCoordinate > enemy_pos.x):
-				_move("right", SPEED + 50)
+		if !shooting:
+			if abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
+				if (player_pos.x < enemy_pos.x):
+					_move("left", SPEED + 50)
+				elif (player_pos.x > enemy_pos.x):
+					_move("right", SPEED + 50)
+			else:
+				if (ladderCoordinate < enemy_pos.x):
+					_move("left", SPEED + 50)
+				elif (ladderCoordinate > enemy_pos.x):
+					_move("right", SPEED + 50)
 	else:	
 		# a player is on another level
 		if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP && suspicions > 40:			
@@ -329,7 +320,7 @@ func lift():
 
 # main func
 func _physics_process(delta):
-	if !usingLadder:
+	if !usingLadder && !shooting:
 		gravity()
 			
 		if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
@@ -343,10 +334,13 @@ func _physics_process(delta):
 		checkForLadderUsing()
 						
 		kill_the_enemy()
-	else:
+	elif usingLadder:
 		lift()
+	elif shooting:
+		shot()
 		
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	get_node("../Label").text = str(shot_number)
 	
 func save():
 	var save_dict = {

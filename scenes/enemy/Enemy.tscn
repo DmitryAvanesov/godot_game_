@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://scenes/enemy/EnemyFinal.png" type="Texture" id=2]
@@ -19,6 +19,22 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 24, 33 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "shooting"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 48, 70 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -91,13 +107,14 @@ position = Vector2( -1.02532, -1.0252 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 12
-frame = 42
+frame = 70
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AnimationEnemy" type="AnimationPlayer" parent="EnemySprite"]
 anims/climbing = SubResource( 6 )
+anims/shooting = SubResource( 8 )
 anims/standing = SubResource( 2 )
 anims/usingLadder = SubResource( 7 )
 anims/walking = SubResource( 3 )

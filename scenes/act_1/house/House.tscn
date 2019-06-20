@@ -84,3 +84,7 @@ scale = Vector2( 0.35, 0.35 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2( -148.049, -51.4876 )
 shape = SubResource( 5 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 314.0
+margin_bottom = 105.0
