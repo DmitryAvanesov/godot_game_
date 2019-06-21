@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
-const SPEED = 100
+var SPEED = 100
 var velocity = Vector2()
 const GRAVITY = 30
 const JUMP_FORCE = 400
-var eps = 300
+var eps = 400 * GLOBAL.sceneScaleCoef
 var START_ENEMY_POS = null
 var lose_sight_of = null
 var patrol_direction = false
@@ -18,7 +18,7 @@ var speed_of_suspicions = 200 # from 0 to 100
 var shooting = false
 var enemyHeadCoordinates = Vector2()
 var playerHeadCoordinates = Vector2()
-const HALF_MAN_HEIGHT = 72
+var HALF_MAN_HEIGHT = 432 * scale.y
 var curPoint
 var seesPlayer = false
 var blockedPoints = 0
@@ -123,27 +123,26 @@ func shot():
 # player kills the enemy
 func kill_the_enemy():
 	var enemy_dir = $EnemySprite.flip_h
-	if (abs(GLOBAL.playerCoordinates.x - position.x) < 100 &&\
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < 150 * GLOBAL.sceneScaleCoef &&\
 	abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP && GLOBAL.player_move_direction == enemy_dir) &&\
 	!GLOBAL.playerIsHidden:
-		get_child(5).visible = true
-		if Input.is_key_pressed(KEY_R):
+		get_child(6).visible = true
+		if Input.is_action_just_pressed("ui_kill"):
 			queue_free()
 	else:
-		get_child(5).visible = false
+		get_child(6).visible = false
 
 # patrolling a territory around a supicious place
 func _patrol(pos, new_speed):
-	var bump = false
-	
+	var bump = false	
 	if (position.x == enemy_pos.x):
 		bump = true
 		
-	
 	if (abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 && !GLOBAL.playerIsHidden && abs(GLOBAL.playerCoordinates.y - position.y) < 30):
 		if (!GLOBAL.is_player_squat):
 			var dist = abs(GLOBAL.playerCoordinates.x - position.x)
 			suspicions += 30 * GLOBAL.sceneScaleCoef / dist
+
 	if (suspicions > 60 && abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 && !GLOBAL.playerIsHidden && abs(GLOBAL.playerCoordinates.y - position.y) < 30):
 		if ($EnemySprite.flip_h == true && position.x < GLOBAL.playerCoordinates.x):
 			$EnemySprite.flip_h = false
@@ -325,11 +324,9 @@ func playerVisibilityCheck():
 # a scale over an enemy's head				
 func visualizeSuspicions():
 	if $EnemySprite.flip_h:
-		suspicionsScale.rect_position = Vector2(-35, -$EnemySprite.texture.get_size().y *\
-		GLOBAL.sceneScaleCoef * 0.12)
+		suspicionsScale.rect_position = Vector2(-35, -220)
 	else:
-		suspicionsScale.rect_position = Vector2(-60, -$EnemySprite.texture.get_size().y *\
-		GLOBAL.sceneScaleCoef * 0.12)
+		suspicionsScale.rect_position = Vector2(-60, -220)
 	
 	suspicionsScale.value = suspicions
 
@@ -370,7 +367,7 @@ func _physics_process(delta):
 		checkForLadderUsing()
 						
 		kill_the_enemy()
-		showHideHint()
+		#showHideHint()
 	elif usingLadder:
 		if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
 			lift()

@@ -142,7 +142,7 @@ func hide():
 			$PlayerCollisionShape.disabled = false
 			
 func goNext():
-	if GLOBAL.ableToGoNext && Input.is_action_just_pressed("ui_climb"):
+	if GLOBAL.ableToGoNext && Input.is_action_just_pressed("ui_transit"):
 		GLOBAL.is_new_game = true
 		get_tree().change_scene(GLOBAL.get_next_scene())
 

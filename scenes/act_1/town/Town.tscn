@@ -31,5 +31,5 @@ scale = Vector2( 0.4, 0.4 )
 [node name="Pause" parent="." instance=ExtResource( 4 )]
 
 [node name="ObstacleSprite" parent="." instance=ExtResource( 5 )]
-position = Vector2( -999.727, 437.118 )
-scale = Vector2( 0.2, 0.2 )
+position = Vector2( -825.677, 435.36 )
+scale = Vector2( 0.024, 0.024 )

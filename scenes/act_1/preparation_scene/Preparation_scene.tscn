@@ -1,18 +1,18 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/act_1/preparation_scene/Preparation_scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/preparation_scene/preparation_scene.png" type="Texture" id=2]
-[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/light/light.png" type="Texture" id=4]
-[ext_resource path="res://scenes/act_1/preparation_scene/lamp.png" type="Texture" id=5]
-[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/light/light.png" type="Texture" id=3]
+[ext_resource path="res://scenes/act_1/preparation_scene/lamp.png" type="Texture" id=4]
+[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7500, 10 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 500 )
 
 [node name="Preparation_scene" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,69 +21,65 @@ script = ExtResource( 1 )
 position = Vector2( 3.09082, 0 )
 texture = ExtResource( 2 )
 
-[node name="Player" parent="." groups=[
-"gg",
-"People",
-] instance=ExtResource( 3 )]
-modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
-position = Vector2( -6815.96, 126.9 )
-scale = Vector2( 1.2, 1.2 )
-
 [node name="Light" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Light2D" type="Light2D" parent="Light"]
 position = Vector2( -5441.92, -204.562 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 texture_scale = 1.5
 color = Color( 0.819608, 0.823529, 0.619608, 1 )
 energy = 2.1
 
 [node name="Light2D2" type="Light2D" parent="Light"]
 position = Vector2( -1640.17, -235.471 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 texture_scale = 1.5
 color = Color( 0.819608, 0.823529, 0.619608, 1 )
 energy = 2.1
 
 [node name="Light2D3" type="Light2D" parent="Light"]
 position = Vector2( 934.518, -195.29 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 texture_scale = 1.5
 color = Color( 0.819608, 0.823529, 0.619608, 1 )
 energy = 2.1
 
 [node name="Lamps" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 602.717, -15.4543 )
 
 [node name="lamp" type="Sprite" parent="Lamps"]
 position = Vector2( 935.313, -346.048 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="Boxes" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Boxes"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boxes/StaticBody2D"]
-position = Vector2( 0, 500 )
+position = Vector2( 0, 338 )
 shape = SubResource( 1 )
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Boxes"]
-position = Vector2( -7500, 0 )
+[node name="Pause" parent="." instance=ExtResource( 5 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boxes/StaticBody2D2"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Boxes"]
-position = Vector2( 2000, 0 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boxes/StaticBody2D3"]
-position = Vector2( -191.633, 0 )
-shape = SubResource( 2 )
-
-[node name="Pause" parent="." instance=ExtResource( 6 )]
-
-[node name="To_next_location" parent="." instance=ExtResource( 7 )]
+[node name="To_next_location" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1574.5, 247.79 )
+
+[node name="ShelterArea2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( -3619.62, 92.7928 )
+scale = Vector2( 1.5, 1.6 )
+
+[node name="ObstacleSprite" parent="." instance=ExtResource( 8 )]
+position = Vector2( -5368.91, 258.812 )
+scale = Vector2( 0.072, 0.072 )
+
+[node name="Enemy" parent="." instance=ExtResource( 9 )]
+position = Vector2( -759.199, 47.0679 )
+scale = Vector2( 1.2, 1.2 )
+
+[node name="Player" parent="." groups=[
+"gg",
+"People",
+] instance=ExtResource( 10 )]
+modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
+position = Vector2( -7068.35, -22.9188 )
+scale = Vector2( 1.2, 1.2 )

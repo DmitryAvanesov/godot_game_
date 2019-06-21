@@ -74,5 +74,5 @@ position = Vector2( -302.333, -228.444 )
 scale = Vector2( 0.7, 0.9 )
 
 [node name="ObstacleSprite" parent="." instance=ExtResource( 7 )]
-position = Vector2( 98.453, -99.214 )
-scale = Vector2( 0.04, 0.04 )
+position = Vector2( 99.2268, -100.762 )
+scale = Vector2( 0.042, 0.042 )
