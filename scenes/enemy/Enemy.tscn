@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 468.221
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "climbing"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -21,7 +21,7 @@ tracks/0/keys = {
 "values": [ 24, 33 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 resource_name = "shooting"
 length = 2.5
 tracks/0/type = "value"
@@ -37,8 +37,7 @@ tracks/0/keys = {
 "values": [ 48, 70 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "standing"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -52,7 +51,7 @@ tracks/0/keys = {
 "values": [ 0, 6 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "usingLadder"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -67,8 +66,7 @@ tracks/0/keys = {
 "values": [ 36, 41 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "walking"
+[sub_resource type="Animation" id=6]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -83,14 +81,11 @@ tracks/0/keys = {
 "values": [ 12, 19 ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 63.463, 211.357 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 1067.49, 447.208 )
-
-[sub_resource type="OccluderPolygon2D" id=6]
-polygon = PoolVector2Array( -57.4877, -111.365, -64.6375, -116.926, -64.6375, -121.296, -67.8152, -121.693, -73.7734, -126.46, -71.7873, -131.623, -69.4041, -137.979, -67.418, -145.526, -65.0347, -152.278, -63.4459, -159.031, -61.0626, -164.989, -56.6932, -171.742, -49.5434, -178.892, -44.3796, -179.686, -32.4632, -184.453, -18.5607, -184.453, -3.46664, -183.658, 4.47764, -182.864, 12.0247, -178.097, 17.5857, -173.331, 21.1606, -169.359, 25.9272, -163.798, 28.7076, -156.251, 28.7076, -148.704, 32.2826, -145.526, 33.077, -141.156, 34.2686, -134.404, 31.4881, -131.623, 33.077, -122.487, 27.9132, -117.721, 24.3383, -112.557, 19.5717, -106.996, 17.9829, -103.421, 24.3383, -95.4769, 28.3104, -91.8714, 30.6937, -90.2826, 31.4881, -87.8993, 31.8854, -81.5439, 33.077, -79.5578, 35.0631, -77.5718, 38.2408, -72.8051, 38.2408, -38.6448, 35.4603, -21.9618, 34.6659, 43.1812, 29.5021, 53.1115, 27.516, 172.642, 37.4463, 190.914, 34.2686, 200.844, -13.397, 210.775, -51.9267, 213.555, -64.6375, 207.597, -69.4041, 88.433, -87.6759, 71.3529, -88.8675, 31.6315, -90.8536, -52.1501, -86.4842, -78.3662, -71.7873, -93.8575, -56.6932, -103.788 )
 
 [node name="Enemy" type="KinematicBody2D"]
 position = Vector2( -1, 0 )
@@ -116,20 +111,19 @@ __meta__ = {
 }
 
 [node name="AnimationEnemy" type="AnimationPlayer" parent="EnemySprite"]
-anims/climbing = SubResource( 6 )
-anims/shooting = SubResource( 8 )
-anims/standing = SubResource( 2 )
-anims/usingLadder = SubResource( 7 )
-anims/walking = SubResource( 3 )
+anims/climbing = SubResource( 2 )
+anims/shooting = SubResource( 3 )
+anims/standing = SubResource( 4 )
+anims/usingLadder = SubResource( 5 )
+anims/walking = SubResource( 6 )
 
 [node name="EnemyCollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+shape = SubResource( 7 )
 one_way_collision = true
 
 [node name="VisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 1.60651, -1.84299 )
-shape = SubResource( 5 )
+shape = SubResource( 8 )
 disabled = true
 
 [node name="LightBox" type="LightOccluder2D" parent="."]
-occluder = SubResource( 6 )

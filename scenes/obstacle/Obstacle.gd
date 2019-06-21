@@ -10,9 +10,9 @@ var rectSize = Vector2()
 # shows a player what button to press
 func createHint():
 	hint = Label.new()
-	hint.text = "E"
-	hint.rect_position = Vector2(0, -texture.get_size().y)
-	hint.rect_scale = Vector2(5 * GLOBAL.sceneScaleCoef, 5 * GLOBAL.sceneScaleCoef)
+	hint.text = "Z"
+	hint.rect_position = Vector2(0, -1500)
+	hint.rect_scale = Vector2(35 * GLOBAL.sceneScaleCoef, 35 * GLOBAL.sceneScaleCoef)
 	add_child(hint)
 
 # doesn't allow a player to bump into the obstacle

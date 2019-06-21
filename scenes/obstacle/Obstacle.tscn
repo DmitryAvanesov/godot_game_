@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/obstacle/test.png" type="Texture" id=1]
+[ext_resource path="res://scenes/obstacle/box.png" type="Texture" id=1]
 [ext_resource path="res://scenes/obstacle/Obstacle.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 216, 216 )
+extents = Vector2( 1800, 1800 )
 
 [node name="ObstacleSprite" type="Sprite"]
 scale = Vector2( 0.25, 0.25 )

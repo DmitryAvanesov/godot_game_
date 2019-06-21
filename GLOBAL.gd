@@ -14,7 +14,7 @@ var ableToGoNext
 var ladderCounter = 0
 var ladderCoordinates
 var ladderSize
-var ableToHide
+var ableToHide = false
 var shelterCounter = 0
 var playerIsHidden = false
 const obstacleRects = []
@@ -25,7 +25,7 @@ var triggeredEnemies = 0
 var playerIsDead = false
 var player_move_direction
 var is_player_squat
-var is_emeny_sees_player
+var is_enemy_sees_player
 
 func get_next_scene():
 	var next_scene = ''

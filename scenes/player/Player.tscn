@@ -1,22 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scenes/player/CharacterFinal.png" type="Texture" id=2]
 
-[sub_resource type="OccluderPolygon2D" id=6]
-resource_name = "base"
-polygon = PoolVector2Array( -58.7688, 203.694, -21.9742, 207.457, 28.6183, 199.513, 45.4137, 106.482, 45.552, -80.4993, 34.7945, -103.244, 40.872, -120.9, 40.872, -153.043, 34.5695, -168.799, 25.746, -180.143, 10.0732, -187.262, -1.85074, -189.44, -17.4563, -190.903, -34.525, -189.928, -51.7277, -184.247, -61.4008, -177.249, -69.4451, -162.825, -72.7738, -148.956, -72.7738, -132.035, -69.9999, -118.998, -65.4039, -110.006, -64.1744, -105.088, -76.1613, -94.945, -83.8453, -86.0317, -88.3291, -63.5473, -77.9825, 117.096, -62.0604, 140.316 )
-
-[sub_resource type="OccluderPolygon2D" id=8]
-polygon = PoolVector2Array( -81.8745, 200.125, -24.5956, 222.735, -12.5369, 114.206, 56.8008, 90.089, 59.8155, -42.5569, 53.7861, -78.7331, 68.8595, -123.953, 55.2935, -175.203, -21.5809, -181.232, -41.1763, -140.534, -38.1616, -101.343, -62.2791, -83.2551, -74.3378, 4.17062, -68.3084, 96.1184 )
-
-[sub_resource type="OccluderPolygon2D" id=10]
-polygon = PoolVector2Array( -71.1082, 194.096, -30.41, 219.72, -7.79987, 102.148, 102.236, 73.5083, 105.251, -28.9908, 93.1919, -72.7036, 111.28, -113.402, 96.2065, -166.159, 40.435, -179.725, 2.75146, -139.027, -3.27789, -108.88, -34.932, -77.2256, -46.9907, -3.36603, -60.5568, 94.6111 )
-
-[sub_resource type="OccluderPolygon2D" id=7]
-polygon = PoolVector2Array( -105.992, 185.051, -74.3378, 212.184, -27.6102, 130.787, 41.7274, 120.236, 37.2054, -44.0642, 23.6393, -62.1523, 52.2787, -123.953, 35.6981, -169.173, -21.5809, -181.232, -66.8011, -142.041, -57.757, -96.8211, -89.4111, -68.1817, -92.4258, -1.85873, -68.3084, 96.1184 )
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "climbing"
 length = 1.2
 tracks/0/type = "value"
@@ -31,20 +18,8 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 28, 37 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("../LightBox:occluder")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4, 0.7, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ SubResource( 6 ), SubResource( 8 ), SubResource( 10 ), SubResource( 7 ), SubResource( 6 ) ]
-}
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "dying"
 length = 2.0
 tracks/0/type = "value"
@@ -60,7 +35,7 @@ tracks/0/keys = {
 "values": [ 56, 69 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "squating"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -75,7 +50,7 @@ tracks/0/keys = {
 "values": [ 70, 77 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -89,8 +64,7 @@ tracks/0/keys = {
 "values": [ 0, 6 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "usingLadder"
+[sub_resource type="Animation" id=5]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -105,7 +79,7 @@ tracks/0/keys = {
 "values": [ 42, 47 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -120,7 +94,7 @@ tracks/0/keys = {
 "values": [ 14, 21 ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 47.1818, 211.771 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -141,20 +115,19 @@ smoothing_enabled = true
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 14
-frame = 78
+frame = 69
 region_rect = Rect2( 41, 9, 51, 135 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerSprite"]
-anims/climbing = SubResource( 2 )
-anims/dying = SubResource( 6 )
-anims/squating = SubResource( 7 )
-anims/standing = SubResource( 3 )
-anims/usingLadder = SubResource( 4 )
-anims/walking = SubResource( 5 )
+anims/climbing = SubResource( 1 )
+anims/dying = SubResource( 2 )
+anims/squating = SubResource( 3 )
+anims/standing = SubResource( 4 )
+anims/usingLadder = SubResource( 5 )
+anims/walking = SubResource( 6 )
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 7 )
 
 [node name="LightBox" type="LightOccluder2D" parent="."]
 position = Vector2( 0, 10 )
-occluder = SubResource( 6 )

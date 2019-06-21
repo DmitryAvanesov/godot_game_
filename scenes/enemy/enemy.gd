@@ -51,10 +51,17 @@ func _ready():
 # create button that you have to press to kill enemy
 func createHint():
 	hint = Label.new()
-	hint.text = "R"
-	hint.rect_position = Vector2(30, -$EnemyCollisionShape.shape.extents.y * GLOBAL.sceneScaleCoef * 1)
+	hint.text = "V"
+	hint.rect_position = Vector2(0, -$EnemyCollisionShape.shape.extents.y * GLOBAL.sceneScaleCoef)
 	hint.rect_scale = Vector2(2 * GLOBAL.sceneScaleCoef, 2 * GLOBAL.sceneScaleCoef)
 	add_child(hint)
+	
+func showHideHint():
+	if abs(GLOBAL.playerCoordinates.x - position.x) < 150 &&\
+	abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
+		get_child(6).visible = true
+	else:
+		get_child(6).visible = false
 
 # moving left and right
 func _move(direction, new_speed):
@@ -215,11 +222,13 @@ func playerVisibilityCheck():
 		suspicions -= 0.01
 	else:
 		suspicions = 0
+	
 	vision_sizes = $VisionShape.get_shape().extents
-	if (abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 && abs(GLOBAL.playerCoordinates.y - position.y) < 30 * GLOBAL.sceneScaleCoef && suspicions > 60):
-		GLOBAL.is_emeny_sees_player = true
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2 &&\
+	abs(GLOBAL.playerCoordinates.y - position.y) < 30 * GLOBAL.sceneScaleCoef && suspicions > 60):
+		GLOBAL.is_enemy_sees_player = true
 	else:
-		GLOBAL.is_emeny_sees_player = false;
+		GLOBAL.is_enemy_sees_player = false
 	
 	var shooting_radius = $body/CollisionShape2D.shape.radius
 	var player_pos = GLOBAL.playerCoordinates
@@ -361,22 +370,19 @@ func _physics_process(delta):
 		checkForLadderUsing()
 						
 		kill_the_enemy()
+		showHideHint()
 	elif usingLadder:
 		if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
 			lift()
 		else:
-			# velocity.y = SPEED
 			if (GLOBAL.playerCoordinates.x < position.x):
 				_move("left", SPEED * GLOBAL.sceneScaleCoef)
 			else:
                 _move("right", SPEED * GLOBAL.sceneScaleCoef)
-		
-		#lift()
 	elif shooting:
 		shot()
 		
 	velocity = move_and_slide(velocity, Vector2(0, -1))
-	get_node("../Label").text = str(shot_number)
 	
 func save():
 	var save_dict = {

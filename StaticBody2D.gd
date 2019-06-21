@@ -9,18 +9,16 @@ var hint
 func createHint():
 	hint = Label.new()
 	hint.text = "X"
-	hint.rect_position = Vector2(0, -200)
-	hint.rect_scale = Vector2(2 * GLOBAL.sceneScaleCoef, 2 * GLOBAL.sceneScaleCoef)
+	hint.rect_position = Vector2(0, 0)
+	hint.rect_scale = Vector2(5 * GLOBAL.sceneScaleCoef, 5 * GLOBAL.sceneScaleCoef)
 	add_child(hint)
 
 # shows or hides the button you need to press to climb
 func showHideHint():
-	print(distance, " ", GAP)
-	
 	if distance < GAP && heightDifference < GAP * 1.5:
-		get_child(1).visible = true
+		get_child(0).visible = true
 	else:
-		get_child(1).visible = false
+		get_child(0).visible = false
 
 # initial stuff
 func _ready():

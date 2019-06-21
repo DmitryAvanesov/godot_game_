@@ -13,8 +13,6 @@ const SQUAT_COEF = 0.3
 var curSquatCoef = 1
 const LIFT_SPEED = 200
 var isUsingLadder = false
-var leftMoveLimit
-var rightMoveLimit
 var reloadTimer = 120
 
 
@@ -132,16 +130,8 @@ func lift():
 # get into a shelter		
 func hide():
 	if GLOBAL.ableToHide && GLOBAL.triggeredEnemies == 0 &&\
-	Input.is_action_just_pressed("ui_hide") && velocity.x == 0 && velocity.y == 0:
-		if !GLOBAL.playerIsHidden:
-			GLOBAL.playerIsHidden = true
-			$PlayerSprite.visible = false
-			$PlayerCollisionShape.disabled = true
-		else:
-			GLOBAL.playerIsHidden = false
-			$PlayerSprite.visible = true
-			$PlayerCollisionShape.disabled = false
-	elif GLOBAL.playerIsHidden && Input.is_action_just_pressed("ui_hide") && velocity.x == 0 && velocity.y == 0:
+	Input.is_action_just_pressed("ui_hide") && velocity.x == 0 && velocity.y == 0 &&\
+	!GLOBAL.is_enemy_sees_player:
 		if !GLOBAL.playerIsHidden:
 			GLOBAL.playerIsHidden = true
 			$PlayerSprite.visible = false
