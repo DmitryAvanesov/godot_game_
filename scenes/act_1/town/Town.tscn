@@ -28,14 +28,14 @@ shape = SubResource( 1 )
 [node name="Player" parent="." groups=[
 "People",
 ] instance=ExtResource( 3 )]
-position = Vector2( 402.552, 466.755 )
+position = Vector2( -2551.13, 539.461 )
 scale = Vector2( 0.6, 0.6 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
 
 [node name="ObstacleSprite" parent="." instance=ExtResource( 5 )]
-position = Vector2( -825.677, 435.36 )
-scale = Vector2( 0.024, 0.024 )
+position = Vector2( -827.949, 662.566 )
+scale = Vector2( 0.03, 0.03 )
 
 [node name="To_next_location" parent="." instance=ExtResource( 6 )]
 position = Vector2( 940.593, 496.377 )
