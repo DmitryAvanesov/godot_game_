@@ -26,7 +26,7 @@ shape = SubResource( 1 )
 [node name="Player" parent="." groups=[
 "Player",
 ] instance=ExtResource( 3 )]
-position = Vector2( -1417.14, -101.601 )
+position = Vector2( 243.508, 330.431 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
@@ -36,4 +36,5 @@ position = Vector2( -825.677, 435.36 )
 scale = Vector2( 0.024, 0.024 )
 
 [node name="To_next_location" parent="." instance=ExtResource( 6 )]
-position = Vector2( 608.872, 282.803 )
+position = Vector2( 627.049, 321.428 )
+scale = Vector2( 0.5, 0.5 )

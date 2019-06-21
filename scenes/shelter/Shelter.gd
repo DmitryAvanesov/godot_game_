@@ -14,9 +14,7 @@ func createHint():
 	add_child(hint)
 
 # shows or hides the button you need to press to climb
-func showHideHint():
-	print(distance, " ", GAP)
-	
+func showHideHint():	
 	if distance < GAP && heightDifference < GAP * 1.5:
 		get_child(1).visible = true
 	else:

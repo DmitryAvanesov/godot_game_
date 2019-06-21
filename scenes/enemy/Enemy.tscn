@@ -21,7 +21,7 @@ tracks/0/keys = {
 "values": [ 24, 33 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=3]
 resource_name = "dying"
 length = 2.0
 tracks/0/type = "value"
@@ -37,8 +37,7 @@ tracks/0/keys = {
 "values": [ 72, 83 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "shooting"
+[sub_resource type="Animation" id=4]
 length = 2.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -53,7 +52,7 @@ tracks/0/keys = {
 "values": [ 48, 70 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -67,8 +66,7 @@ tracks/0/keys = {
 "values": [ 0, 6 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "usingLadder"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -82,7 +80,7 @@ tracks/0/keys = {
 "values": [ 36, 41 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -97,10 +95,10 @@ tracks/0/keys = {
 "values": [ 12, 19 ]
 }
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 63.463, 211.357 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 1067.49, 447.208 )
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -128,19 +126,19 @@ __meta__ = {
 
 [node name="AnimationEnemy" type="AnimationPlayer" parent="EnemySprite"]
 anims/climbing = SubResource( 2 )
-anims/dying = SubResource( 9 )
-anims/shooting = SubResource( 3 )
-anims/standing = SubResource( 4 )
-anims/usingLadder = SubResource( 5 )
-anims/walking = SubResource( 6 )
+anims/dying = SubResource( 3 )
+anims/shooting = SubResource( 4 )
+anims/standing = SubResource( 5 )
+anims/usingLadder = SubResource( 6 )
+anims/walking = SubResource( 7 )
 
 [node name="EnemyCollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 one_way_collision = true
 
 [node name="VisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 1.60651, -1.84299 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 disabled = true
 
 [node name="LightBox" type="LightOccluder2D" parent="."]

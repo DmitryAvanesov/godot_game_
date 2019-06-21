@@ -81,5 +81,5 @@ scale = Vector2( 1.2, 1.2 )
 "People",
 ] instance=ExtResource( 10 )]
 modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
-position = Vector2( -7068.35, -22.9188 )
+position = Vector2( -7079.97, -19.047 )
 scale = Vector2( 1.2, 1.2 )
