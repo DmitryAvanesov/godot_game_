@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/act_1/town/Town.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=6]
+[ext_resource path="res://music/s--233-bastien roux-the harp and contrabass song-kissvk.com.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -14,6 +15,7 @@ extents = Vector2( 2052.71, 20 )
 script = ExtResource( 1 )
 
 [node name="town" type="Sprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="town"]
@@ -24,10 +26,10 @@ position = Vector2( 1004.5, 778.987 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." groups=[
-"Player",
+"People",
 ] instance=ExtResource( 3 )]
-position = Vector2( 243.508, 330.431 )
-scale = Vector2( 0.4, 0.4 )
+position = Vector2( 402.552, 466.755 )
+scale = Vector2( 0.6, 0.6 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
 
@@ -36,5 +38,8 @@ position = Vector2( -825.677, 435.36 )
 scale = Vector2( 0.024, 0.024 )
 
 [node name="To_next_location" parent="." instance=ExtResource( 6 )]
-position = Vector2( 627.049, 321.428 )
+position = Vector2( 940.593, 496.377 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
