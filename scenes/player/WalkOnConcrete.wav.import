@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/WalkOnConcrete.wav-6ab28560267a5b0e47676b22481f7eae.sample"
+
+[deps]
+
+source_file="res://scenes/player/WalkOnConcrete.wav"
+dest_files=[ "res://.import/WalkOnConcrete.wav-6ab28560267a5b0e47676b22481f7eae.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

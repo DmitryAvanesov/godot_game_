@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/enemy/enemy.gd" type="Script" id=1]
 [ext_resource path="res://scenes/enemy/EnemyFinal.png" type="Texture" id=2]
+[ext_resource path="res://scenes/enemy/shoot.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 468.221
@@ -50,6 +51,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 48, 70 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("../AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
 }
 
 [sub_resource type="Animation" id=5]
@@ -106,9 +121,6 @@ position = Vector2( -1, 0 )
 script = ExtResource( 1 )
 
 [node name="body" type="Area2D" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
 position = Vector2( 2.21179, 4.42355 )
@@ -119,10 +131,7 @@ position = Vector2( -1.02532, -1.0252 )
 texture = ExtResource( 2 )
 vframes = 7
 hframes = 12
-frame = 83
-__meta__ = {
-"_edit_lock_": true
-}
+frame = 48
 
 [node name="AnimationEnemy" type="AnimationPlayer" parent="EnemySprite"]
 anims/climbing = SubResource( 2 )
@@ -142,3 +151,6 @@ shape = SubResource( 9 )
 disabled = true
 
 [node name="LightBox" type="LightOccluder2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
