@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/act_1/preparation_scene/Preparation_scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/preparation_scene/preparation_scene.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=10]
+[ext_resource path="res://music/Joel Quarrington-Sonata For Solo Contrabass- Op. 108- II. Allegretto-kissvk.com_10.wav" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7500, 10 )
@@ -83,3 +84,7 @@ scale = Vector2( 1.2, 1.2 )
 modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
 position = Vector2( -7079.97, -19.047 )
 scale = Vector2( 1.2, 1.2 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+autoplay = true

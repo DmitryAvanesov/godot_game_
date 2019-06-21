@@ -52,7 +52,7 @@ position = Vector2( 783.442, -272.099 )
 shape = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 489.817, -234.998 )
+position = Vector2( 471.181, -234.998 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="LadderArea2D" parent="." instance=ExtResource( 4 )]
@@ -63,7 +63,7 @@ scale = Vector2( 1, 1.35 )
 position = Vector2( -1548.88, 152.814 )
 
 [node name="Enemy2" parent="." instance=ExtResource( 6 )]
-position = Vector2( -88.6565, 300.096 )
+position = Vector2( -205.131, 262.824 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
@@ -84,3 +84,6 @@ scale = Vector2( 0.7, 0.9 )
 [node name="ObstacleSprite" parent="." instance=ExtResource( 8 )]
 position = Vector2( 99.2268, -100.762 )
 scale = Vector2( 0.042, 0.042 )
+
+[node name="Enemy" parent="." instance=ExtResource( 6 )]
+position = Vector2( -96.9968, -286.461 )
