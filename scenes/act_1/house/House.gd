@@ -15,3 +15,9 @@ func setLimits():
 	
 func _ready():
 	setLimits()
+	
+func _physics_process(delta):
+	if (GLOBAL.playerCoordinates.x > -450 && GLOBAL.playerCoordinates.x < -150 && GLOBAL.playerCoordinates.y > 0):
+		$Label.visible = true
+	else:
+		$Label.visible = false
