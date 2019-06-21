@@ -14,6 +14,7 @@ var curSquatCoef = 1
 const LIFT_SPEED = 200
 var isUsingLadder = false
 var reloadTimer = 120
+var ladderTimer = GLOBAL.houseLadderHeight / 2
 
 
 # sending data to the GLOBAL scope
@@ -108,24 +109,28 @@ func lift():
 		if (Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down")):
 			isUsingLadder = true
 			velocity.x = 0
-			position.x = GLOBAL.ladderCoordinates.x
+			position.x = GLOBAL.houseLadderCoordinate
 		
 			if Input.is_action_just_pressed("ui_up"):
 				velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
 			elif Input.is_action_pressed("ui_down"):
 				velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
 	else:
-		$PlayerSprite/AnimationPlayer.play("usingLadder")	
-		var gap = GLOBAL.ladderSize * GLOBAL.sceneScaleCoef * 300
+		$PlayerSprite/AnimationPlayer.play("usingLadder")
+		$PlayerCollisionShape.disabled = true
 		
 		if Input.is_action_just_pressed("ui_up"):
 			velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
 		elif Input.is_action_pressed("ui_down"):
 			velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
 		
-		if abs(position.y - GLOBAL.ladderCoordinates.y) > gap || is_on_floor():
+		if ladderTimer == 0:
 			isUsingLadder = false
 			$PlayerSprite/AnimationPlayer.play("standing")
+			ladderTimer = GLOBAL.houseLadderHeight / 2
+			$PlayerCollisionShape.disabled = false
+			
+		ladderTimer -= 1
 
 # get into a shelter		
 func hide():
@@ -158,7 +163,7 @@ func _physics_process(delta):
 					movement()
 					squat()
 					
-				if !GLOBAL.ableToGoUp:
+				if !abs(position.x - GLOBAL.houseLadderCoordinate) < 20:
 					gravity()
 				else:
 					lift()

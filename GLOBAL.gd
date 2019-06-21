@@ -8,7 +8,6 @@ var unableToMoveRight
 var unableToMoveLeft
 var rightCounter = 0
 var leftCounter = 0
-var ableToGoUp
 var goNextCounter = 0
 var ableToGoNext
 var ladderCounter = 0
@@ -27,6 +26,8 @@ var player_move_direction
 var is_player_squat
 var is_enemy_sees_player
 var playerIsKilling = false
+var houseLadderCoordinate = 705
+var houseLadderHeight = 480
 
 func get_next_scene():	
 	var next_scene = ''
@@ -60,14 +61,6 @@ func interactionsWithObstacles():
 	rightCounter = 0
 	leftCounter = 0
 	
-func interactionsWithLadders():
-	if ladderCounter > 0:
-		ableToGoUp = true
-	else:
-		ableToGoUp = false
-		
-	ladderCounter = 0
-	
 func interactionsWithGoNext():
 	if goNextCounter > 0:
 		ableToGoNext = true
@@ -83,8 +76,7 @@ func interactionsWithShelters():
 		
 	shelterCounter = 0
 
-func _physics_process(delta):	
+func _physics_process(delta):
 	interactionsWithObstacles()
-	interactionsWithLadders()
 	interactionsWithShelters()
 	interactionsWithGoNext()

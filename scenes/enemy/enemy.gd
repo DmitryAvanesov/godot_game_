@@ -335,7 +335,7 @@ func visualizeSuspicions():
 
 # remembering the ladder that a player used
 func checkForLadderUsing():
-	if GLOBAL.ableToGoUp && abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
+	if usingLadder && abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
 		ladderCoordinate = GLOBAL.playerCoordinates.x
 		
 func lift():		

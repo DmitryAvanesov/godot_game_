@@ -13,8 +13,5 @@ func setLimits():
 	GLOBAL.leftMoveLimit = $Player/PlayerCamera.limit_left + 150
 	GLOBAL.rightMoveLimit = $Player/PlayerCamera.limit_right - 150
 	
-	var ladderCoordinate = 705
-	var ladderHeight = 500
-	
 func _ready():
 	setLimits()
