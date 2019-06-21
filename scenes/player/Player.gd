@@ -15,6 +15,7 @@ const LIFT_SPEED = 200
 var isUsingLadder = false
 var reloadTimer = 120
 var ladderTimer = GLOBAL.houseLadderHeight / 2
+var ladderDirection
 
 
 # sending data to the GLOBAL scope
@@ -106,23 +107,25 @@ func lift():
 	if !isUsingLadder:
 		velocity.y = 0
 		
-		if (Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down")):
+		if (Input.is_action_just_pressed("ui_up") && position.y > 0) ||\
+		(Input.is_action_just_pressed("ui_down") && position.y < 0):
 			isUsingLadder = true
 			velocity.x = 0
 			position.x = GLOBAL.houseLadderCoordinate
 		
 			if Input.is_action_just_pressed("ui_up"):
-				velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
+				ladderDirection = 0
 			elif Input.is_action_pressed("ui_down"):
-				velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
+				ladderDirection = 1
 	else:
 		$PlayerSprite/AnimationPlayer.play("usingLadder")
 		$PlayerCollisionShape.disabled = true
 		
-		if Input.is_action_just_pressed("ui_up"):
+		if ladderDirection == 0:
 			velocity.y = -LIFT_SPEED * GLOBAL.sceneScaleCoef
-		elif Input.is_action_pressed("ui_down"):
+		else:
 			velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
+		
 		
 		if ladderTimer == 0:
 			isUsingLadder = false
