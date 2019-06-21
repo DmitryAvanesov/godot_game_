@@ -126,7 +126,6 @@ func lift():
 		else:
 			velocity.y = LIFT_SPEED * GLOBAL.sceneScaleCoef
 		
-		
 		if ladderTimer == 0:
 			isUsingLadder = false
 			$PlayerSprite/AnimationPlayer.play("standing")

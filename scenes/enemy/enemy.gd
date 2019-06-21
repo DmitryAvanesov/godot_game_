@@ -38,6 +38,7 @@ var enemy_pos = Vector2(0, 0)
 var vision_sizes
 var isDead = false
 var dieTimer = 160
+var ladderTimer = GLOBAL.houseLadderHeight / 2
 
 # initial crap
 func _ready():
@@ -272,9 +273,9 @@ func playerVisibilityCheck():
 				elif (player_pos.x > enemy_pos.x):
 					_move("right", SPEED + 50)
 			else:
-				if (ladderCoordinate < enemy_pos.x):
+				if (GLOBAL.houseLadderCoordinate < enemy_pos.x):
 					_move("left", SPEED + 50)
-				elif (ladderCoordinate > enemy_pos.x):
+				elif (GLOBAL.LadderCoordinate > enemy_pos.x):
 					_move("right", SPEED + 50)
 				
 	else:
@@ -338,8 +339,7 @@ func checkForLadderUsing():
 	if usingLadder && abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
 		ladderCoordinate = GLOBAL.playerCoordinates.x
 		
-func lift():		
-	var gap = GLOBAL.ladderSize * GLOBAL.sceneScaleCoef * 280
+func lift():
 	$EnemySprite/AnimationEnemy.play("usingLadder")
 	
 	velocity.x = 0
@@ -348,9 +348,13 @@ func lift():
 		velocity.y = SPEED * GLOBAL.sceneScaleCoef
 	else:
 		velocity.y = -SPEED * GLOBAL.sceneScaleCoef
-	if abs(position.y - GLOBAL.ladderCoordinates.y) > gap:
+
+	if ladderTimer == 0:
 		usingLadder = false
 		$EnemySprite/AnimationEnemy.play("standing")
+		ladderTimer = GLOBAL.houseLadderHeight / 2
+		
+	ladderTimer -= 1
 
 # main func
 func _physics_process(delta):
@@ -367,16 +371,16 @@ func _physics_process(delta):
 			playerVisibilityCheck()
 			visualizeSuspicions()
 			checkForLadderUsing()
-							
 			kill_the_enemy()
+			
 		elif usingLadder:
-			if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
+			if abs(GLOBAL.houseLadderCoordinate - position.x) < 20:
 				lift()
-			else:			
-				if (GLOBAL.playerCoordinates.x < position.x):
-					_move("left", SPEED * GLOBAL.sceneScaleCoef)
-				else:
-	                _move("right", SPEED * GLOBAL.sceneScaleCoef)
+#			else:			
+#				if (GLOBAL.playerCoordinates.x < position.x):
+#					_move("left", SPEED * GLOBAL.sceneScaleCoef)
+#				else:
+#	                _move("right", SPEED * GLOBAL.sceneScaleCoef)
 		elif shooting:
 			shot()
 			
