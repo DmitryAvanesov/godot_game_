@@ -28,7 +28,7 @@ var is_player_squat
 var is_enemy_sees_player
 var playerIsKilling = false
 
-func get_next_scene():
+func get_next_scene():	
 	var next_scene = ''
 	if last_scene == 'res://scenes/act_1/preparation_scene/Preparation_scene.tscn':
 		next_scene ='res://scenes/act_1/town/Town.tscn'

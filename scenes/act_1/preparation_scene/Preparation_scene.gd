@@ -41,7 +41,9 @@ func _physics_process(delta):
 		updateHint("Press X to hide in a shelter")
 	if GLOBAL.playerCoordinates.x > -3000 && GLOBAL.playerCoordinates.x < -2000:
 		updateHint("Press C to squat")
-	if GLOBAL.playerCoordinates.x > -2000 && GLOBAL.playerCoordinates.x < 1500:
+	if GLOBAL.playerCoordinates.x > -2000 && GLOBAL.playerCoordinates.x < 500:
 		updateHint("Press V to kill your enemy from the back")
+	if GLOBAL.playerCoordinates.x > 500 && GLOBAL.playerCoordinates.x < 1500:
+		updateHint("")
 	if GLOBAL.playerCoordinates.x > 1500:
 		updateHint("Press Q to wake up")
