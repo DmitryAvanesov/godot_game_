@@ -278,19 +278,8 @@ func playerVisibilityCheck():
 					_move("right", SPEED + 50)
 				
 	else:
-		# a player is on another level
-		if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP && suspicions > 40:			
-			if (abs(position.x - ladderCoordinate) > 10):
-				if (ladderCoordinate < enemy_pos.x):
-					_move("left", SPEED + 50)
-				elif (ladderCoordinate > enemy_pos.x):
-					_move("right", SPEED + 50)
-			else:
-				usingLadder = true
-		# a player is on the same level
-		else:
-			if abs(position.x - ladderCoordinate) < 200:
-				velocity.y = 0
+		if abs(position.x - ladderCoordinate) < 200:
+			velocity.y = 0
 #			if (suspicions > 60 && abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2):
 #				if ($EnemySprite.flip_h == true && position.x < GLOBAL.playerCoordinates.x):
 #					$EnemySprite.flip_h = false
@@ -298,31 +287,31 @@ func playerVisibilityCheck():
 #				elif ($EnemySprite.flip_h == false && position.x > GLOBAL.playerCoordinates.x):
 #					$EnemySprite.flip_h = true
 #					playerVisibilityCheck()
-			# start position patrol
-			if (if_enemy_in_start_pos == true):
-				_patrol(START_ENEMY_POS, SPEED)
+		# start position patrol
+		if (if_enemy_in_start_pos == true):
+			_patrol(START_ENEMY_POS, SPEED)
+		else:
+			# enemy stopped when he lost player
+			if (stay == true && counter_timer_stay < 200):
+				_move("stay", 0)
+				counter_timer_stay += 1
+			elif (stay == true):
+				stay = false
 			else:
-				# enemy stopped when he lost player
-				if (stay == true && counter_timer_stay < 200):
-					_move("stay", 0)
-					counter_timer_stay += 1
-				elif (stay == true):
-					stay = false
+				# enemy patrols (looking for a player)
+				if (kind_of_patrol == 1 && lose_sight_of != null && counter_timer_looking_player < 1000):
+					_patrol(lose_sight_of, SPEED)
+					counter_timer_looking_player += 1
+				# enemy goes to the start position
+				# OK F*CK GO BACK sad :(
+				elif (abs(enemy_pos.x - START_ENEMY_POS.x) < 30):
+					# STAY HERE MOTHERF*CKER that's your home n*gga
+					_move("stay", SPEED)
+					if_enemy_in_start_pos = true
+				elif (enemy_pos.x < START_ENEMY_POS.x):
+					_move("right", SPEED)
 				else:
-					# enemy patrols (looking for a player)
-					if (kind_of_patrol == 1 && lose_sight_of != null && counter_timer_looking_player < 1000):
-						_patrol(lose_sight_of, SPEED)
-						counter_timer_looking_player += 1
-					# enemy goes to the start position
-					# OK F*CK GO BACK sad :(
-					elif (abs(enemy_pos.x - START_ENEMY_POS.x) < 30):
-						# STAY HERE MOTHERF*CKER that's your home n*gga
-						_move("stay", SPEED)
-						if_enemy_in_start_pos = true
-					elif (enemy_pos.x < START_ENEMY_POS.x):
-						_move("right", SPEED)
-					else:
-						_move("left", SPEED)
+					_move("left", SPEED)
 					
 # a scale over an enemy's head				
 func visualizeSuspicions():
@@ -333,29 +322,10 @@ func visualizeSuspicions():
 	
 	suspicionsScale.value = suspicions
 
-# remembering the ladder that a player used
-func checkForLadderUsing():
-	if usingLadder && abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
-		ladderCoordinate = GLOBAL.playerCoordinates.x
-		
-func lift():		
-	var gap = GLOBAL.ladderSize * GLOBAL.sceneScaleCoef * 280
-	$EnemySprite/AnimationEnemy.play("usingLadder")
-	
-	velocity.x = 0
-	
-	if GLOBAL.playerCoordinates.y > position.y:
-		velocity.y = SPEED * GLOBAL.sceneScaleCoef
-	else:
-		velocity.y = -SPEED * GLOBAL.sceneScaleCoef
-	if abs(position.y - GLOBAL.ladderCoordinates.y) > gap:
-		usingLadder = false
-		$EnemySprite/AnimationEnemy.play("standing")
-
 # main func
 func _physics_process(delta):
 	if !isDead:
-		if !usingLadder && !shooting:
+		if !shooting:
 			gravity()
 				
 			if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
@@ -365,19 +335,9 @@ func _physics_process(delta):
 				seesPlayer = false
 			
 			playerVisibilityCheck()
-			visualizeSuspicions()
-			checkForLadderUsing()
-							
+			visualizeSuspicions()							
 			kill_the_enemy()
-		elif usingLadder:
-			if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
-				lift()
-			else:			
-				if (GLOBAL.playerCoordinates.x < position.x):
-					_move("left", SPEED * GLOBAL.sceneScaleCoef)
-				else:
-	                _move("right", SPEED * GLOBAL.sceneScaleCoef)
-		elif shooting:
+		else:
 			shot()
 			
 		velocity = move_and_slide(velocity, Vector2(0, -1))
