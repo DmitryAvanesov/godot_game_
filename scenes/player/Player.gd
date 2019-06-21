@@ -148,7 +148,7 @@ func goNext():
 
 # main function containing all processes
 func _physics_process(delta):
-	if !GLOBAL.playerIsDead:
+	if !GLOBAL.playerIsDead && !GLOBAL.playerIsKilling:
 		globalUpdate()
 		goNext()
 		
@@ -170,12 +170,14 @@ func _physics_process(delta):
 			climbingProcess()
 
 		velocity = move_and_slide(velocity, Vector2(0, -1))
-	else:
+	elif GLOBAL.playerIsDead:
 		$PlayerSprite/AnimationPlayer.play("dying")
 		if reloadTimer == 0:
 			GLOBAL.playerIsDead = false
 			get_tree().reload_current_scene()
 		reloadTimer -= 1
+	elif GLOBAL.playerIsKilling:
+		$PlayerSprite/AnimationPlayer.play("killing")
 		
 func save():
 	var save_dict = {

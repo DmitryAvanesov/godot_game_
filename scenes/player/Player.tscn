@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/player/Player.gd" type="Script" id=1]
-[ext_resource path="res://scenes/player/CharacterFinal.png" type="Texture" id=2]
+[ext_resource path="res://scenes/player/FinalCharacterFinal.png" type="Texture" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "climbing"
@@ -33,6 +33,37 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 56, 69 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "interacting"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 84, 87 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "killing"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 98, 107 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -113,14 +144,16 @@ smoothing_enabled = true
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 6
+vframes = 8
 hframes = 14
-frame = 69
+frame = 108
 region_rect = Rect2( 41, 9, 51, 135 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerSprite"]
 anims/climbing = SubResource( 1 )
 anims/dying = SubResource( 2 )
+anims/interacting = SubResource( 8 )
+anims/killing = SubResource( 9 )
 anims/squating = SubResource( 3 )
 anims/standing = SubResource( 4 )
 anims/usingLadder = SubResource( 5 )

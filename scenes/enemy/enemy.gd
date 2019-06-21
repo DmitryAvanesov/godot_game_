@@ -36,6 +36,8 @@ var hint
 var usingLadder = false
 var enemy_pos = Vector2(0, 0)
 var vision_sizes
+var isDead = false
+var dieTimer = 160
 
 # initial crap
 func _ready():
@@ -123,12 +125,13 @@ func shot():
 # player kills the enemy
 func kill_the_enemy():
 	var enemy_dir = $EnemySprite.flip_h
-	if (abs(GLOBAL.playerCoordinates.x - position.x) < 150 * GLOBAL.sceneScaleCoef &&\
+	if (abs(GLOBAL.playerCoordinates.x - position.x) < 200 * GLOBAL.sceneScaleCoef &&\
 	abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP && GLOBAL.player_move_direction == enemy_dir) &&\
 	!GLOBAL.playerIsHidden:
 		get_child(6).visible = true
 		if Input.is_action_just_pressed("ui_kill"):
-			queue_free()
+			isDead = true
+			GLOBAL.playerIsKilling = true
 	else:
 		get_child(6).visible = false
 
@@ -233,7 +236,6 @@ func playerVisibilityCheck():
 	var player_pos = GLOBAL.playerCoordinates
 	var enemy_pos = position
 	
-	
 	# true - left, false - right
 	var direction = $EnemySprite.flip_h
 	
@@ -274,7 +276,8 @@ func playerVisibilityCheck():
 					_move("left", SPEED + 50)
 				elif (ladderCoordinate > enemy_pos.x):
 					_move("right", SPEED + 50)
-	else:	
+				
+	else:
 		# a player is on another level
 		if abs(GLOBAL.playerCoordinates.y - position.y) > HEIGHT_GAP && suspicions > 40:			
 			if (abs(position.x - ladderCoordinate) > 10):
@@ -313,7 +316,7 @@ func playerVisibilityCheck():
 					# enemy goes to the start position
 					# OK F*CK GO BACK sad :(
 					elif (abs(enemy_pos.x - START_ENEMY_POS.x) < 30):
-						# STAY HERE MOTHERF*CKER that's your home nigga
+						# STAY HERE MOTHERF*CKER that's your home n*gga
 						_move("stay", SPEED)
 						if_enemy_in_start_pos = true
 					elif (enemy_pos.x < START_ENEMY_POS.x):
@@ -339,8 +342,6 @@ func lift():
 	var gap = GLOBAL.ladderSize * GLOBAL.sceneScaleCoef * 280
 	$EnemySprite/AnimationEnemy.play("usingLadder")
 	
-	print(abs(position.y - GLOBAL.ladderCoordinates.y), " ", gap)
-	
 	velocity.x = 0
 	
 	if GLOBAL.playerCoordinates.y > position.y:
@@ -353,33 +354,42 @@ func lift():
 
 # main func
 func _physics_process(delta):
-	if !usingLadder && !shooting:
-		gravity()
-			
-		if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
-		(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
-			lookForPlayer()
-		else:
-			seesPlayer = false
-		
-		playerVisibilityCheck()
-		visualizeSuspicions()
-		checkForLadderUsing()
-						
-		kill_the_enemy()
-		#showHideHint()
-	elif usingLadder:
-		if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
-			lift()
-		else:
-			if (GLOBAL.playerCoordinates.x < position.x):
-				_move("left", SPEED * GLOBAL.sceneScaleCoef)
+	if !isDead:
+		if !usingLadder && !shooting:
+			gravity()
+				
+			if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
+			(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
+				lookForPlayer()
 			else:
-                _move("right", SPEED * GLOBAL.sceneScaleCoef)
-	elif shooting:
-		shot()
+				seesPlayer = false
+			
+			playerVisibilityCheck()
+			visualizeSuspicions()
+			checkForLadderUsing()
+							
+			kill_the_enemy()
+		elif usingLadder:
+			if (abs(GLOBAL.playerCoordinates.y - position.y) > 30):
+				lift()
+			else:			
+				if (GLOBAL.playerCoordinates.x < position.x):
+					_move("left", SPEED * GLOBAL.sceneScaleCoef)
+				else:
+	                _move("right", SPEED * GLOBAL.sceneScaleCoef)
+		elif shooting:
+			shot()
+			
+		velocity = move_and_slide(velocity, Vector2(0, -1))
+	else:		
+		if dieTimer < 120:
+			$EnemySprite/AnimationEnemy.play("dying")
+			GLOBAL.playerIsKilling = false
 		
-	velocity = move_and_slide(velocity, Vector2(0, -1))
+		if dieTimer == 0:
+			queue_free()
+		dieTimer -= 1
+		
 	
 func save():
 	var save_dict = {

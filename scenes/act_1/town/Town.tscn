@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/act_1/town/Town.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -33,3 +34,6 @@ scale = Vector2( 0.4, 0.4 )
 [node name="ObstacleSprite" parent="." instance=ExtResource( 5 )]
 position = Vector2( -825.677, 435.36 )
 scale = Vector2( 0.024, 0.024 )
+
+[node name="To_next_location" parent="." instance=ExtResource( 6 )]
+position = Vector2( 608.872, 282.803 )

@@ -26,6 +26,7 @@ var playerIsDead = false
 var player_move_direction
 var is_player_squat
 var is_enemy_sees_player
+var playerIsKilling = false
 
 func get_next_scene():
 	var next_scene = ''
