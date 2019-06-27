@@ -141,7 +141,8 @@ func hide():
 		if (abs(GLOBAL.playerCoordinates.x - i["x"]) < 130 * GLOBAL.sceneScaleCoef &&\
 		abs(GLOBAL.playerCoordinates.y - i["y"]) < 130 * GLOBAL.sceneScaleCoef && i["scene"] == GLOBAL.scene):
 			if GLOBAL.triggeredEnemies == 0 &&\
-			Input.is_action_just_pressed("ui_hide") && !GLOBAL.is_enemy_sees_player:
+			Input.is_action_just_pressed("ui_hide") && !GLOBAL.is_enemy_sees_player &&\
+			velocity.x == 0 && velocity.y == 0:
 				if !GLOBAL.playerIsHidden:
 					GLOBAL.playerIsHidden = true
 					$PlayerSprite.visible = false

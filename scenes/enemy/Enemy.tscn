@@ -8,6 +8,7 @@ radius = 468.221
 
 [sub_resource type="Animation" id=2]
 resource_name = "climbing"
+length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -15,7 +16,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 1.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 24, 33 ]
@@ -119,7 +120,7 @@ position = Vector2( -1.02532, -1.0252 )
 texture = ExtResource( 2 )
 vframes = 7
 hframes = 12
-frame = 83
+frame = 33
 __meta__ = {
 "_edit_lock_": true
 }
