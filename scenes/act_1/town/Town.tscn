@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=5]
+[ext_resource path="res://music/Roger Reynolds-imAge-contrabass-kissvk.com.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -30,10 +30,6 @@ scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
 
-[node name="To_next_location" parent="." instance=ExtResource( 5 )]
-position = Vector2( 627.049, 321.428 )
-scale = Vector2( 0.5, 0.5 )
-
 [node name="Label" type="Label" parent="."]
 margin_left = -1231.0
 margin_top = 176.507
@@ -49,3 +45,50 @@ margin_right = -632.544
 margin_bottom = 190.359
 rect_scale = Vector2( 1.4, 1.4 )
 text = "I could not sleep until morning"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
+
+[node name="Label3" type="Label" parent="."]
+margin_left = -162.008
+margin_top = 133.615
+margin_right = -36.0077
+margin_bottom = 164.615
+rect_scale = Vector2( 1.3, 1.3 )
+text = "I had to walk 
+a little"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 397.503
+margin_top = 207.103
+margin_right = 587.503
+margin_bottom = 221.103
+rect_scale = Vector2( 1.2, 1.2 )
+text = "I hope"
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 486.023
+margin_top = 207.103
+margin_right = 566.023
+margin_bottom = 221.103
+rect_scale = Vector2( 1.2, 1.2 )
+text = "my daughter"
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 694.681
+margin_top = 209.0
+margin_right = 734.681
+margin_bottom = 223.0
+rect_scale = Vector2( 1.2, 1.2 )
+text = "slept"
+
+[node name="Label7" type="Label" parent="."]
+margin_left = 801.688
+margin_top = 208.773
+margin_right = 841.688
+margin_bottom = 222.773
+rect_scale = Vector2( 1.2, 1.2 )
+text = "well"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/act_1/house/House.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://music/Joel Quarrington-Sonata For Solo Contrabass- Op. 108- II. Allegretto-kissvk.com_10.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1072.05, 10 )
@@ -78,3 +79,7 @@ scale = Vector2( 0.042, 0.042 )
 [node name="ObstacleSprite2" parent="." instance=ExtResource( 6 )]
 position = Vector2( -75, 442 )
 scale = Vector2( 0.042, 0.042 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
