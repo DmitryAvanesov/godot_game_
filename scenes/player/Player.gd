@@ -27,6 +27,7 @@ func globalUpdate():
 func movement():
 	if Input.is_action_pressed("ui_right") && !GLOBAL.unableToMoveRight &&\
 	position.x < GLOBAL.rightMoveLimit:
+		GLOBAL.is_player_moving = true
 		velocity.x = WALKING_SPEED * GLOBAL.sceneScaleCoef * curSquatCoef
 		$PlayerSprite.flip_h = false
 		$LightBox.position = Vector2(-5, 10)
@@ -37,6 +38,7 @@ func movement():
 			
 	elif Input.is_action_pressed("ui_left") && !GLOBAL.unableToMoveLeft &&\
 	position.x > GLOBAL.leftMoveLimit:
+		GLOBAL.is_player_moving = true
 		velocity.x = -WALKING_SPEED * GLOBAL.sceneScaleCoef * curSquatCoef
 		$PlayerSprite.flip_h = true
 		$LightBox.position = Vector2(35, 10)
@@ -46,6 +48,7 @@ func movement():
 			$PlayerSprite/AnimationPlayer.play("squating")
 		
 	else:
+		GLOBAL.is_player_moving = false
 		velocity.x = 0
 		$PlayerSprite/AnimationPlayer.play("standing")
 

@@ -29,6 +29,7 @@ func updateHint(text):
 	GLOBAL.playerCoordinates.y - 400)
 	
 func _ready():
+	GLOBAL.dialog_counter += 1
 	setLimits()
 	createHint()
 

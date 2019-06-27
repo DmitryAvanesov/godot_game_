@@ -94,6 +94,7 @@ func gravity():
 		
 # player dies
 func die():
+	GLOBAL.dialog_counter -= 1
 	GLOBAL.playerIsDead = true
 	if get_node("../Player/PlayerSprite").flip_h == true:
 		get_node("../Player").position.x -= 75
