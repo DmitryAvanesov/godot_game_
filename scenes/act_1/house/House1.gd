@@ -47,7 +47,7 @@ func talk_to_daughter():
 			
 			
 func talk_to_enemy2():
-	if (GLOBAL.is_player_next_to_enemy2):
+	if (GLOBAL.is_player_next_to_enemy2 && $Enemy.visible == true):
 		dialog_timer += 1
 		if (dialog_timer > 800 && dialog_timer < 950):
 			$Label6.visible = true

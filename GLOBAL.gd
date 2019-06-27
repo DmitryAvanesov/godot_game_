@@ -85,9 +85,9 @@ var obstacle_coordinates = [{
 func get_next_scene():	
 	var next_scene = ''
 	if last_scene == 'res://scenes/act_1/preparation_scene/Preparation_scene.tscn':
-		next_scene ='res://scenes/act_1/town/Town.tscn'
+		next_scene ='res://scenes/act_1/town/Town1.tscn'
 		last_scene = next_scene
-	elif last_scene == 'res://scenes/act_1/town/Town.tscn' && not haveBeenInHouse:
+	elif last_scene == 'res://scenes/act_1/town/Town1.tscn' && not haveBeenInHouse:
 		next_scene ='res://scenes/act_1/house/House1.tscn'
 		last_scene = next_scene
 		haveBeenInHouse = true
