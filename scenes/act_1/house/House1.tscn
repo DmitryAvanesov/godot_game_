@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/act_1/house/House1.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=8]
 [ext_resource path="res://scenes/daughter/Daughter.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/enemy/Enemy2.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1072.05, 10 )
@@ -174,5 +175,7 @@ margin_bottom = 52.2664
 rect_scale = Vector2( 1.3, 1.3 )
 text = "Can I say goodbye to my daughter?"
 
-[node name="To_next_location" parent="." instance=ExtResource( 10 )]
-position = Vector2( -946.421, 278.768 )
+[node name="Enemy" parent="." instance=ExtResource( 11 )]
+visible = false
+position = Vector2( -866.839, 335.527 )
+scale = Vector2( 0.7, 0.7 )

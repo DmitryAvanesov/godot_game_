@@ -43,6 +43,7 @@ func talk_to_daughter():
 			$Label5.visible = true
 		elif (dialog_timer > 800):
 			$Label5.visible = false
+			$Enemy.visible = true
 			
 			
 func talk_to_enemy2():
