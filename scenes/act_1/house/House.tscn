@@ -57,7 +57,7 @@ shape = SubResource( 3 )
 "gg",
 "People",
 ] instance=ExtResource( 3 )]
-position = Vector2( -786.65, 319.025 )
+position = Vector2( -767.81, 272.673 )
 scale = Vector2( 0.7, 0.7 )
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
@@ -89,6 +89,7 @@ autoplay = true
 [node name="Pause" parent="." instance=ExtResource( 7 )]
 
 [node name="Start_text" type="CanvasLayer" parent="."]
+editor/display_folded = true
 script = ExtResource( 8 )
 
 [node name="Start_text" type="Control" parent="Start_text"]
