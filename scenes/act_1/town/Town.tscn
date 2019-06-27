@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/act_1/town/Town.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=6]
 [ext_resource path="res://music/Roger Reynolds-imAge-contrabass-kissvk.com.wav" type="AudioStream" id=7]
+[ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=8]
+[ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -15,6 +17,7 @@ extents = Vector2( 2052.71, 20 )
 script = ExtResource( 1 )
 
 [node name="town" type="Sprite" parent="."]
+editor/display_folded = true
 texture = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="town"]
@@ -43,3 +46,25 @@ scale = Vector2( 0.5, 0.5 )
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
 autoplay = true
+
+[node name="Start_text" type="CanvasLayer" parent="."]
+script = ExtResource( 8 )
+
+[node name="Start_text" type="Control" parent="Start_text"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Start_text/Start_text"]
+margin_right = 2000.0
+margin_bottom = 2000.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="Start_text/Start_text"]
+margin_left = 600.0
+margin_top = 400.0
+margin_right = 955.0
+margin_bottom = 471.0
+custom_fonts/font = ExtResource( 9 )
+text = "With No Meanings
+1734"
+align = 1
