@@ -5,6 +5,7 @@ var dialog_timer = 0
 func turn_labels_off():
 	$Label.visible = false
 	$Label2.visible = false
+	$Label3.visible = false
 
 # the limits for the current scene	
 func setLimits():
@@ -32,8 +33,22 @@ func _physics_process(delta):
 	GLOBAL.scene = "town"
 	if (!$Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
 		dialog_timer += 1
+	elif ($Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
+		dialog_timer -= 1
 	if (dialog_timer >= 0 && dialog_timer < 150):
 		$Label.visible = true
 	elif (dialog_timer >= 150 && dialog_timer < 250):
 		$Label.visible = false
 		$Label2.visible = true
+	elif (dialog_timer >= 350 && dialog_timer < 450):
+		$Label2.visible = false
+		$Label3.visible = true
+	elif (dialog_timer >= 700 && dialog_timer < 750):
+		$Label3.visible = false
+		$Label4.visible = true
+	elif (dialog_timer >= 750 && dialog_timer < 800):
+		$Label5.visible = true
+	elif (dialog_timer >= 800 && dialog_timer < 850):
+		$Label6.visible = true
+	elif (dialog_timer >= 850 && dialog_timer < 900):
+		$Label7.visible = true
