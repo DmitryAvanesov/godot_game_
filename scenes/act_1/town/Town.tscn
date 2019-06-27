@@ -27,8 +27,8 @@ position = Vector2( 1004.5, 778.987 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." groups=[
-"gg",
 "People",
+"gg",
 ] instance=ExtResource( 3 )]
 position = Vector2( -1184.72, 363.905 )
 scale = Vector2( 0.4, 0.4 )
@@ -125,3 +125,10 @@ stream = ExtResource( 8 )
 pitch_scale = 0.1
 autoplay = true
 attenuation = 1.8025
+
+[node name="Label8" type="Label" parent="."]
+margin_left = 621.968
+margin_top = 233.845
+margin_right = 661.968
+margin_bottom = 247.845
+text = "Q"

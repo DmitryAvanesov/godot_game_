@@ -59,3 +59,7 @@ func _physics_process(delta):
 		dialog_timer -= 1
 	if (GLOBAL.dialog_counter == 2):
 		dialog_counter_is_2()
+	if (GLOBAL.playerCoordinates.x > 575 && GLOBAL.playerCoordinates.x < 650):
+		$Label8.visible = true
+	else:
+		$Label8.visible = false
