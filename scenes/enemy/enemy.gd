@@ -380,8 +380,13 @@ func _physics_process(delta):
 			GLOBAL.playerIsKilling = false
 		
 		if dieTimer == 0:
-			queue_free()
-		dieTimer -= 1
+			$EnemySprite/AnimationEnemy.play("dead")
+			$EnemyCollisionShape.disabled = true
+			suspicionsScale.visible = false
+			get_child(6).visible = false
+			
+		if dieTimer > 0:
+			dieTimer -= 1
 		
 	
 func save():
