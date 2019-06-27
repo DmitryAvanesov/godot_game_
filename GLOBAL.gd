@@ -29,6 +29,7 @@ var playerIsKilling = false
 var houseLadderCoordinate = 705
 var houseLadderHeight = 480
 var scene
+var dialog_counter = 0
 var shelter_coordinates = [{
 	"scene" : "house",
 	"x" : 310,

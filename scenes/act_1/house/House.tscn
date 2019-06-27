@@ -67,6 +67,10 @@ shape = SubResource( 4 )
 position = Vector2( -302.333, -228.444 )
 scale = Vector2( 0.7, 0.9 )
 
+[node name="ShelterArea2D3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 307.539, 309.678 )
+scale = Vector2( 0.7, 0.9 )
+
 [node name="ObstacleSprite" parent="." instance=ExtResource( 6 )]
 position = Vector2( 99.2268, -100.762 )
 scale = Vector2( 0.042, 0.042 )

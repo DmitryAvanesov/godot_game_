@@ -1,5 +1,7 @@
 extends "res://scenes/act_1/FuncLoadScene.gd"
 
+var dialog_timer = 0
+
 # the limits for the current scene	
 func setLimits():
 	GLOBAL.sceneScaleCoef = $Player.scale.x
@@ -20,5 +22,7 @@ func setLimits():
 			
 func _ready():
 	setLimits()
+	GLOBAL.dialog_counter += 1
 func _physics_process(delta):
 	GLOBAL.scene = "town"
+	dialog_timer += 1

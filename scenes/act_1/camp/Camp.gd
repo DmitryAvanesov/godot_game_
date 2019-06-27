@@ -15,6 +15,7 @@ func setLimits():
 	GLOBAL.rightMoveLimit = $Player/PlayerCamera.limit_right - 150
 	
 func _ready():
+	GLOBAL.dialog_counter += 1
 	setLimits()
 func _physics_process(delta):
 	GLOBAL.scene = "camp"
