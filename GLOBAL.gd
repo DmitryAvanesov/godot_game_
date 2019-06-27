@@ -42,6 +42,26 @@ var shelter_coordinates = [{
 	"x" : -302,
 	"y" : -228	
 },{
+	"scene" : "house2",
+	"x" : 310,
+	"y" : 300
+},{
+	"scene" : "house2",
+	"x" : -302,
+	"y" : -228	
+},{
+	"scene" : "town3",
+	"x" : 42,
+	"y" : 330	
+},{
+	"scene" : "town3",
+	"x" : 1245,
+	"y" : 330	
+},{
+	"scene" : "town3",
+	"x" : 1710,
+	"y" : 330	
+},{
 	"scene" : "camp",
 	"x" : 1254,
 	"y" : 1630	

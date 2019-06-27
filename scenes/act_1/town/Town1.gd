@@ -52,7 +52,7 @@ func _ready():
 	turn_labels_off()
 	GLOBAL.dialog_counter += 1
 func _physics_process(delta):
-	GLOBAL.scene = "town"
+	GLOBAL.scene = "town1"
 	if (!$Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
 		dialog_timer += 1
 	elif ($Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
