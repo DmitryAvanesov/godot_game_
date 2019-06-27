@@ -33,3 +33,19 @@ scale = Vector2( 0.4, 0.4 )
 [node name="To_next_location" parent="." instance=ExtResource( 5 )]
 position = Vector2( 627.049, 321.428 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -1231.0
+margin_top = 176.507
+margin_right = -963.0
+margin_bottom = 190.507
+rect_scale = Vector2( 1.4, 1.4 )
+text = "There was a nightmare in my head again..."
+
+[node name="Label2" type="Label" parent="."]
+margin_left = -830.544
+margin_top = 176.359
+margin_right = -632.544
+margin_bottom = 190.359
+rect_scale = Vector2( 1.4, 1.4 )
+text = "I could not sleep until morning"
