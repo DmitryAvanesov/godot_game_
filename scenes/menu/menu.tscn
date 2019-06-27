@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/menu/Ruined City Background Preview.png" type="Texture" id=1]
 [ext_resource path="res://scenes/menu/background.jpg" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/menu/options.png" type="Texture" id=7]
 [ext_resource path="res://scenes/menu/exit.png" type="Texture" id=8]
 [ext_resource path="res://scenes/menu/ExitButton.gd" type="Script" id=9]
+[ext_resource path="res://music/Klaus Trumpf- Manfred Schumann-Sonata for Viola and Contrabass in D Major- II. Romanze. Adagio-kissvk.com.wav" type="AudioStream" id=10]
 
 [node name="Menu" type="MarginContainer"]
 margin_right = 320.0
@@ -79,3 +80,7 @@ script = ExtResource( 9 )
 position = Vector2( -240.982, -32.445 )
 current = true
 zoom = Vector2( 0.8, 0.8 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
