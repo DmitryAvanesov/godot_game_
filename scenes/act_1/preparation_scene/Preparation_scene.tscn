@@ -73,7 +73,10 @@ scale = Vector2( 1.5, 1.6 )
 position = Vector2( -5368.91, 258.812 )
 scale = Vector2( 0.072, 0.072 )
 
-[node name="Enemy" parent="." instance=ExtResource( 9 )]
+[node name="Enemy" parent="." groups=[
+"People",
+] instance=ExtResource( 9 )]
+modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
 position = Vector2( -759.199, 47.0679 )
 scale = Vector2( 1.2, 1.2 )
 
@@ -82,7 +85,7 @@ scale = Vector2( 1.2, 1.2 )
 "People",
 ] instance=ExtResource( 10 )]
 modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
-position = Vector2( -7079.97, -19.047 )
+position = Vector2( -6957.23, -2.30997 )
 scale = Vector2( 1.2, 1.2 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]

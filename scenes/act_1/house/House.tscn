@@ -53,11 +53,16 @@ editor/display_folded = true
 position = Vector2( 783.442, -272.099 )
 shape = SubResource( 3 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Player" parent="." groups=[
+"gg",
+"People",
+] instance=ExtResource( 3 )]
 position = Vector2( -786.65, 319.025 )
 scale = Vector2( 0.7, 0.7 )
 
-[node name="Enemy2" parent="." instance=ExtResource( 4 )]
+[node name="Enemy2" parent="." groups=[
+"People",
+] instance=ExtResource( 4 )]
 position = Vector2( 84.1294, -223.429 )
 scale = Vector2( 0.7, 0.7 )
 

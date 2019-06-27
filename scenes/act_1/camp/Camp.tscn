@@ -99,7 +99,9 @@ position = Vector2( -4462.99, 1538.45 )
 position = Vector2( 1254.83, 1630.6 )
 scale = Vector2( 2, 1 )
 
-[node name="Enemy" parent="." instance=ExtResource( 8 )]
+[node name="Enemy" parent="." groups=[
+"People",
+] instance=ExtResource( 8 )]
 position = Vector2( 1628.99, 1552.52 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
