@@ -3,10 +3,13 @@ extends "res://scenes/act_1/FuncLoadScene.gd"
 var dialog_timer = 0
 
 func turn_labels_off():
-	$Label.visible = false
+	$Label1.visible = false
 	$Label2.visible = false
 	$Label3.visible = false
-
+	$Label4.visible = false
+	$Label5.visible = false
+	$Label6.visible = false
+	$Label7.visible = false
 # the limits for the current scene	
 func setLimits():
 	GLOBAL.sceneScaleCoef = $Player.scale.x
@@ -36,9 +39,9 @@ func _physics_process(delta):
 	elif ($Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
 		dialog_timer -= 1
 	if (dialog_timer >= 0 && dialog_timer < 150):
-		$Label.visible = true
+		$Label1.visible = true
 	elif (dialog_timer >= 150 && dialog_timer < 250):
-		$Label.visible = false
+		$Label1.visible = false
 		$Label2.visible = true
 	elif (dialog_timer >= 350 && dialog_timer < 450):
 		$Label2.visible = false
