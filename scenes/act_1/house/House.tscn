@@ -1,15 +1,16 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/act_1/house/House.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=6]
-[ext_resource path="res://music/Joel Quarrington-Sonata For Solo Contrabass- Op. 108- II. Allegretto-kissvk.com_10.wav" type="AudioStream" id=7]
-[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=9]
-[ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=10]
+[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/obstacle/Obstacle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://music/Joel Quarrington-Sonata For Solo Contrabass- Op. 108- II. Allegretto-kissvk.com_10.wav" type="AudioStream" id=8]
+[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=10]
+[ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1072.05, 10 )
@@ -66,36 +67,39 @@ scale = Vector2( 0.7, 0.7 )
 position = Vector2( 84.1294, -223.429 )
 scale = Vector2( 0.7, 0.7 )
 
+[node name="To_next_location" parent="Enemy2" instance=ExtResource( 5 )]
+position = Vector2( -1422.17, 705.282 )
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2( -148.049, -51.4876 )
 shape = SubResource( 4 )
 
-[node name="ShelterArea2D" parent="." instance=ExtResource( 5 )]
+[node name="ShelterArea2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( 313.443, 306.918 )
 scale = Vector2( 0.8, 0.9 )
 
-[node name="ShelterArea2D2" parent="." instance=ExtResource( 5 )]
+[node name="ShelterArea2D2" parent="." instance=ExtResource( 6 )]
 position = Vector2( -302.333, -228.444 )
 scale = Vector2( 0.7, 0.9 )
 
-[node name="ObstacleSprite" parent="." instance=ExtResource( 6 )]
+[node name="ObstacleSprite" parent="." instance=ExtResource( 7 )]
 position = Vector2( -37, -100 )
 scale = Vector2( 0.042, 0.042 )
 
-[node name="ObstacleSprite2" parent="." instance=ExtResource( 6 )]
+[node name="ObstacleSprite2" parent="." instance=ExtResource( 7 )]
 position = Vector2( -75, 442 )
 scale = Vector2( 0.042, 0.042 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource( 8 )
 autoplay = true
 
-[node name="Pause" parent="." instance=ExtResource( 8 )]
+[node name="Pause" parent="." instance=ExtResource( 9 )]
 
 [node name="Start_text" type="CanvasLayer" parent="."]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="Start_text" type="Control" parent="Start_text"]
 margin_left = -6.10352e-005
@@ -113,5 +117,5 @@ margin_left = 560.0
 margin_top = 400.0
 margin_right = 991.0
 margin_bottom = 434.0
-custom_fonts/font = ExtResource( 10 )
+custom_fonts/font = ExtResource( 11 )
 text = "A few moments later"
