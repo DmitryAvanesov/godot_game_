@@ -34,11 +34,11 @@ var is_player_moving = false
 var talked_to_daughter = false
 var is_player_next_to_enemy2 = false
 var shelter_coordinates = [{
-	"scene" : "house",
+	"scene" : "house2",
 	"x" : 310,
 	"y" : 300	
 },{
-	"scene" : "house",
+	"scene" : "house2",
 	"x" : -302,
 	"y" : -228	
 },{
@@ -52,12 +52,12 @@ var shelter_coordinates = [{
 }
 ]
 var obstacle_coordinates = [{
-	"scene" : "house",
-	"x" : -37,
+	"scene" : "house2",
+	"x" : 160,
 	"y" : -100	
 },{
-	"scene" : "house",
-	"x" : -75,
+	"scene" : "house2",
+	"x" : -290,
 	"y" : 442
 }
 ]
@@ -68,10 +68,10 @@ func get_next_scene():
 		next_scene ='res://scenes/act_1/town/Town.tscn'
 		last_scene = next_scene
 	elif last_scene == 'res://scenes/act_1/town/Town.tscn' && not haveBeenInHouse:
-		next_scene ='res://scenes/act_1/house/House.tscn'
+		next_scene ='res://scenes/act_1/house/House1.tscn'
 		last_scene = next_scene
 		haveBeenInHouse = true
-	elif last_scene == 'res://scenes/act_1/house/House.tscn' && haveBeenInHouse:
+	elif last_scene == 'res://scenes/act_1/house/House1.tscn' && haveBeenInHouse:
 		next_scene ='res://scenes/act_1/town/Town.tscn'
 		last_scene = next_scene
 	else: 

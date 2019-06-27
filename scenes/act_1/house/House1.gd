@@ -61,8 +61,7 @@ func _ready():
 	turn_labels_off()
 	
 func _physics_process(delta):
-	GLOBAL.scene = "house"
+	GLOBAL.scene = "house1"
 	GLOBAL.sceneScaleCoef = 0.7
 	talk_to_daughter()
 	talk_to_enemy2()
-	
