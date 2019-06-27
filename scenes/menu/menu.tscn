@@ -50,7 +50,6 @@ rect_clip_content = true
 script = ExtResource( 4 )
 
 [node name="Loading" type="CanvasLayer" parent="HBoxContainer/VBoxContainer/Continue/ContinueButton"]
-editor/display_folded = true
 
 [node name="Loading" type="Control" parent="HBoxContainer/VBoxContainer/Continue/ContinueButton/Loading"]
 visible = false
