@@ -12,7 +12,7 @@ func turn_labels_off():
 	$Label7.visible = false
 	
 func dialog_counter_is_2():
-	if (dialog_timer >= 0 && dialog_timer < 150):
+	if (dialog_timer > 0 && dialog_timer < 150):
 		$Label1.visible = true
 	elif (dialog_timer >= 150 && dialog_timer < 250):
 		$Label1.visible = false
