@@ -30,6 +30,8 @@ func behavior():
 		velocity.x = 0
 		$DaughterSprite/AnimationDaughter.play("standing")
 		
+		GLOBAL.talked_to_daughter = true
+		
 		if GLOBAL.playerCoordinates.x - position.x > 0:
 			$DaughterSprite.flip_h = false
 		else:
@@ -50,5 +52,5 @@ func behavior():
 func _physics_process(delta):
 	gravity()
 	behavior()
-
+	
 	velocity = move_and_slide(velocity, Vector2(0, -1))

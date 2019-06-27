@@ -31,6 +31,8 @@ var houseLadderHeight = 480
 var scene
 var dialog_counter = 0
 var is_player_moving = false
+var talked_to_daughter = false
+var is_player_next_to_enemy2 = false
 var shelter_coordinates = [{
 	"scene" : "house",
 	"x" : 310,
