@@ -63,7 +63,7 @@ shape = SubResource( 1 )
 [node name="Pause" parent="." instance=ExtResource( 5 )]
 
 [node name="To_next_location" parent="." instance=ExtResource( 6 )]
-position = Vector2( 1574.5, 247.79 )
+position = Vector2( 1574.5, 161.365 )
 
 [node name="ShelterArea2D" parent="." instance=ExtResource( 7 )]
 position = Vector2( -3619.62, 92.7928 )
@@ -85,7 +85,7 @@ scale = Vector2( 1.2, 1.2 )
 "gg",
 ] instance=ExtResource( 10 )]
 modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
-position = Vector2( 1191.45, 195.233 )
+position = Vector2( 1129.72, 59.422 )
 scale = Vector2( 1.2, 1.2 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]

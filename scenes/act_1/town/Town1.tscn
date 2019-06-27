@@ -30,7 +30,7 @@ shape = SubResource( 1 )
 "People",
 "gg",
 ] instance=ExtResource( 3 )]
-position = Vector2( -144.602, 315.219 )
+position = Vector2( 331.215, 320.254 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
@@ -130,4 +130,5 @@ autoplay = true
 attenuation = 1.8025
 
 [node name="To_next_location" parent="." instance=ExtResource( 9 )]
-position = Vector2( 607.117, 340.732 )
+position = Vector2( 622.222, 330.662 )
+scale = Vector2( 0.4, 0.4 )
