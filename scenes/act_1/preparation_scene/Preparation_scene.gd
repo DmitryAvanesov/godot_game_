@@ -33,6 +33,8 @@ func _ready():
 	createHint()
 
 func _physics_process(delta):
+	GLOBAL.scene = "preparation"
+	GLOBAL.sceneScaleCoef = 1.2
 	if GLOBAL.playerCoordinates.x < -6000:
 		updateHint("Press LEFT and RIGHT to move")
 	if GLOBAL.playerCoordinates.x > -6000 && GLOBAL.playerCoordinates.x < -4500:

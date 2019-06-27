@@ -13,7 +13,7 @@ var ableToGoNext
 var ladderCounter = 0
 var ladderCoordinates
 var ladderSize
-var ableToHide = false
+# var ableToHide = false
 var shelterCounter = 0
 var playerIsHidden = false
 const obstacleRects = []
@@ -28,6 +28,25 @@ var is_enemy_sees_player
 var playerIsKilling = false
 var houseLadderCoordinate = 705
 var houseLadderHeight = 480
+var scene
+var shelter_coordinates = [{
+	"scene" : "house",
+	"x" : 310,
+	"y" : 300	
+},{
+	"scene" : "house",
+	"x" : -302,
+	"y" : -228	
+},{
+	"scene" : "camp",
+	"x" : 1254,
+	"y" : 1630	
+},{
+	"scene" : "preparation",
+	"x" : -3619,
+	"y" : 92	
+}
+]
 
 func get_next_scene():	
 	var next_scene = ''
@@ -68,15 +87,15 @@ func interactionsWithGoNext():
 		ableToGoNext = false
 	goNextCounter = 0
 	
-func interactionsWithShelters():
-	if shelterCounter > 0:
-		ableToHide = true
-	else:
-		ableToHide = false
-		
-	shelterCounter = 0
+#func interactionsWithShelters():
+#	if shelterCounter > 0:
+#		ableToHide = true
+#	else:
+#		ableToHide = false
+#
+#	shelterCounter = 0
 
 func _physics_process(delta):
 	interactionsWithObstacles()
-	interactionsWithShelters()
+	# interactionsWithShelters()
 	interactionsWithGoNext()

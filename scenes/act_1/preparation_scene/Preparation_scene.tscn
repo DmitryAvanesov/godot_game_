@@ -77,8 +77,8 @@ position = Vector2( -759.199, 47.0679 )
 scale = Vector2( 1.2, 1.2 )
 
 [node name="Player" parent="." groups=[
-"gg",
 "People",
+"gg",
 ] instance=ExtResource( 10 )]
 modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
 position = Vector2( -7079.97, -19.047 )
