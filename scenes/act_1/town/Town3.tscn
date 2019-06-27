@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://scenes/act_1/town/Town.gd" type="Script" id=1]
+[ext_resource path="res://scenes/act_1/town/Town3.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=4]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=7]
 [ext_resource path="res://music/StrongSoftWind.wav" type="AudioStream" id=8]
 [ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -27,10 +28,10 @@ position = Vector2( 1004.5, 778.987 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." groups=[
-"gg",
 "People",
+"gg",
 ] instance=ExtResource( 3 )]
-position = Vector2( -144.602, 315.219 )
+position = Vector2( 1914.74, 370.335 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
@@ -131,3 +132,15 @@ attenuation = 1.8025
 
 [node name="To_next_location" parent="." instance=ExtResource( 9 )]
 position = Vector2( 607.117, 340.732 )
+
+[node name="Enemy" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1184.43, 355.041 )
+scale = Vector2( 0.4, 0.4 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 340.982, 353.371 )
+scale = Vector2( 0.4, 0.4 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 10 )]
+position = Vector2( -388.89, 366.733 )
+scale = Vector2( 0.4, 0.4 )
