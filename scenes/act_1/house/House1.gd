@@ -18,5 +18,5 @@ func _ready():
 	setLimits()
 	
 func _physics_process(delta):
-	GLOBAL.scene = "house"
+	GLOBAL.scene = "house1"
 	GLOBAL.sceneScaleCoef = 0.7

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://scenes/act_1/house/House.gd" type="Script" id=1]
+[ext_resource path="res://scenes/act_1/house/House1.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/house/interHouse.png" type="Texture" id=2]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=4]

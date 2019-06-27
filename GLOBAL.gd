@@ -50,12 +50,12 @@ var shelter_coordinates = [{
 }
 ]
 var obstacle_coordinates = [{
-	"scene" : "house",
-	"x" : -37,
+	"scene" : "house2",
+	"x" : 160,
 	"y" : -100	
 },{
-	"scene" : "house",
-	"x" : -75,
+	"scene" : "house2",
+	"x" : -290,
 	"y" : 442
 }
 ]
