@@ -48,6 +48,16 @@ var shelter_coordinates = [{
 	"y" : 92	
 }
 ]
+var obstacle_coordinates = [{
+	"scene" : "house",
+	"x" : -37,
+	"y" : -100	
+},{
+	"scene" : "house",
+	"x" : -75,
+	"y" : 442
+}
+]
 
 func get_next_scene():	
 	var next_scene = ''

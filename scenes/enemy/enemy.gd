@@ -38,6 +38,10 @@ var enemy_pos = Vector2(0, 0)
 var vision_sizes
 var isDead = false
 var dieTimer = 160
+var isClimbing = false
+var climbingDirection
+const CLIMBING_DURATION = 75
+var climbingTimer
 
 # initial crap
 func _ready():
@@ -278,16 +282,6 @@ func playerVisibilityCheck():
 					_move("right", SPEED + 50)
 				
 	else:
-		if abs(position.x - ladderCoordinate) < 200:
-			velocity.y = 0
-#			if (suspicions > 60 && abs(GLOBAL.playerCoordinates.x - position.x) < vision_sizes.x / 2):
-#				if ($EnemySprite.flip_h == true && position.x < GLOBAL.playerCoordinates.x):
-#					$EnemySprite.flip_h = false
-#					playerVisibilityCheck()
-#				elif ($EnemySprite.flip_h == false && position.x > GLOBAL.playerCoordinates.x):
-#					$EnemySprite.flip_h = true
-#					playerVisibilityCheck()
-		# start position patrol
 		if (if_enemy_in_start_pos == true):
 			_patrol(START_ENEMY_POS, SPEED)
 		else:
@@ -321,22 +315,60 @@ func visualizeSuspicions():
 		suspicionsScale.rect_position = Vector2(-60, -220)
 	
 	suspicionsScale.value = suspicions
+	
+func climbingLaunch():	
+	for i in GLOBAL.obstacle_coordinates:		
+		if ((position.x - i["x"] > 0 && position.x - i["x"] < 125 * GLOBAL.sceneScaleCoef &&\
+		$EnemySprite.flip_h) || (position.x - i["x"] > -125 * GLOBAL.sceneScaleCoef &&\
+		position.x - i["x"] < 0 && !$EnemySprite.flip_h)) &&\
+		abs(position.y - i["y"]) < 200 * GLOBAL.sceneScaleCoef && i["scene"] == GLOBAL.scene:
+			print(abs(position.y - i["y"]))
+				
+			isClimbing = true
+			climbingTimer = CLIMBING_DURATION
+			$EnemyCollisionShape.disabled = true
+			velocity = Vector2(0, 0)
+			
+			if $EnemySprite.flip_h:
+				climbingDirection = -1
+			else:
+				climbingDirection = 1
+				
+			$EnemySprite/AnimationEnemy.play("climbing")
+			
+func climbingProcess():
+	position.x += climbingDirection * GLOBAL.sceneScaleCoef
+	
+	if climbingTimer < CLIMBING_DURATION / 2:
+		position.y -= 3 * GLOBAL.sceneScaleCoef
+		position.x += climbingDirection * GLOBAL.sceneScaleCoef
+	
+	if climbingTimer < 0:
+		isClimbing = false
+		$EnemyCollisionShape.disabled = false
+			
+	climbingTimer -= 1
 
 # main func
 func _physics_process(delta):
 	if !isDead:
 		if !shooting:
-			gravity()
+			if !isClimbing:
+				gravity()
+					
+				if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
+				(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
+					lookForPlayer()
+				else:
+					seesPlayer = false
 				
-			if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
-			(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
-				lookForPlayer()
+				playerVisibilityCheck()
+				visualizeSuspicions()							
+				kill_the_enemy()
+				
+				climbingLaunch()
 			else:
-				seesPlayer = false
-			
-			playerVisibilityCheck()
-			visualizeSuspicions()							
-			kill_the_enemy()
+				climbingProcess()
 		else:
 			shot()
 			
