@@ -43,9 +43,9 @@ func setLimits():
 	GLOBAL.rightMoveLimit = $Player/PlayerCamera.limit_right - 50
 	
 	if GLOBAL.haveBeenInHouse:
-		$To_next_location.position = Vector2(2782, 481)
+		$To_next_location.position = Vector2(1840, 300)
 		if GLOBAL.is_new_game:
-			$Player.position = Vector2(926, 524)
+			$Player.position = Vector2(600, 340)
 			
 func _ready():
 	setLimits()
@@ -59,7 +59,7 @@ func _physics_process(delta):
 		dialog_timer -= 1
 	if (GLOBAL.dialog_counter == 2):
 		dialog_counter_is_2()
-	if (GLOBAL.playerCoordinates.x > 575 && GLOBAL.playerCoordinates.x < 650):
-		$Label8.visible = true
-	else:
-		$Label8.visible = false
+#	if (GLOBAL.playerCoordinates.x > 575 && GLOBAL.playerCoordinates.x < 650):
+#		$Label8.visible = true
+#	else:
+#		$Label8.visible = false

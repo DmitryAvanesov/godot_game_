@@ -66,10 +66,10 @@ func get_next_scene():
 		next_scene ='res://scenes/act_1/town/Town.tscn'
 		last_scene = next_scene
 	elif last_scene == 'res://scenes/act_1/town/Town.tscn' && not haveBeenInHouse:
-		next_scene ='res://scenes/act_1/house/House.tscn'
+		next_scene ='res://scenes/act_1/house/House1.tscn'
 		last_scene = next_scene
 		haveBeenInHouse = true
-	elif last_scene == 'res://scenes/act_1/house/House.tscn' && haveBeenInHouse:
+	elif last_scene == 'res://scenes/act_1/house/House1.tscn' && haveBeenInHouse:
 		next_scene ='res://scenes/act_1/town/Town.tscn'
 		last_scene = next_scene
 	else: 
