@@ -375,18 +375,19 @@ func _physics_process(delta):
 			
 		velocity = move_and_slide(velocity, Vector2(0, -1))
 	else:		
-		if dieTimer < 120:
+		if dieTimer > 0 && dieTimer < 120:
 			$EnemySprite/AnimationEnemy.play("dying")
-			GLOBAL.playerIsKilling = false
 		
-		if dieTimer == 0:
+		if dieTimer == 75:
+			GLOBAL.playerIsKilling = false
+			
+		if dieTimer < 0:
 			$EnemySprite/AnimationEnemy.play("dead")
 			$EnemyCollisionShape.disabled = true
 			suspicionsScale.visible = false
 			get_child(6).visible = false
 			
-		if dieTimer > 0:
-			dieTimer -= 1
+		dieTimer -= 1
 		
 	
 func save():
