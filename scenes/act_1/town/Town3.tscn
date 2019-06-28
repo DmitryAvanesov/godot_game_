@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/act_1/town/Town3.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
@@ -7,9 +7,10 @@
 [ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=5]
 [ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=6]
 [ext_resource path="res://music/StrongSoftWind.wav" type="AudioStream" id=7]
-[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -64,30 +65,38 @@ pitch_scale = 0.1
 autoplay = true
 attenuation = 1.8025
 
-[node name="To_next_location" parent="." instance=ExtResource( 8 )]
+[node name="ShelterArea2D" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1703.34, 358 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="ShelterArea2D2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1243.34, 330 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="To_next_location" parent="." instance=ExtResource( 9 )]
 position = Vector2( 616.684, 331.165 )
 
 [node name="Enemy" parent="." groups=[
 "People",
-] instance=ExtResource( 9 )]
+] instance=ExtResource( 10 )]
 position = Vector2( 1142.75, 343.033 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Enemy2" parent="." groups=[
 "People",
-] instance=ExtResource( 9 )]
+] instance=ExtResource( 10 )]
 position = Vector2( 61.2843, 338.181 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Enemy3" parent="." groups=[
 "People",
-] instance=ExtResource( 9 )]
+] instance=ExtResource( 10 )]
 position = Vector2( -388.89, 366.733 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Player" parent="." groups=[
-"gg",
 "People",
-] instance=ExtResource( 10 )]
+"gg",
+] instance=ExtResource( 11 )]
 position = Vector2( 1776.02, 358.376 )
 scale = Vector2( 0.4, 0.4 )
