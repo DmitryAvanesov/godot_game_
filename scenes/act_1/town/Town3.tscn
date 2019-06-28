@@ -74,14 +74,20 @@ attenuation = 1.8025
 [node name="To_next_location" parent="." instance=ExtResource( 9 )]
 position = Vector2( 607.117, 340.732 )
 
-[node name="Enemy" parent="." instance=ExtResource( 10 )]
-position = Vector2( 1184.43, 355.041 )
+[node name="Enemy" parent="." groups=[
+"People",
+] instance=ExtResource( 10 )]
+position = Vector2( 1456.06, 331.074 )
 scale = Vector2( 0.4, 0.4 )
 
-[node name="Enemy2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 340.982, 353.371 )
+[node name="Enemy2" parent="." groups=[
+"People",
+] instance=ExtResource( 10 )]
+position = Vector2( 400.9, 333.398 )
 scale = Vector2( 0.4, 0.4 )
 
-[node name="Enemy3" parent="." instance=ExtResource( 10 )]
+[node name="Enemy3" parent="." groups=[
+"People",
+] instance=ExtResource( 10 )]
 position = Vector2( -388.89, 366.733 )
 scale = Vector2( 0.4, 0.4 )

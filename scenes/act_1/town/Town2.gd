@@ -12,11 +12,7 @@ func setLimits():
 	
 	GLOBAL.leftMoveLimit = $Player/PlayerCamera.limit_left + 50
 	GLOBAL.rightMoveLimit = $Player/PlayerCamera.limit_right - 50
-	
-	if GLOBAL.haveBeenInHouse:
-		$To_next_location.position = Vector2(1840, 300)
-		if GLOBAL.is_new_game:
-			$Player.position = Vector2(600, 340)
+
 
 
 func turn_labels_off():
