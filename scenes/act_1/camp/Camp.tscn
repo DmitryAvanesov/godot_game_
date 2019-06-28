@@ -11,10 +11,10 @@
 [ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=9]
 [ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=10]
 [ext_resource path="res://music/StrongSoftWind.wav" type="AudioStream" id=11]
-[ext_resource path="res://scenes/enemy/Enemy4.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/act_1/camp/letter.png" type="Texture" id=13]
-[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/act_1/camp/letter.png" type="Texture" id=12]
+[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/enemy/Enemy4.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 460, 100 )
@@ -66,7 +66,6 @@ position = Vector2( 500, 100 )
 shape = SubResource( 2 )
 
 [node name="Boxes" type="Node2D" parent="Landscapes"]
-editor/display_folded = true
 position = Vector2( 0, 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Landscapes/Boxes"]
@@ -94,8 +93,8 @@ shape = SubResource( 4 )
 [node name="Pause" parent="." instance=ExtResource( 5 )]
 
 [node name="Player" parent="." groups=[
-"People",
 "gg",
+"People",
 ] instance=ExtResource( 6 )]
 position = Vector2( -4095.67, 1580.24 )
 
@@ -132,12 +131,6 @@ stream = ExtResource( 11 )
 pitch_scale = 0.1
 autoplay = true
 
-[node name="Enemy" parent="." groups=[
-"People",
-"gg",
-] instance=ExtResource( 12 )]
-position = Vector2( -3511.3, 1527.49 )
-
 [node name="Label1" type="Label" parent="."]
 margin_left = -4055.5
 margin_top = 1195.49
@@ -161,7 +154,7 @@ margin_top = 1215.4
 margin_right = -1103.24
 margin_bottom = 1505.4
 rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 13 )
+texture = ExtResource( 12 )
 
 [node name="Label3" type="Label" parent="."]
 margin_left = -1847.57
@@ -180,9 +173,6 @@ rect_scale = Vector2( 2, 2 )
 text = "The cyclobarbital should stop them if they attack me…
 "
 
-[node name="Enemy2" parent="." instance=ExtResource( 14 )]
-position = Vector2( 538.359, 1505.45 )
-
 [node name="Label5" type="Label" parent="."]
 margin_left = -523.28
 margin_top = 1254.27
@@ -191,5 +181,15 @@ margin_bottom = 1268.27
 rect_scale = Vector2( 2, 2 )
 text = "Traitor! Kill him!"
 
-[node name="To_next_location" parent="." instance=ExtResource( 15 )]
+[node name="To_next_location" parent="." instance=ExtResource( 13 )]
 position = Vector2( -4419.55, 1587.1 )
+
+[node name="Enemy" parent="." groups=[
+"People",
+] instance=ExtResource( 14 )]
+position = Vector2( -2788.58, 1470.7 )
+
+[node name="Enemy2" parent="." groups=[
+"People",
+] instance=ExtResource( 15 )]
+position = Vector2( 538.359, 1505.45 )
