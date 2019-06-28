@@ -95,8 +95,8 @@ position = Vector2( -388.89, 366.733 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Player" parent="." groups=[
-"People",
 "gg",
+"People",
 ] instance=ExtResource( 11 )]
-position = Vector2( 1776.02, 358.376 )
+position = Vector2( 1871.47, 356.428 )
 scale = Vector2( 0.4, 0.4 )

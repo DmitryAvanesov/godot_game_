@@ -187,7 +187,7 @@ position = Vector2( -4419.55, 1587.1 )
 [node name="Enemy" parent="." groups=[
 "People",
 ] instance=ExtResource( 14 )]
-position = Vector2( -2788.58, 1470.7 )
+position = Vector2( -3309.97, 1542.97 )
 
 [node name="Enemy2" parent="." groups=[
 "People",
