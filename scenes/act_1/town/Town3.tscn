@@ -2,14 +2,14 @@
 
 [ext_resource path="res://scenes/act_1/town/Town3.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/town/TownBg.png" type="Texture" id=2]
-[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=4]
-[ext_resource path="res://music/Daniel Diaz-Solo Contrabass-kissvk.com.wav" type="AudioStream" id=5]
-[ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=6]
-[ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=7]
-[ext_resource path="res://music/StrongSoftWind.wav" type="AudioStream" id=8]
-[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=3]
+[ext_resource path="res://music/Daniel Diaz-Solo Contrabass-kissvk.com.wav" type="AudioStream" id=4]
+[ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=5]
+[ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=6]
+[ext_resource path="res://music/StrongSoftWind.wav" type="AudioStream" id=7]
+[ext_resource path="res://scenes/act_1/to_next_loction/To_next_location.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2052.71, 20 )
@@ -27,21 +27,14 @@ position = Vector2( -1001.85, -300 )
 position = Vector2( 1004.5, 778.987 )
 shape = SubResource( 1 )
 
-[node name="Player" parent="." groups=[
-"People",
-"gg",
-] instance=ExtResource( 3 )]
-position = Vector2( 549.103, 358.376 )
-scale = Vector2( 0.4, 0.4 )
-
-[node name="Pause" parent="." instance=ExtResource( 4 )]
+[node name="Pause" parent="." instance=ExtResource( 3 )]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
 autoplay = true
 
 [node name="Start_text" type="CanvasLayer" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 
 [node name="Start_text" type="Control" parent="Start_text"]
 visible = false
@@ -60,34 +53,41 @@ margin_left = 600.0
 margin_top = 400.0
 margin_right = 955.0
 margin_bottom = 471.0
-custom_fonts/font = ExtResource( 7 )
+custom_fonts/font = ExtResource( 6 )
 text = "With No Meanings
 1864"
 align = 1
 
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 8 )
+stream = ExtResource( 7 )
 pitch_scale = 0.1
 autoplay = true
 attenuation = 1.8025
 
-[node name="To_next_location" parent="." instance=ExtResource( 9 )]
+[node name="To_next_location" parent="." instance=ExtResource( 8 )]
 position = Vector2( 616.684, 331.165 )
 
 [node name="Enemy" parent="." groups=[
 "People",
-] instance=ExtResource( 10 )]
+] instance=ExtResource( 9 )]
 position = Vector2( 1142.75, 343.033 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Enemy2" parent="." groups=[
 "People",
-] instance=ExtResource( 10 )]
+] instance=ExtResource( 9 )]
 position = Vector2( 61.2843, 338.181 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Enemy3" parent="." groups=[
 "People",
-] instance=ExtResource( 10 )]
+] instance=ExtResource( 9 )]
 position = Vector2( -388.89, 366.733 )
+scale = Vector2( 0.4, 0.4 )
+
+[node name="Player" parent="." groups=[
+"People",
+"gg",
+] instance=ExtResource( 10 )]
+position = Vector2( 1776.02, 358.376 )
 scale = Vector2( 0.4, 0.4 )
