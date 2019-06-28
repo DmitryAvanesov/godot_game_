@@ -36,68 +36,9 @@ scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]
 
-[node name="Label1" type="Label" parent="."]
-margin_left = -1231.0
-margin_top = 176.507
-margin_right = -963.0
-margin_bottom = 190.507
-rect_scale = Vector2( 1.4, 1.4 )
-text = "There was a nightmare in my head again..."
-
-[node name="Label2" type="Label" parent="."]
-margin_left = -830.544
-margin_top = 176.359
-margin_right = -632.544
-margin_bottom = 190.359
-rect_scale = Vector2( 1.4, 1.4 )
-text = "I could not sleep until morning"
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
 autoplay = true
-
-[node name="Label3" type="Label" parent="."]
-margin_left = -162.008
-margin_top = 133.615
-margin_right = -36.0077
-margin_bottom = 164.615
-rect_scale = Vector2( 1.3, 1.3 )
-text = "I had to walk 
-a little"
-align = 1
-valign = 1
-
-[node name="Label4" type="Label" parent="."]
-margin_left = 397.503
-margin_top = 207.103
-margin_right = 587.503
-margin_bottom = 221.103
-rect_scale = Vector2( 1.2, 1.2 )
-text = "I hope"
-
-[node name="Label5" type="Label" parent="."]
-margin_left = 486.023
-margin_top = 207.103
-margin_right = 566.023
-margin_bottom = 221.103
-rect_scale = Vector2( 1.2, 1.2 )
-text = "my daughter"
-
-[node name="Label6" type="Label" parent="."]
-margin_left = 694.681
-margin_top = 209.0
-margin_right = 734.681
-margin_bottom = 223.0
-rect_scale = Vector2( 1.2, 1.2 )
-text = "slept"
-
-[node name="Label7" type="Label" parent="."]
-margin_left = 801.688
-margin_top = 208.773
-margin_right = 841.688
-margin_bottom = 222.773
-rect_scale = Vector2( 1.2, 1.2 )
-text = "well"
 
 [node name="Start_text" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )

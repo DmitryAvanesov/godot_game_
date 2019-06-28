@@ -33,6 +33,7 @@ var dialog_counter = 0
 var is_player_moving = false
 var talked_to_daughter = false
 var is_player_next_to_enemy2 = false
+var have_been_in_camp = false
 var shelter_coordinates = [{
 	"scene" : "house2",
 	"x" : 310,
@@ -95,11 +96,14 @@ func get_next_scene():
 		next_scene ='res://scenes/act_1/town/Town2.tscn'
 		last_scene = next_scene
 	elif last_scene == 'res://scenes/act_1/town/Town2.tscn': 
-		print("yes")
 		next_scene ='res://scenes/act_1/camp/Camp.tscn'
 		last_scene = next_scene
+	elif last_scene == 'res://scenes/act_1/camp/Camp.tscn' && have_been_in_camp: 
+		print("yes")
+		next_scene ='res://scenes/act_1/town/Town3.tscn'
+		last_scene = next_scene
 	else: 
-		next_scene ='res://scenes/act_1/camp/Camp.tscn'
+		next_scene ='res://scenes/act_1/town/Town3.tscn'
 		last_scene = next_scene
 	ableToGoNext = false
 	return next_scene

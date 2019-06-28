@@ -19,9 +19,9 @@ func setLimits():
 func turn_labels_off():
 	$Label1.visible = false
 	$Label2.visible = false
-#	$Label3.visible = false
-#	$Label4.visible = false
-#	$Label5.visible = false
+	$Label3.visible = false
+	$Label4.visible = false
+	$Label5.visible = false
 #	$Label6.visible = false
 #	$Label7.visible = false
 
@@ -50,7 +50,21 @@ func _physics_process(delta):
 	if (abs(GLOBAL.playerCoordinates.x + 1000) < 100 && letter_count == 0):
 		cur_time = dialog_timer
 		get_node("letter").visible = true
+		$Label2.visible = false
 		letter_count += 1
 	if (dialog_timer > cur_time + 250):
 		get_node("letter").visible = false
+		$Label3.visible = true
+	if (dialog_timer > cur_time + 500):
+		$Label3.visible = false
+		$Label4.visible = true
+	if (dialog_timer > cur_time + 750):
+		$Label4.visible = false
+		$Label5.visible = true
+		GLOBAL.have_been_in_camp = true
+	
+	print(GLOBAL.have_been_in_camp)
+	
+		
+		
 	

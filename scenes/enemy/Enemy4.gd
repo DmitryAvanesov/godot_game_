@@ -347,8 +347,13 @@ func _physics_process(delta):
 			elif (dialog_timer > 550 && dialog_timer < 750):
 				_move("stand", SPEED)
 				$EnemySprite.flip_h = true
-			elif (dialog_timer > 750 && dialog_timer < 1200):
+			elif (dialog_timer > 750 && dialog_timer < 1500):
 				_move("right", SPEED)
+#			elif (dialog_timer > 1500 && dialog_timer < 1750):
+#				_move("left", SPEED)
+			else:
+				_move("stand", SPEED)
+				$EnemySprite.flip_h = true
 				
 			
 		velocity = move_and_slide(velocity, Vector2(0, -1))

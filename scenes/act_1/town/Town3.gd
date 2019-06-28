@@ -3,13 +3,14 @@ extends "res://scenes/act_1/FuncLoadScene.gd"
 var dialog_timer = 0
 
 func turn_labels_off():
-	$Label1.visible = false
-	$Label2.visible = false
-	$Label3.visible = false
-	$Label4.visible = false
-	$Label5.visible = false
-	$Label6.visible = false
-	$Label7.visible = false
+#	$Label1.visible = false
+#	$Label2.visible = false
+#	$Label3.visible = false
+#	$Label4.visible = false
+#	$Label5.visible = false
+#	$Label6.visible = false
+#	$Label7.visible = false
+	pass
 	
 func dialog_counter_is_2():
 	if (dialog_timer > 0 && dialog_timer < 150):
@@ -57,8 +58,8 @@ func _physics_process(delta):
 		dialog_timer += 1
 	elif ($Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
 		dialog_timer -= 1
-	if (GLOBAL.dialog_counter == 2):
-		dialog_counter_is_2()
+#	if (GLOBAL.dialog_counter == 2):
+#		dialog_counter_is_2()
 #	if (GLOBAL.playerCoordinates.x > 575 && GLOBAL.playerCoordinates.x < 650):
 #		$Label8.visible = true
 #	else:
