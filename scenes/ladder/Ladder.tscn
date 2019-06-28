@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ladder/Ladder.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50.2329, 140.17 )
+
+[node name="LadderArea2D" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="LadderCollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
