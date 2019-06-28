@@ -92,7 +92,11 @@ func get_next_scene():
 		last_scene = next_scene
 		haveBeenInHouse = true
 	elif last_scene == 'res://scenes/act_1/house/House1.tscn' && haveBeenInHouse:
-		next_scene ='res://scenes/act_1/town/Town.tscn'
+		next_scene ='res://scenes/act_1/town/Town2.tscn'
+		last_scene = next_scene
+	elif last_scene == 'res://scenes/act_1/town/Town2.tscn': 
+		print("yes")
+		next_scene ='res://scenes/act_1/camp/Camp.tscn'
 		last_scene = next_scene
 	else: 
 		next_scene ='res://scenes/act_1/camp/Camp.tscn'

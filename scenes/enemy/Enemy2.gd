@@ -13,3 +13,4 @@ func _physics_process(delta):
 		GLOBAL.is_player_next_to_enemy2 = true
 	else:
 		GLOBAL.is_player_next_to_enemy2 = false
+	$EnemySprite/AnimationEnemy.play("standing")

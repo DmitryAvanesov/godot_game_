@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/act_1/camp/Camp.gd" type="Script" id=1]
 [ext_resource path="res://scenes/act_1/camp/camp.png" type="Texture" id=2]
@@ -7,11 +7,12 @@
 [ext_resource path="res://scenes/pause/PauseScene.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/shelter/Shelter.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/enemy/Enemy.tscn" type="PackedScene" id=8]
-[ext_resource path="res://music/Daniel Diaz-Solo Contrabass-kissvk.com.wav" type="AudioStream" id=9]
-[ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=10]
-[ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=11]
-[ext_resource path="res://music/StrongSoftWind.wav" type="AudioStream" id=12]
+[ext_resource path="res://music/Daniel Diaz-Solo Contrabass-kissvk.com.wav" type="AudioStream" id=8]
+[ext_resource path="res://scenes/act_1/StartText.gd" type="Script" id=9]
+[ext_resource path="res://scenes/pause/font/new_dynamicfont_loc.tres" type="DynamicFont" id=10]
+[ext_resource path="res://music/StrongSoftWind.wav" type="AudioStream" id=11]
+[ext_resource path="res://scenes/enemy/Enemy4.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/act_1/camp/letter.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 460, 100 )
@@ -91,26 +92,21 @@ shape = SubResource( 4 )
 [node name="Pause" parent="." instance=ExtResource( 5 )]
 
 [node name="Player" parent="." groups=[
-"gg",
 "People",
+"gg",
 ] instance=ExtResource( 6 )]
-position = Vector2( -4462.99, 1538.45 )
+position = Vector2( -4395.08, 1554.43 )
 
 [node name="ShelterArea2D" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1254.83, 1630.6 )
 scale = Vector2( 2, 1 )
 
-[node name="Enemy" parent="." groups=[
-"People",
-] instance=ExtResource( 8 )]
-position = Vector2( 1628.99, 1552.52 )
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
+stream = ExtResource( 8 )
 autoplay = true
 
 [node name="Start_text" type="CanvasLayer" parent="."]
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 
 [node name="Start_text" type="Control" parent="Start_text"]
 margin_right = 40.0
@@ -126,10 +122,46 @@ margin_left = 600.0
 margin_top = 400.0
 margin_right = 939.0
 margin_bottom = 434.0
-custom_fonts/font = ExtResource( 11 )
+custom_fonts/font = ExtResource( 10 )
 text = "Tow hours later"
 
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource( 11 )
 pitch_scale = 0.1
 autoplay = true
+
+[node name="Enemy" parent="." instance=ExtResource( 12 )]
+position = Vector2( -3908.8, 1542.98 )
+
+[node name="Label1" type="Label" parent="."]
+margin_left = -4055.5
+margin_top = 1195.49
+margin_right = -3774.5
+margin_bottom = 1209.49
+rect_scale = Vector2( 1.5, 1.5 )
+text = "Go into the tent, I'll tell you what to do next"
+
+[node name="Label2" type="Label" parent="."]
+margin_left = -2751.4
+margin_top = 1269.55
+margin_right = -2297.4
+margin_bottom = 1283.55
+rect_scale = Vector2( 1.5, 1.5 )
+text = "Don't touch the infected, we'll take them away. Take care of the others."
+
+[node name="letter" type="TextureRect" parent="."]
+visible = false
+margin_left = -1343.24
+margin_top = 1215.4
+margin_right = -1103.24
+margin_bottom = 1505.4
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 13 )
+
+[node name="Label3" type="Label" parent="."]
+margin_left = -1847.57
+margin_top = 1249.83
+margin_right = -1351.57
+margin_bottom = 1263.83
+rect_scale = Vector2( 2, 2 )
+text = "Have they took her away, no they couldn't… I need to know if everything's okay."
