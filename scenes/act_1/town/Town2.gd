@@ -36,6 +36,7 @@ func dialog():
 func _ready():
 	setLimits()
 	turn_labels_off()
+	GLOBAL.dialog_counter += 1
 	pass # Replace with function body.
 
 func _physics_process(delta):

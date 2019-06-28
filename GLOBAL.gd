@@ -34,6 +34,8 @@ var is_player_moving = false
 var talked_to_daughter = false
 var is_player_next_to_enemy2 = false
 var have_been_in_camp = false
+var enemy_killed_house2 = false
+var is_enemy_dead_house2 = false
 var shelter_coordinates = [{
 	"scene" : "house2",
 	"x" : 310,
@@ -85,28 +87,26 @@ var obstacle_coordinates = [{
 
 func get_next_scene():	
 	var next_scene = ''
-	if last_scene == 'res://scenes/act_1/preparation_scene/Preparation_scene.tscn':
+	if last_scene == 'res://scenes/act_1/preparation_scene/Preparation_scene.tscn' && dialog_counter == 1:
 		next_scene ='res://scenes/act_1/town/Town1.tscn'
 		last_scene = next_scene
-	elif last_scene == 'res://scenes/act_1/town/Town1.tscn' && not haveBeenInHouse:
+	elif last_scene == 'res://scenes/act_1/town/Town1.tscn' && not haveBeenInHouse && dialog_counter == 2:
 		next_scene ='res://scenes/act_1/house/House1.tscn'
 		last_scene = next_scene
 		haveBeenInHouse = true
-	elif last_scene == 'res://scenes/act_1/house/House1.tscn' && haveBeenInHouse:
+	elif last_scene == 'res://scenes/act_1/house/House1.tscn' && haveBeenInHouse && dialog_counter == 3:
 		next_scene ='res://scenes/act_1/town/Town2.tscn'
 		last_scene = next_scene
-	elif last_scene == 'res://scenes/act_1/town/Town2.tscn': 
+	elif last_scene == 'res://scenes/act_1/town/Town2.tscn' && dialog_counter == 4: 
 		next_scene ='res://scenes/act_1/camp/Camp.tscn'
 		last_scene = next_scene
-	elif last_scene == 'res://scenes/act_1/camp/Camp.tscn' && have_been_in_camp: 
-		print("yes")
+	elif last_scene == 'res://scenes/act_1/camp/Camp.tscn' && have_been_in_camp && dialog_counter == 5: 
 		next_scene ='res://scenes/act_1/town/Town3.tscn'
 		last_scene = next_scene
-	elif last_scene == 'res://scenes/act_1/camp/Town3.tscn' && have_been_in_camp: 
-		print("yes")
+	elif last_scene == 'res://scenes/act_1/camp/Town3.tscn' && dialog_counter == 6: 
 		next_scene ='res://scenes/act_1/town/House2.tscn'
 		last_scene = next_scene
-	else: 
+	elif last_scene == 'res://scenes/act_1/town/House2.tscn' && dialog_counter == 7:
 		next_scene ='res://scenes/act_1/town/Town4.tscn'
 		last_scene = next_scene
 	ableToGoNext = false
@@ -145,3 +145,4 @@ func _physics_process(delta):
 	interactionsWithObstacles()
 	# interactionsWithShelters()
 	interactionsWithGoNext()
+	print(dialog_counter)

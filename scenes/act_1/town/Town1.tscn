@@ -30,7 +30,7 @@ shape = SubResource( 1 )
 "People",
 "gg",
 ] instance=ExtResource( 3 )]
-position = Vector2( 331.215, 320.254 )
+position = Vector2( 426.881, 335.358 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Pause" parent="." instance=ExtResource( 4 )]

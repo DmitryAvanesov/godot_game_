@@ -125,7 +125,7 @@ margin_top = 400.0
 margin_right = 939.0
 margin_bottom = 434.0
 custom_fonts/font = ExtResource( 10 )
-text = "Tow hours later"
+text = "Two hours later"
 
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )

@@ -77,7 +77,7 @@ scale = Vector2( 0.072, 0.072 )
 "People",
 ] instance=ExtResource( 9 )]
 modulate = Color( 0.305882, 0.305882, 0.305882, 1 )
-position = Vector2( -759.199, 47.0679 )
+position = Vector2( -992.887, 34.7212 )
 scale = Vector2( 1.2, 1.2 )
 
 [node name="Player" parent="." groups=[
@@ -85,7 +85,7 @@ scale = Vector2( 1.2, 1.2 )
 "gg",
 ] instance=ExtResource( 10 )]
 modulate = Color( 0.298039, 0.270588, 0.270588, 1 )
-position = Vector2( -1574.16, 108.808 )
+position = Vector2( 1122.76, 64.0028 )
 scale = Vector2( 1.2, 1.2 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]

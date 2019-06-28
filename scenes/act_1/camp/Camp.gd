@@ -63,7 +63,6 @@ func _physics_process(delta):
 		$Label5.visible = true
 		GLOBAL.have_been_in_camp = true
 	
-	print(GLOBAL.have_been_in_camp)
 	
 		
 		

@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/enemy/Enemy5.gd" type="Script" id=1]
+[ext_resource path="res://scenes/enemy/EnemyFinal.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 468.221
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 63.463, 211.357 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1067.49, 447.208 )
+
+[node name="Enemy" type="KinematicBody2D"]
+position = Vector2( -1, 0 )
+script = ExtResource( 1 )
+
+[node name="body" type="Area2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+position = Vector2( 2.21179, 4.42355 )
+shape = SubResource( 1 )
+
+[node name="EnemySprite" type="Sprite" parent="."]
+position = Vector2( -1.02532, -1.0252 )
+texture = ExtResource( 2 )
+vframes = 7
+hframes = 12
+frame = 83
+
+[node name="EnemyCollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+one_way_collision = true
+
+[node name="VisionShape" type="CollisionShape2D" parent="."]
+position = Vector2( 1.60651, -1.84299 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="LightBox" type="LightOccluder2D" parent="."]

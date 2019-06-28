@@ -114,7 +114,7 @@ tracks/0/keys = {
 extents = Vector2( 63.463, 211.357 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 1366.34, 447.208 )
+extents = Vector2( 1317.75, 447.208 )
 
 [node name="Enemy" type="KinematicBody2D"]
 position = Vector2( -1, 0 )

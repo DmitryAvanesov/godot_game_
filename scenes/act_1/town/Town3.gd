@@ -50,10 +50,13 @@ func _ready():
 	GLOBAL.dialog_counter += 1
 func _physics_process(delta):
 	GLOBAL.scene = "town3"
+	GLOBAL.sceneScaleCoef = 0.4
 	if (!$Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
 		dialog_timer += 1
 	elif ($Player/PlayerSprite.flip_h && GLOBAL.is_player_moving):
 		dialog_timer -= 1
+	if (abs(GLOBAL.playerCoordinates.x - 623) < 100):
+		GLOBAL.goNextCounter += 1
 #	if (GLOBAL.dialog_counter == 2):
 #		dialog_counter_is_2()
 #	if (GLOBAL.playerCoordinates.x > 575 && GLOBAL.playerCoordinates.x < 650):

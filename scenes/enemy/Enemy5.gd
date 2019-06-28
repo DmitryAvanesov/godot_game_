@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var SPEED = 100
+var SPEED = 250
 var velocity = Vector2()
 const GRAVITY = 30
 const JUMP_FORCE = 400
@@ -51,23 +51,6 @@ func _ready():
 	
 	suspicionsScale.rect_size = Vector2(100, 10)
 	suspicionsScale.percent_visible = false
-	add_child(suspicionsScale)
-	createHint()
-	
-# create button that you have to press to kill enemy
-func createHint():
-	hint = Label.new()
-	hint.text = "V"
-	hint.rect_position = Vector2(0, -$EnemyCollisionShape.shape.extents.y * GLOBAL.sceneScaleCoef)
-	hint.rect_scale = Vector2(2 * GLOBAL.sceneScaleCoef, 2 * GLOBAL.sceneScaleCoef)
-	add_child(hint)
-	
-func showHideHint():
-	if abs(GLOBAL.playerCoordinates.x - position.x) < 150 &&\
-	abs(GLOBAL.playerCoordinates.y - position.y) < HEIGHT_GAP:
-		get_child(6).visible = true
-	else:
-		get_child(6).visible = false
 
 # moving left and right
 func _move(direction, new_speed):
@@ -137,8 +120,6 @@ func kill_the_enemy():
 		if Input.is_action_just_pressed("ui_kill"):
 			isDead = true
 			GLOBAL.playerIsKilling = true
-			if (GLOBAL.scene == "house2"):
-				GLOBAL.enemy_killed_house2 = true
 	else:
 		get_child(6).visible = false
 
@@ -228,7 +209,7 @@ func lookForPlayer():
 # FOLLOW THE DAMN PLAYER, ENEMY			
 func playerVisibilityCheck():	
 	if (suspicions > 0):
-		suspicions -= 0.05
+		suspicions -= 0.01
 	else:
 		suspicions = 0
 	
@@ -311,13 +292,6 @@ func playerVisibilityCheck():
 					_move("left", SPEED)
 					
 # a scale over an enemy's head				
-func visualizeSuspicions():
-	if $EnemySprite.flip_h:
-		suspicionsScale.rect_position = Vector2(-35, -220)
-	else:
-		suspicionsScale.rect_position = Vector2(-60, -220)
-	
-	suspicionsScale.value = suspicions
 	
 func climbingLaunch():	
 	for i in GLOBAL.obstacle_coordinates:		
@@ -354,41 +328,9 @@ func climbingProcess():
 
 # main func
 func _physics_process(delta):
-	if !isDead:
-		if !shooting:
-			if !isClimbing:
-				gravity()
-					
-				if (GLOBAL.playerCoordinates.x < position.x && $EnemySprite.flip_h) ||\
-				(GLOBAL.playerCoordinates.x > position.x && !$EnemySprite.flip_h):
-					lookForPlayer()
-				else:
-					seesPlayer = false
-				
-				playerVisibilityCheck()
-				visualizeSuspicions()							
-				kill_the_enemy()
-				
-				climbingLaunch()
-			else:
-				climbingProcess()
-		else:
-			shot()
-			
-		velocity = move_and_slide(velocity, Vector2(0, -1))
-	else:		
-		if dieTimer < 120:
-			$EnemySprite/AnimationEnemy.play("dying")
-			GLOBAL.playerIsKilling = false
-		
-		if dieTimer == 0:
-			$EnemySprite/AnimationEnemy.play("dead")
-			$EnemyCollisionShape.disabled = true
-			suspicionsScale.visible = false
-			get_child(6).visible = false
-			
-		if dieTimer > 0:
-			dieTimer -= 1
+	
+	
+	velocity = move_and_slide(velocity, Vector2(0, -1))
 		
 	
 func save():
