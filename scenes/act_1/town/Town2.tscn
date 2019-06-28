@@ -28,8 +28,8 @@ position = Vector2( 1004.5, 778.987 )
 shape = SubResource( 1 )
 
 [node name="Player" parent="." groups=[
-"People",
 "gg",
+"People",
 ] instance=ExtResource( 3 )]
 position = Vector2( 1264.19, 363.533 )
 scale = Vector2( 0.4, 0.4 )

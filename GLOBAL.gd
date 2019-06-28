@@ -103,10 +103,10 @@ func get_next_scene():
 	elif last_scene == 'res://scenes/act_1/camp/Camp.tscn' && have_been_in_camp && dialog_counter == 5: 
 		next_scene ='res://scenes/act_1/town/Town3.tscn'
 		last_scene = next_scene
-	elif last_scene == 'res://scenes/act_1/camp/Town3.tscn' && dialog_counter == 6: 
-		next_scene ='res://scenes/act_1/town/House2.tscn'
+	elif last_scene == 'res://scenes/act_1/town/Town3.tscn' && dialog_counter == 6: 
+		next_scene ='res://scenes/act_1/house/House2.tscn'
 		last_scene = next_scene
-	elif last_scene == 'res://scenes/act_1/town/House2.tscn' && dialog_counter == 7:
+	elif last_scene == 'res://scenes/act_1/house/House2.tscn' && dialog_counter == 7:
 		next_scene ='res://scenes/act_1/town/Town4.tscn'
 		last_scene = next_scene
 	ableToGoNext = false
